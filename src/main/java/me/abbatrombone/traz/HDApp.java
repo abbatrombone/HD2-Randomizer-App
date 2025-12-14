@@ -1,6 +1,12 @@
 package me.abbatrombone.traz;
 
+import me.abbatrombone.traz.CustomComponents.OutputJTextPane;
+
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -13,7 +19,7 @@ public class HDApp {
     private JButton tips;
     private JLabel titleLabel;
     private JPanel mainPanel;
-    private JTextPane output;
+    private OutputJTextPane output;
 
     public HDApp() {
         initComponents();
@@ -21,10 +27,10 @@ public class HDApp {
     private void initComponents() {
 
         frame.setTitle("Helldivers 2 Randomizer");
-        frame.setMinimumSize(new Dimension(725, 470));
+        frame.setMinimumSize(new Dimension(725, 400));
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1042, 400);
+        frame.setSize(1042, 380);
 
         mainPanel = new JPanel();
         titleLabel = new JLabel();
@@ -33,10 +39,9 @@ public class HDApp {
         clear = new JButton();
         challenges = new JButton();
         tips = new JButton();
-        output = new JTextPane();
+        output = new OutputJTextPane();
 
         output.setPreferredSize(new Dimension(450, 350));
-        output.setBounds(10,10,700,700);
 
         mainPanel.setBackground(new Color(51, 51, 51));
 
@@ -44,7 +49,6 @@ public class HDApp {
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24)); // NOI18N
         titleLabel.setForeground(new Color(255, 255, 255));
         titleLabel.setText("Helldivers 2 Randomizer");
-        titleLabel.setBounds(142,142,700,700);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -53,14 +57,16 @@ public class HDApp {
                         .addGroup(mainPanelLayout.createSequentialGroup()
                                 .addGap(142, 142, 142)
                                 .addComponent(titleLabel)
-                                .addContainerGap(161, Short.MAX_VALUE))
+                                //.addContainerGap(161, Short.MAX_VALUE))
+                        )
         );
         mainPanelLayout.setVerticalGroup(
                 mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(mainPanelLayout.createSequentialGroup()
                                 .addGap(19, 19, 19)
                                 .addComponent(titleLabel)
-                                .addContainerGap(23, Short.MAX_VALUE))
+                                //.addContainerGap(23, Short.MAX_VALUE))
+                        )
         );
 
 
@@ -116,7 +122,7 @@ public class HDApp {
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(challenges)
                                                 .addComponent(tips)
-                                                .addGap(220)
+                                                .addGap(200)
                                                 .addComponent(random)
                                                 .addComponent(semirandom)
                                                 .addComponent(clear)
@@ -130,7 +136,21 @@ public class HDApp {
     }
 
     private void randomButtonActionPerformed(ActionEvent evt) {
-        output.setText(RandomLoadOut.result());
+        StyledDocument doc = output.getStyledDocument();
+
+        SimpleAttributeSet attributeSet = new SimpleAttributeSet();
+        StyleConstants.setBold(attributeSet, true);
+        StyleConstants.setForeground(attributeSet, Color.BLACK);
+        //StyleConstants.setBackground(attributeSet, Color.ORANGE);
+        if(!output.getText().isEmpty()){
+            output.setText("");
+        }
+
+        try {
+            doc.insertString(doc.getLength(), RandomLoadOut.result(), attributeSet);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
     }
 
     private void clearButtonActionPerformed(ActionEvent evt) {
