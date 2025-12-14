@@ -1,10 +1,10 @@
 package me.abbatrombone.traz.CustomComponents;
 
+import me.abbatrombone.traz.RandomLoadOut;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -21,6 +21,23 @@ public class OutputJTextPane extends JTextPane {
             throw new RuntimeException(e);
         }
         setOpaque(false);
+    }
+    public void updateText(){
+        StyledDocument doc = getStyledDocument();
+
+        SimpleAttributeSet attributeSet = new SimpleAttributeSet();
+        StyleConstants.setBold(attributeSet, true);
+        StyleConstants.setForeground(attributeSet, Color.BLACK);
+        //StyleConstants.setBackground(attributeSet, Color.ORANGE);
+        if(!getText().isEmpty()){
+            setText("");
+        }
+
+        try {
+            doc.insertString(doc.getLength(), RandomLoadOut.result(), attributeSet);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -136,21 +136,7 @@ public class HDApp {
     }
 
     private void randomButtonActionPerformed(ActionEvent evt) {
-        StyledDocument doc = output.getStyledDocument();
-
-        SimpleAttributeSet attributeSet = new SimpleAttributeSet();
-        StyleConstants.setBold(attributeSet, true);
-        StyleConstants.setForeground(attributeSet, Color.BLACK);
-        //StyleConstants.setBackground(attributeSet, Color.ORANGE);
-        if(!output.getText().isEmpty()){
-            output.setText("");
-        }
-
-        try {
-            doc.insertString(doc.getLength(), RandomLoadOut.result(), attributeSet);
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
+        output.updateText();
     }
 
     private void clearButtonActionPerformed(ActionEvent evt) {
