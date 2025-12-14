@@ -3,6 +3,7 @@ package me.abbatrombone.traz.GameItems;
 public class Secondary {
     private final ArmorPen armorPen;
     private final GunType gunType;
+    private final String gunName;
 
     enum ArmorPen{
         Light,
@@ -15,7 +16,8 @@ public class Secondary {
         Melee,
         Special
     }
-    public Secondary(ArmorPen armorPen, GunType gunType){
+    public Secondary(String gunName, ArmorPen armorPen, GunType gunType){
+        this.gunName = gunName;
         this.armorPen = armorPen;
         this.gunType = gunType;
     }

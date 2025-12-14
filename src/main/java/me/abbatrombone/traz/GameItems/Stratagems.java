@@ -2,6 +2,7 @@ package me.abbatrombone.traz.GameItems;
 
 public class Stratagems {
     private final StaragemColor staragemColor;
+    private final String stragemName;
 
     enum StaragemColor{
         Red("Eagle","Orbital","N/A","N/A","N/A"),
@@ -43,7 +44,8 @@ public class Stratagems {
         }
     }
 
-    public Stratagems(StaragemColor staragemColor){
+    public Stratagems(String stragemName,StaragemColor staragemColor){
+        this.stragemName = stragemName;
         this.staragemColor = staragemColor;
     }
 }

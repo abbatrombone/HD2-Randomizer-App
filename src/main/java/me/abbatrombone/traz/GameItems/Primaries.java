@@ -3,14 +3,15 @@ package me.abbatrombone.traz.GameItems;
 public class Primaries {
     private final ArmorPen armorPen;
     private final GunType gunType;
+    private final String gunName;
 
-    enum ArmorPen{
+    public enum ArmorPen{
         Light,
         Med,
         Heavy
     }
 
-    enum GunType{
+    public enum GunType{
         AR,
         Marksmen,
         Submachine,
@@ -19,7 +20,8 @@ public class Primaries {
         Energy,
         Special
     }
-    public Primaries(ArmorPen armorPen, GunType gunType){
+    public Primaries(String gunName, ArmorPen armorPen, GunType gunType){
+        this.gunName = gunName;
         this.armorPen = armorPen;
         this.gunType = gunType;
     }

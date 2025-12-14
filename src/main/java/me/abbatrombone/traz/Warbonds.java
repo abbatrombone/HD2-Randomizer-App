@@ -1,6 +1,7 @@
 package me.abbatrombone.traz;
 
 import me.abbatrombone.traz.GameItems.Armor;
+import me.abbatrombone.traz.GameItems.Primaries;
 
 import java.util.Arrays;
 
