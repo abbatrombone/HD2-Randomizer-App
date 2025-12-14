@@ -1,7 +1,9 @@
 package me.abbatrombone.traz;
 
 import me.abbatrombone.traz.CustomComponents.OutputJTextPane;
+import me.abbatrombone.traz.Panels.ButtonPanel;
 import me.abbatrombone.traz.Panels.LabelPanel;
+import me.abbatrombone.traz.Panels.SelectBondsPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,15 +11,13 @@ import java.awt.event.ActionEvent;
 
 public class HDApp {
     private final JFrame frame = new JFrame();
-    private JButton random;
-    private JButton semirandom;
-    private JButton clear;
-    private JButton challenges;
-    private JButton tips;
+
     private JLabel titleLabel;
     private JPanel mainPanel;
-    private OutputJTextPane output;
+    private OutputJTextPane output = new OutputJTextPane();
     private final LabelPanel labelPanel = new LabelPanel();
+    private final SelectBondsPanel selectBondsPanel = new SelectBondsPanel();
+    private final ButtonPanel buttonPanel = new ButtonPanel(output);
 
     public HDApp() {
         initComponents();
@@ -32,12 +32,6 @@ public class HDApp {
 
         mainPanel = new JPanel();
         titleLabel = new JLabel();
-        random = new JButton();
-        semirandom = new JButton();
-        clear = new JButton();
-        challenges = new JButton();
-        tips = new JButton();
-        output = new OutputJTextPane();
 
         output.setPreferredSize(new Dimension(450, 350));
 
@@ -48,7 +42,7 @@ public class HDApp {
         titleLabel.setForeground(new Color(255, 255, 255));
         titleLabel.setText("Helldivers 2 Randomizer");
 
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        GroupLayout mainPanelLayout = new GroupLayout(mainPanel);
 
         mainPanelLayout.setHorizontalGroup(
                 mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -66,87 +60,37 @@ public class HDApp {
                         )
         );
 
-
-        random.setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14)); // NOI18N
-        random.setText("Full Random");
-        random.addActionListener(this::randomButtonActionPerformed);
-
-        semirandom.setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14)); // NOI18N
-        semirandom.setText("Semi Random");
-        semirandom.addActionListener(this::semiRandomButtonActionPerformed);
-
-        clear.setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14)); // NOI18N
-        clear.setText("Clear");
-        clear.addActionListener(this::clearButtonActionPerformed);
-
-        challenges.setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14)); // NOI18N
-        challenges.setText("Challenges");
-        challenges.addActionListener(this::challengeButtonActionPerformed);
-
-        tips.setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14));
-        tips.setText("Tips");
-        tips.addActionListener(this::tipButtonActionPerformed);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());
+        GroupLayout layout = new GroupLayout(frame.getContentPane());
         frame.getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                //.addGap(5, 5, 5)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(
+                                layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup()
+                                                .addComponent(output)
+                                                .addComponent(buttonPanel.getPanel())
                                         )
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                //.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup()
-                                        .addComponent(challenges)
-                                        .addComponent(tips)
-                                        .addComponent(random)
-                                        .addComponent(semirandom)
-                                        .addComponent(clear))
+                                        .addComponent(selectBondsPanel.getJScrollPane())
                         )
-                                //.addGap(15, 5, 5))
-                        .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mainPanel)
         );
-
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(mainPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(challenges)
-                                                .addComponent(tips)
-                                                .addGap(200)
-                                                .addComponent(random)
-                                                .addComponent(semirandom)
-                                                .addComponent(clear)
+                                                .addComponent(output, GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(buttonPanel.getPanel())
+                                        )
+                                        .addComponent(selectBondsPanel.getJScrollPane())
+                                        .addGroup(layout.createSequentialGroup()
                                         ))
-                              )
+                        )
         );
 
         frame.pack();
         frame.setVisible(true);
 
-    }
-
-    private void randomButtonActionPerformed(ActionEvent evt) {
-        output.updateText();
-    }
-
-    private void clearButtonActionPerformed(ActionEvent evt) {
-        output.setText("");
-    }
-
-    private void semiRandomButtonActionPerformed(ActionEvent evt) {
-        output.setText(SemiRandomLoadOut.result());
-    }
-    private void challengeButtonActionPerformed(ActionEvent evt) {
-        JOptionPane.showMessageDialog(challenges,Challenges.challenges());
-    }
-    private void tipButtonActionPerformed(ActionEvent evt) {
-        JOptionPane.showMessageDialog(tips,Tips.tips());
     }
 }
