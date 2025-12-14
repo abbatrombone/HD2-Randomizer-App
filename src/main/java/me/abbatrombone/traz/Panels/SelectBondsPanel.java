@@ -57,8 +57,11 @@ public class SelectBondsPanel {
         JPanel p = new JPanel();
         p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
 
+        String name = bond.toString();
+        String nameWithSpace = name.replace("_"," ");
+
         JCheckBox checkBox = new JCheckBox();
-        JLabel label = new JLabel(bond.toString());
+        JLabel label = new JLabel(nameWithSpace);
         checkBox.setSelected(true);
 
         checkBoxes.add(checkBox);

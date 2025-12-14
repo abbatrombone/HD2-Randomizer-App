@@ -21,6 +21,7 @@ public class OutputJTextPane extends JTextPane {
             throw new RuntimeException(e);
         }
         setOpaque(false);
+        setEditable(false);
     }
     public void updateText(){
         StyledDocument doc = getStyledDocument();
