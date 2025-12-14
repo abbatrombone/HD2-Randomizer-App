@@ -1,4 +1,4 @@
-package me.abbatrombone.traz;
+package me.abbatrombone.traz.GameItems;
 
 public class Armor {
     private final Level level;

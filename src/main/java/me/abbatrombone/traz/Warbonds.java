@@ -1,5 +1,7 @@
 package me.abbatrombone.traz;
 
+import me.abbatrombone.traz.GameItems.Armor;
+
 import java.util.Arrays;
 
 public class Warbonds {
