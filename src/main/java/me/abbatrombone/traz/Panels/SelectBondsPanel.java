@@ -36,8 +36,6 @@ public class SelectBondsPanel {
             lines[i] = makeRow(bonds[i]);
         }
 
-
-
         GroupLayout.ParallelGroup h = layout.createParallelGroup(GroupLayout.Alignment.LEADING);
         GroupLayout.SequentialGroup v = layout.createSequentialGroup();
 
