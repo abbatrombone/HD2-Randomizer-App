@@ -6,7 +6,7 @@ public class Armor {
 
     public enum Level{
         Light,
-        Med,
+        Medium,
         Heavy
     }
     //Enum for passives???
