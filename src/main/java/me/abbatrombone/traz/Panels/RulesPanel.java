@@ -6,7 +6,7 @@ import java.awt.*;
 public class RulesPanel {
 
     private final JPanel panel = new JPanel();
-    private JScrollPane jScrollPane = new JScrollPane(panel);
+    private final JScrollPane jScrollPane = new JScrollPane(panel);
 
     public RulesPanel(){
         JTextArea textArea = new JTextArea();
