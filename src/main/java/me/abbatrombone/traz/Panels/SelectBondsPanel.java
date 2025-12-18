@@ -6,20 +6,20 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class SelectBondsPanel {
-    private JPanel panel = new JPanel();
-    private JScrollPane jScrollPane = new JScrollPane(panel);
+    private final JPanel panel = new JPanel();
+    private final JScrollPane jScrollPane = new JScrollPane(panel);
     private final ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
-    private JPanel[] lines = new JPanel[Warbonds.Bonds.values().length];
-    JPanel labelHeaderPanel = new JPanel();
-    JLabel labelHeader = new JLabel("Warbonds");
+    private final JPanel[] lines;
 
     public SelectBondsPanel(){
 
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
+        JPanel labelHeaderPanel = new JPanel();
         labelHeaderPanel.setLayout(new BoxLayout(labelHeaderPanel, BoxLayout.X_AXIS));
         labelHeaderPanel.add(Box.createHorizontalGlue());
+        JLabel labelHeader = new JLabel("Warbonds");
         labelHeaderPanel.add(labelHeader);
         labelHeaderPanel.add(Box.createHorizontalGlue());
 
@@ -27,7 +27,6 @@ public class SelectBondsPanel {
         panel.setLayout(layout);
         labelHeader.setAlignmentX(GroupLayout.Alignment.CENTER.ordinal());
         labelHeader.setOpaque(false);
-
 
         Warbonds.Bonds[] bonds = Warbonds.Bonds.values();
         lines = new JPanel[bonds.length];
@@ -53,21 +52,23 @@ public class SelectBondsPanel {
 
     private JPanel makeRow(Warbonds.Bonds bond) {
         JPanel p = new JPanel();
-        p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
+        if(!bond.toString().equals("Cadet_Loadout")){
+            p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
 
-        String name = bond.toString();
-        String nameWithSpace = name.replace("_"," ");
+            String name = bond.toString();
+            String nameWithSpace = name.replace("_"," ");
 
-        JCheckBox checkBox = new JCheckBox();
-        JLabel label = new JLabel(nameWithSpace);
-        checkBox.setSelected(true);
+            JCheckBox checkBox = new JCheckBox();
+            JLabel label = new JLabel(nameWithSpace);
+            checkBox.setSelected(true);
+            checkBox.setName(name);
 
-        checkBoxes.add(checkBox);
+            checkBoxes.add(checkBox);
 
-        p.add(checkBox);
-        p.add(Box.createRigidArea(new Dimension(5, 0)));
-        p.add(label);
-
+            p.add(checkBox);
+            p.add(Box.createRigidArea(new Dimension(5, 0)));
+            p.add(label);
+        }
         return p;
     }
 
@@ -80,5 +81,8 @@ public class SelectBondsPanel {
     }
     public JScrollPane getJScrollPane() {
         return jScrollPane;
+    }
+    public ArrayList<JCheckBox> getCheckBoxes() {
+        return checkBoxes;
     }
 }
