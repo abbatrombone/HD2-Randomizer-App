@@ -15,7 +15,7 @@ public class Warbonds {
                         "LIFT-850 Jump Pack",
                         "B-1 Supply Pack",
                         "AX/LAS-5 \"Guard Dog\" Rover",
-                        "SH-20 Ballistic Shield Backpack"
+                        "SH-20 Ballistic Shield Backpack",
                         "SH-32 Shield Generator Pack",
                         "AX/AR-23 \"Guard Dog\""},
                 new String[]{
@@ -169,9 +169,9 @@ public class Warbonds {
 
 
         Polar_Patriots( new String[]{
-                        "Ar-61 Tenderizer",
-                        "Smg-72 Pummeler",
-                        "Plas-101 Purifier"},
+                "Ar-61 Tenderizer",
+                "Smg-72 Pummeler",
+                "Plas-101 Purifier"},
                 new String[]{"P-2 P-113 Verdict"},
                 new String[]{"G-13 Incendiary"},
                 new String[]{"",""}, // Backpack
@@ -196,8 +196,8 @@ public class Warbonds {
 
         Freedom_Flame(
                 new String[]{
-                    "Sg-451 Cookout",
-                    "Flam-66 Torcher"},
+                        "Sg-451 Cookout",
+                        "Flam-66 Torcher"},
                 new String[]{"P-72 Crisper"},
                 new String[]{"",""},
                 new String[]{"",""},
@@ -239,7 +239,7 @@ public class Warbonds {
                 new String[]{"",""},
                 new String[]{
                         "Flame Sentry",
-                        "Anti-Tank Emplacement"
+                        "Anti-Tank Emplacement",
                         "Directional Shield"},
                 new String[]{
                         addLightArmor("Siege-Ready"),
@@ -393,9 +393,9 @@ public class Warbonds {
                 new String[]{"",""},
                 new String[]{
                         addMedArmor("Extra Padding"),
-                        addMedArmor("Democracy Protects")
+                        addMedArmor("Democracy Protects"),
                         addHeavyArmor("Servo-Assisted")},
-                new String[]{"",""}); //opt),
+                new String[]{"",""}), //opt),
 
         Super_Citizen(
                 new String[]{"MP-98 Knight"},
@@ -404,9 +404,9 @@ public class Warbonds {
                 new String[]{""},
                 new String[]{""},
                 new String[]{addMedArmor("Democracy Protects")},
-                new String[]{""})
+                new String[]{""});
 
-        
+
 
         private final String[] primary;
         private final String[] secondary;
@@ -481,7 +481,7 @@ public class Warbonds {
         return String.valueOf(new Armor(Armor.Level.Light, passive));
     }
     public static String addMedArmor(String passive){
-        return String.valueOf(new Armor(Armor.Level.Med, passive));
+        return String.valueOf(new Armor(Armor.Level.Medium, passive));
     }
     public static String addHeavyArmor(String passive){
         return String.valueOf(new Armor(Armor.Level.Heavy, passive));
