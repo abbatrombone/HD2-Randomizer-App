@@ -1,294 +1,96 @@
 package me.abbatrombone.traz;
 
-import java.util.ArrayList;
+import me.abbatrombone.traz.Panels.MainPanel;
+import me.abbatrombone.traz.Panels.SelectBondsPanel;
+
+import javax.swing.*;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomLoadOut {
 
+    private static String primaryWeapon;
+    private static String secondaryWeapon;
+    private static String throwable;
+    private static String armorLevel;
+    private static String armorPassive;
+    private static List<String> boosterList;
+    private static String enemyType;
+
     public static String result() {
+        warbondArmor();
+        warbondPrimary();
+        warbondThrowable();
+        warbondSecondary();
+        warbondBooster();
+        enemyType(); //change output area to have flag of the enemy.
 
-        String enemyType = enemyType();
         String difficulty = diff();
-        String primaryWeapon = primaryWeapon();
-        String secondaryWeapon = secWeapon();
-        String throwable = throwable();
-        String armorLevel = armorLevel();
-        String armorPassive = armorPassive(armorLevel);
 
-        return "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType + "\n" +
+        return "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType + "\n\n" +
                 "Difficulty: " + difficulty + "\n" +
                 "Your weapon is: " + primaryWeapon + "\n" +
                 "Your secondary is: " + secondaryWeapon + "\n" +
                 "Your throwable is: " + throwable + "\n" +
-                "Armor: " + armorLevel + " armor with the " + armorPassive + " Passive. Should you not have an armor passive like that use this one: " + backupArmorPassive() + "\n" +
-                "Your stratagems will be the following:\n" + stratagems() + "\n" +
-                "Your Booster is: \n" + hellpodOpt() + "\n" +
+                "Armor: " + armorLevel + " armor with the " + armorPassive + " Passive." + "\n\n" +
+                "Your stratagems will be the following:\n" + warbondStratagems() + "\n\n" +
+                "Your Booster is: \n" + boosterFormat() + "\n" +
                 randomPhrase();
     }
+    public static String warbondStratagems() {
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        List<String> stratagemsList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
 
-    public static String armorLevel(){
-        String armorLevel = "";
-        Random armortyperan = new Random();
-        int armorLevelInt = armortyperan.nextInt(3-1 + 1) +1;
-        switch (armorLevelInt) {
-            case 1-> armorLevel = "Light";
-            case 2-> armorLevel = "Medium";
-            case 3-> armorLevel = "Heavy";
-        }
-
-        return armorLevel;
-    }
-    public static String armorPassive(String armorLevel){
-        ArrayList<String> armorPassiveList = new ArrayList<>();
-        ArrayList<String> passivesWithOutDups = new ArrayList<>();
-        Random armorpassran = new Random();
-
-        if(armorLevel.equals("Light")){
-            armorPassiveList.add("Advanced Filtration");
-            armorPassiveList.add("Electrical Conduit");
-            armorPassiveList.add("Engineering Kit");
-            armorPassiveList.add("Inflammable");
-            armorPassiveList.add("Scout");
-            armorPassiveList.add("Acclimated");
-            armorPassiveList.add("Servo-Assisted");
-            armorPassiveList.add("Fortified");
-            armorPassiveList.add("Extra Padding");
-            armorPassiveList.add("Med-Kit");
-            armorPassiveList.add("Unflinching");
-            armorPassiveList.add("Siege-Ready");
-            armorPassiveList.add("Peak Physique");
-            armorPassiveList.add("Integrated Explosives");
-        }else if (armorLevel.equals("Medium")){
-            armorPassiveList.add("Extra Padding"); //starter
-            armorPassiveList.add("Electrical Conduit");
-            armorPassiveList.add("Inflammable");
-            armorPassiveList.add("Scout");
-            armorPassiveList.add("Democracy Protects");
-            armorPassiveList.add("Acclimated");
-            armorPassiveList.add("Engineering Kit");
-            armorPassiveList.add("Fortified");
-            armorPassiveList.add("Med-Kit");
-            armorPassiveList.add("Peak Physique");
-            armorPassiveList.add("Advanced Filtration");
-            armorPassiveList.add("Servo-Assisted");
-            armorPassiveList.add("Unflinching");
-            armorPassiveList.add("Integrated Explosives");
-        } else if (armorLevel.equals("Heavy")) {
-            armorPassiveList.add("Acclimated");
-            armorPassiveList.add("Engineering Kit");
-            armorPassiveList.add("Fortified");
-            armorPassiveList.add("Med-Kit");
-            armorPassiveList.add("Extra Padding");
-            armorPassiveList.add("Advanced Filtration");
-            armorPassiveList.add("Inflammable");
-            armorPassiveList.add("Servo-Assisted");
-            armorPassiveList.add("Siege-Ready");
-        }
-
-        passivesWithOutDups = (ArrayList<String>) armorPassiveList.stream().distinct().collect(Collectors.toList());
-        int armorPassiveInt = armorpassran.nextInt(passivesWithOutDups.size());
-
-        return passivesWithOutDups.get(armorPassiveInt);
-    }
-
-    public static String backupArmorPassive(){
-        String backuppassive = "";
-        Random bckarmorpassran = new Random();
-        int armorPassiveInt = bckarmorpassran.nextInt(6 -1 + 1) +1;
-        switch (armorPassiveInt){
-            case 1-> backuppassive= "Engineering Kit";
-            case 2-> backuppassive= "Extra Padding";
-            case 3-> backuppassive= "Inflammable";
-            case 4-> backuppassive= "Med-Kit";
-            case 5-> backuppassive= "Peak Physique";
-            case 6-> backuppassive = "Servo-Assisted";
-        }
-        return backuppassive;
-    }
-    public static String primaryWeapon(){
-        String primary = "";
-        Random randomprimary = new Random();
-        int primaryInt = randomprimary.nextInt(34 -1 + 1) +1;
-        switch (primaryInt){
-            case 1 -> primary = "Ar-23 Liberator";
-            case 2 -> primary = "Ar-23P Liberator Penetrator";
-            case 3 -> primary = "Ar-23C- Liberator Concussive";
-            case 4 -> primary = "StA-52 Assault Rifle";
-            case 5 -> primary = "Ar-23A Liberator Carbine";
-            case 6 -> primary = "Ar-61 Tenderizer";
-            case 7 -> primary = "Br-14 Adjudicator";
-            case 8 -> primary = "Constituion";
-            case 9 -> primary = "R-63 Dilligence";
-            case 10-> primary = "R-63CS Dilligence Counter Sniper";
-            case 11-> primary = "PLAS-39 Accelerator Rifle";
-            case 12-> primary = "MP-98 Knight";
-            case 13-> primary = "Sta-11 SMG";
-            case 14-> primary = "Smg-32 Reprimand";
-            case 15-> primary = "Smg-37 Defender";
-            case 16-> primary = "Smg-72 Pummeler";
-            case 17-> primary = "Sg-8 Punisher";
-            case 18-> primary = "Sg-8S Slugger";
-            case 19-> primary = "Sg-20 Halt";
-            case 20-> primary = "Sg-451 Cookout";
-            case 21-> primary = "Sg-255 Breaker";
-            case 22-> primary = "Sg-225SP Breaker Spray & Pray";
-            case 23-> primary = "Sg-2251E Breaker Incendiary";
-            case 24-> primary = "Cb Exploding Crossbow";
-            case 25-> primary = "R-36 Eruiptor";
-            case 26-> primary = "SG-8P Punisher Plasma";
-            case 27-> primary = "Arc-12 Blitzer";
-            case 28-> primary = "Las-5 Scythe";
-            case 29-> primary = "Las-16 Sickle";
-            case 30-> primary = "Plas-1 Scorcher";
-            case 31-> primary = "Plas-101 Purifier";
-            case 32-> primary = "Flam-66 Torcher";
-            case 33-> primary = "Jar-5 Dominator";
-            case 34-> primary = "LAS-17 Double-Edge Sickle";
-
-        }
-        return primary;
-    }
-    public static String secWeapon(){
-        String secwep = "";
-        Random randomsecwep = new Random();
-        int secInt = randomsecwep.nextInt(14 -1 + 1) +1;
-
-        switch (secInt){
-            case 1  -> secwep = "P-2 Peacemaker";
-            case 2  -> secwep = "P-19 Redeemer";
-            case 3  -> secwep = "P-2 P-113 Verdict";
-            case 4  -> secwep = "P-4 Senator";
-            case 5  -> secwep = "Cqc-19 stun lance";
-            case 6  -> secwep = "cqc-30 Stun Baton";
-            case 7  -> secwep = "P-11 Stim Pistol";
-            case 8  -> secwep = "sg-22 Bushwhacker";
-            case 9  -> secwep = "P-72 Crisper";
-            case 10 -> secwep = "Gp-31 Grenade Pistol";
-            case 11 -> secwep = "Las-7 Dagger";
-            case 12 -> secwep = "Plas-15 Loyalist";
-            case 13 -> secwep = "GP-31 Ultimatum";
-            case 14 -> secwep = "cqc-5 Combat Hatchet";
-        }
-        return secwep;
-    }
-
-    public static String throwable(){
-        String thrown = "";
-        Random randomthrown = new Random();
-        int thrownInt = randomthrown.nextInt(11 -1 + 1) +1;
-
-        switch (thrownInt){
-            case 1 -> thrown = "G-6 Frag";
-            case 2 -> thrown = "G-12 High Explosive";
-            case 3 -> thrown = "G-10 Incendiary";
-            case 4 -> thrown = "G-16 Impact";
-            case 5 -> thrown = "G-13 Incendiary";
-            case 6 -> thrown = "G-23 Stun";
-            case 7 -> thrown = "G-4 Gas";
-            case 8 -> thrown = "G-3 Smoke";
-            case 9 -> thrown = "6-123 Thermite";
-            case 10-> thrown = "K-2 Throwing Knife";
-            case 11-> thrown = " G-50 Seeker";
-
-        }
-        return thrown;
-    }
-    public static String stratagems(){
-        List<String> stratagems = new ArrayList<>();
-        List<Integer> stratagemnumbers = new ArrayList<>();
-        Random stratagemran = new Random();
-
-        for (int i = 0; i < 4; i++) {
-            int stratagemInt = stratagemran.nextInt(64 -1 + 1) +1;
-            if(!stratagemnumbers.contains(stratagemInt) || (stratagemInt == 57 || stratagemInt == 58) && (stratagemnumbers.contains(58) || stratagemnumbers.contains(57))){stratagemnumbers.add(stratagemInt) ;}
-            else i=i-1;
-        }
-
-        for (int number : stratagemnumbers){
-            switch (number){
-                case 1 -> stratagems.add("MG-43 Machine Gun\n");
-                case 2  ->stratagems.add("APW-1 Anti-Materiel Rifle\n");
-                case 3  ->stratagems.add("M-105 Stalwart\n");
-                case 4  ->stratagems.add("EAT-17 Expendable Anti-Tank\n");
-                case 5  ->stratagems.add("GR-8 Recoilless Rifle\n");
-                case 6  ->stratagems.add("FLAM-40 Flamethrower\n");
-                case 7  ->stratagems.add("AC-8 Autocannon\n");
-                case 8  ->stratagems.add("MG-206 Heavy Machine Gun\n");
-                case 9  ->stratagems.add("RL-77 Airburst Rocket Launcher\n");
-                case 10 ->stratagems.add("MLS-4X Commando\n");
-                case 11 ->stratagems.add("RS-422 Railgun\n");
-                case 12 ->stratagems.add("FAF-14 Spear\n");
-                case 13 ->stratagems.add("StA-X3 W.A.S.P. Launcher\n");
-                case 14 ->stratagems.add("Orbital Gatling Barrage\n");
-                case 15 ->stratagems.add("Orbital Airburst Strike\n");
-                case 16 ->stratagems.add("Orbital 120mm HE Barrage\n");
-                case 17 ->stratagems.add("Orbital 380mm HE Barrage\n");
-                case 18 ->stratagems.add("Orbital Walking Barrage\n");
-                case 19 ->stratagems.add("Orbital Laser\n");
-                case 20 ->stratagems.add("Orbital Napalm Barrage\n");
-                case 21 ->stratagems.add("Orbital Railcannon Strike\n");
-                case 22 ->stratagems.add("Eagle Strafing Run\n");
-                case 23 ->stratagems.add("Eagle Airstrike\n");
-                case 24 ->stratagems.add("Eagle Cluster Bomb\n");
-                case 25 ->stratagems.add("Eagle Napalm Airstrike\n");
-                case 26 ->stratagems.add("LIFT-850 Jump Pack\n");
-                case 27 ->stratagems.add("Eagle Smoke Strike\n");
-                case 28 ->stratagems.add("Eagle 110mm Rocket Pods\n");
-                case 29 ->stratagems.add("Eagle 500kg Bomb\n");
-                case 30 ->stratagems.add("M-102 Fast Recon Vehicle\n");
-                case 31 ->stratagems.add("Orbital Precision Strike\n");
-                case 32 ->stratagems.add("Orbital Gas Strike\n");
-                case 33 ->stratagems.add("Orbital EMS Strike\n");
-                case 34 ->stratagems.add("Orbital Smoke Strike\n");
-                case 35 ->stratagems.add("E/MG-101 HMG Emplacement\n");
-                case 36 ->stratagems.add("FX-12 Shield Generator Relay\n");
-                case 37 ->stratagems.add("A/ARC-3 Tesla Tower\n");
-                case 38 ->stratagems.add("MD-6 Anti-Personnel Minefield\n");
-                case 39 ->stratagems.add("B-1 Supply Pack\n");
-                case 40 ->stratagems.add("GL-21 Grenade Launcher\n");
-                case 41 ->stratagems.add("LAS-98 Laser Cannon\n");
-                case 42 ->stratagems.add("MD-I4 Incendiary Mines\n");
-                case 43 ->stratagems.add("AX/LAS-5 Guard Dog Rover\n");
-                case 44 ->stratagems.add("SH-20 Ballistic Shield Backpack\n");
-                case 45 ->stratagems.add("ARC-3 Arc Thrower\n");
-                case 46 ->stratagems.add("MD-17 Anti-Tank Mines\n");
-                case 47 ->stratagems.add("LAS-99 Quasar Cannon\n");
-                case 48 ->stratagems.add("SH-32 Shield Generator Pack\n");
-                case 49 ->stratagems.add("MD-8 Gas Mines\n");
-                case 50 ->stratagems.add("A/MG-43 Machine Gun Sentry\n");
-                case 51 ->stratagems.add("A/G-16 Gatling Sentry\n");
-                case 52 ->stratagems.add("A/M-12 Mortar Sentry\n");
-                case 53 ->stratagems.add("AX/AR-23 Guard Dog\n");
-                case 54 ->stratagems.add("A/AC-8 Autocannon Sentry\n");
-                case 55 ->stratagems.add("A/MLS-4X Rocket Sentry\n");
-                case 56 ->stratagems.add("A/M-23 EMS Mortar Sentry\n");
-                case 57 ->stratagems.add("EXO-45 Patriot Exosuit\n");
-                case 58 ->stratagems.add("EXO-49 Emancipator Exosuit\n");
-                case 59 ->stratagems.add("TX-41 Sterilizer\n");
-                case 60 ->stratagems.add("AX/TX-13 Guard Dog Dog Breath\n");
-                case 61 ->stratagems.add("SH-51 Directional Shield\n");
-                case 62 ->stratagems.add("E/AT-12 Anti-Tank Emplacement\n");
-                case 63 ->stratagems.add("A/FLAM-40 Flame Sentry\n");
-                case 64 -> stratagems.add("B-100 Portable Hellbomb\n");
+        for (JCheckBox box : selectBondsPanel.getCheckBoxes()) {
+            if (box.isSelected()) {
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for (String strat : bond.getStratagem()) {
+                    if (!strat.isBlank() && seen.add(strat)) {
+                        stratagemsList.add(strat);
+                    }
+                }
             }
         }
 
-        return String.valueOf(stratagems.get(0) + stratagems.get(1) + stratagems.get(2) + stratagems.get(3));
+        Collections.shuffle(stratagemsList, ThreadLocalRandom.current());
+
+        String patriot = "EXO-45 Patriot Exosuit";
+        String emancipator = "EXO-49 Emancipator Exosuit";
+
+        List<String> top4 = new ArrayList<>(stratagemsList.subList(0, 4));
+
+
+        if (top4.contains(patriot) && top4.contains(emancipator)) {
+            top4.remove(ThreadLocalRandom.current().nextBoolean()
+                    ? patriot
+                    : emancipator);
+            //this exists if a 3rd mech is added
+//            for (int i = 4; i < stratagemsList.size(); i++) {
+//                String candidate = stratagemsList.get(i);
+//                if (!top4.contains(candidate)) {
+//                    top4.add(candidate);
+//                    break;
+//                }
+//            }
+            top4.add(stratagemsList.get(5)); //replaces combo with next item on the list.
+        }
+        return String.join("\n", top4);
     }
-    public static String enemyType(){
-        String enemytype = "";
+    public static void enemyType(){
+
         Random enemyran = new Random();
         int emenyInt = enemyran.nextInt(3 -1 +1) +1;
 
         switch (emenyInt){
-            case 1-> enemytype = "Terminids";
-            case 2-> enemytype = "Automatons";
-            case 3-> enemytype = "Illuminate";
+            case 1-> enemyType = "Terminids";
+            case 2-> enemyType = "Automatons";
+            case 3-> enemyType = "Illuminate";
+            default -> enemyType = "Automatons";
         }
 
-        return  enemytype;
+
     }
 
     public static String diff(){
@@ -307,36 +109,28 @@ public class RandomLoadOut {
         }
         return diff;
     }
-    public static String hellpodOpt(){
-        String hellpodOpt = "";
-        List<Integer> hellpodoptnumbers = new ArrayList<>();
-        List<String> hellpodOpts = new ArrayList<>();
+    public static void warbondBooster(){
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        ArrayList<String> List = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
 
-        Random hellpodOptran = new Random();
-        for (int i = 0; i < 4; i++) {
-            int hellpodoptagemInt = hellpodOptran.nextInt(14 -1 + 1) +1;
-            if(!hellpodoptnumbers.contains(hellpodoptagemInt)){hellpodoptnumbers.add(hellpodoptagemInt);}
-            else i=i-1;
-        }
-        for (int number : hellpodoptnumbers){
-            switch (number) {
-                case 1 ->  hellpodOpts.add("Hellpod Space Optimization");
-                case 2 ->  hellpodOpts.add("Vitality Enhancement");
-                case 3 ->  hellpodOpts.add("UAV Recon Booster");
-                case 4 ->  hellpodOpts.add("Stamina Enhancement");
-                case 5 ->  hellpodOpts.add("Muscle Enhancement");
-                case 6 ->  hellpodOpts.add("Increased Reinforcement Budget");
-                case 7 ->  hellpodOpts.add("Flexible Reinforcement Budget");
-                case 8 ->  hellpodOpts.add("Localization Confusion Booster");
-                case 9 ->  hellpodOpts.add("Expert Extraction Pilot Booster");
-                case 10 -> hellpodOpts.add("Motivational Shocks");
-                case 11 -> hellpodOpts.add("Experimental Infusion");
-                case 12 -> hellpodOpts.add("Firebomb Hellpods");
-                case 13 -> hellpodOpts.add("Dead Sprint");
-                case 14 -> hellpodOpts.add("Armed Resupply Pods");
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if(box.isSelected()){
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for(String booster : bond.getOpt()){
+                    if (seen.add(booster) && !booster.isBlank()) {
+                        List.add(booster);
+                    }
+                }
             }
         }
-        return "1. " + hellpodOpts.get(0) + "\n" +  "2. " + hellpodOpts.get(1) + "\n" + "3. " + hellpodOpts.get(2) + "\n" + "4. " + hellpodOpts.get(3);
+        Collections.shuffle(List, ThreadLocalRandom.current());
+
+        boosterList = List.subList(0,4);
+        //opt = boosterList.get(ThreadLocalRandom.current().nextInt(boosterList.size()));
+    }
+    public static String boosterFormat(){
+        return "1. " + boosterList.get(0) + "\n" +  "2. " + boosterList.get(1) + "\n" + "3. " + boosterList.get(2) + "\n" + "4. " + boosterList.get(3);
     }
     public static String operation(String enemy){
         String operation = "";
@@ -369,5 +163,84 @@ public class RandomLoadOut {
 
         }
         return phrase;
+    }
+    public static void warbondArmor(){
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        ArrayList<String> armorList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+        StringParser stringParser = new StringParser();
+
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if(box.isSelected()){
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+//                String[] armors = bond.getArmor();
+//
+//                for (String armor : armors) {
+//                    if (armor != null && !armor.isBlank() && !armorList.contains(armor)) {
+//                        armorList.add(armor);
+//                    }
+//                }
+                for (String armor : bond.getArmor()) {
+                    if (seen.add(armor)) {
+                        armorList.add(armor);
+                    }
+                }
+            }
+        }
+        String selectedArmor = armorList.get(ThreadLocalRandom.current().nextInt(armorList.size()));
+
+        armorLevel = stringParser.parseArmorLevel(selectedArmor);
+        armorPassive = stringParser.parseArmorPassive(selectedArmor);
+    }
+    public static void warbondPrimary(){
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        ArrayList<String> primaryList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if(box.isSelected()){
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for(String primary : bond.getPrimary()){
+                    if (seen.add(primary) && !primary.isBlank()) {
+                        primaryList.add(primary);
+                    }
+                }
+            }
+        }
+        primaryWeapon = primaryList.get(ThreadLocalRandom.current().nextInt(primaryList.size()));
+    }
+    public static void warbondThrowable(){
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        ArrayList<String> throwableList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if(box.isSelected()){
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for(String thorwn : bond.getThrowable()){
+                    if (seen.add(thorwn) && !thorwn.isBlank()) {
+                        throwableList.add(thorwn);
+                    }
+                }
+            }
+        }
+        throwable = throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size()));
+    }
+    public static void warbondSecondary(){
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        ArrayList<String> secondaryList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if(box.isSelected()){
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for(String secondary : bond.getSecondary()){
+                    if (seen.add(secondary) && !secondary.isBlank()) {
+                        secondaryList.add(secondary);
+                    }
+                }
+            }
+        }
+        secondaryWeapon = secondaryList.get(ThreadLocalRandom.current().nextInt(secondaryList.size()));
     }
 }
