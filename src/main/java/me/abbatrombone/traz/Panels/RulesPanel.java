@@ -1,5 +1,7 @@
 package me.abbatrombone.traz.Panels;
 
+import me.abbatrombone.traz.CustomComponents.RulesTextArea;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,13 +11,15 @@ public class RulesPanel {
     private final JScrollPane jScrollPane = new JScrollPane(panel);
 
     public RulesPanel(){
-        JTextArea textArea = new JTextArea();
+
+        RulesTextArea textArea = new RulesTextArea();
+
         textArea.setEditable(false);
         textArea.setPreferredSize(new Dimension(1022, 460));
 
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        textArea.setMargin(new Insets(5,5,5,5));
+        textArea.setMargin(new Insets(150,200,5,5));
 
         textArea.setText("""
                 1) Once given the order by General Brash that is you must use that load out to the best of your ability.
