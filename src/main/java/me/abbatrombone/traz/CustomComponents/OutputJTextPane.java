@@ -15,6 +15,7 @@ public class OutputJTextPane extends JTextPane {
     private float imageOpacity = 0.3f;
 
     public OutputJTextPane() {
+
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Super_Earth_Flag.jpg")));
         } catch (IOException e) {
@@ -39,6 +40,39 @@ public class OutputJTextPane extends JTextPane {
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
+    }
+    public void updateImage(String enemy){
+        switch (enemy){
+            case "Terminids"  -> {
+                try {
+                    backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Terminids.png")));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case "Automatons" -> {
+                try {
+                    backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Bots.png")));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case "Illuminate" -> {
+                try {
+                    backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Squids.png")));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            default -> {
+                try {
+                    backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Super_Earth_Flag.jpg")));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
     }
 
     @Override

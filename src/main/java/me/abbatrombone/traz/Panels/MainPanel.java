@@ -4,16 +4,14 @@ import me.abbatrombone.traz.CustomComponents.OutputJTextPane;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class MainPanel {
 
     private final JPanel mainPanel = new JPanel();
     private final LabelPanel labelPanel = new LabelPanel();
     private final JPanel labelPanelFull = new JPanel();
-    private OutputJTextPane output = new OutputJTextPane();
-    private final SelectBondsPanel selectBondsPanel = new SelectBondsPanel();
+    private static final OutputJTextPane output = new OutputJTextPane();
+    private static final SelectBondsPanel selectBondsPanel = new SelectBondsPanel();
     private final ButtonPanel buttonPanel = new ButtonPanel(output);
 
     public MainPanel(){
@@ -80,11 +78,14 @@ public class MainPanel {
         return output;
     }
 
-    public SelectBondsPanel getSelectBondsPanel() {
+    public static SelectBondsPanel getSelectBondsPanel() {
         return selectBondsPanel;
     }
 
     public ButtonPanel getButtonPanel() {
         return buttonPanel;
+    }
+    public static OutputJTextPane getOutputTextPane(){
+        return output;
     }
 }

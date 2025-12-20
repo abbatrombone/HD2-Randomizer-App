@@ -22,6 +22,7 @@ public class ButtonPanel {
     public ButtonPanel(OutputJTextPane output){
         this.output = output;
 
+
         random.setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14)); // NOI18N
         random.setText("Full Random");
         random.addActionListener(this::randomButtonActionPerformed);
@@ -82,6 +83,7 @@ public class ButtonPanel {
 
     private void clearButtonActionPerformed(ActionEvent evt) {
         output.setText("");
+        output.updateImage("super Earth");
     }
 
     private void semiRandomButtonActionPerformed(ActionEvent evt) {

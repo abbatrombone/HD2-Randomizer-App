@@ -89,8 +89,7 @@ public class RandomLoadOut {
             case 3-> enemyType = "Illuminate";
             default -> enemyType = "Automatons";
         }
-
-
+        MainPanel.getOutputTextPane().updateImage(enemyType);
     }
 
     public static String diff(){
