@@ -6,7 +6,7 @@ import java.util.Set;
 public class Stratagems {
     private final String stragemName;
     private final StratagemColor staragemColor;
-    private final String subtype;
+    private final Subtype subtype;
 
     public enum Subtype {
         EAGLE, ORBITAL,
@@ -44,7 +44,7 @@ public class Stratagems {
         }
         this.stragemName = name;
         this.staragemColor = color;
-        this.subtype = String.valueOf(subtype);
+        this.subtype = subtype;
     }
 
     @Override
