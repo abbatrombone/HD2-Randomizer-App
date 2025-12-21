@@ -226,7 +226,7 @@ public class Warbonds {
 
         Urban_Legends(
                 new String[]{"",""},
-                new String[]{"Cqc-19 stun B","CQC-30 Stun Baton"},
+                new String[]{"Cqc-19 stun Lance","CQC-30 Stun Baton"},
                 new String[]{"",""},
                 new String[]{
                         addTurret("Flame Sentry"),
