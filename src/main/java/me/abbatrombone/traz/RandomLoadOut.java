@@ -42,13 +42,14 @@ public class RandomLoadOut {
         SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
         List<String> stratagemsList = new ArrayList<>();
         Set<String> seen = new HashSet<>();
+        StringParser stringParser = new StringParser();
 
         for (JCheckBox box : selectBondsPanel.getCheckBoxes()) {
             if (box.isSelected()) {
                 Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
                 for (String strat : bond.getStratagem()) {
                     if (!strat.isBlank() && seen.add(strat)) {
-                        stratagemsList.add(strat);
+                        stratagemsList.add(stringParser.parseStrategem(strat));
                     }
                 }
             }
@@ -60,7 +61,6 @@ public class RandomLoadOut {
         String emancipator = "EXO-49 Emancipator Exosuit";
 
         List<String> top4 = new ArrayList<>(stratagemsList.subList(0, 4));
-
 
         if (top4.contains(patriot) && top4.contains(emancipator)) {
             top4.remove(ThreadLocalRandom.current().nextBoolean()

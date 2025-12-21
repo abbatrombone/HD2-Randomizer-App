@@ -3,6 +3,8 @@ package me.abbatrombone.traz;
 import java.util.Arrays;
 
 import me.abbatrombone.traz.GameItems.Armor;
+import me.abbatrombone.traz.GameItems.Stratagems;
+//remove backpack values and move into stratagems. for all!
 public class Warbonds {
 
     public enum Bonds {
@@ -12,77 +14,75 @@ public class Warbonds {
                 new String[]{"P-2 Peacemaker"},
                 new String[]{"G-12 High Explosive"},
                 new String[]{
-                        "LIFT-850 Jump Pack",
-                        "B-1 Supply Pack",
-                        "AX/LAS-5 \"Guard Dog\" Rover",
-                        "SH-20 Ballistic Shield Backpack",
-                        "SH-32 Shield Generator Pack",
-                        "AX/AR-23 \"Guard Dog\""},
-                new String[]{
                         // Blue Strats
-                        "MG-43 Machine Gun",
-                        "APW-1 Anti-Materiel Rifle",
-                        "M-105 Stalwart",
-                        "EAT-17 Expendable Anti-Tank",
-                        "GR-8 Recoilless Rifle",
-                        "FLAM-40 Flamethrower",
-                        "AC-8 Autocannon",
-                        "MG-206 Heavy Machine Gun",
-                        "RL-77 Airburst Rocket Launcher",
-                        "MLS-4X Commando",
-                        "RS-422 Railgun",
-                        "FAF-14 Spear",
-                        "StA-X3 W.A.S.P. Launcher",
-                        "M-102 Fast Recon Vehicle",
-                        "GL-21 Grenade Launcher",
-                        "LAS-98 Laser Cannon",
-                        "Arc Thrower",
-                        "LAS-99 Quasar Cannon",
-                        "EXO-45 Patriot Exosuit",
-                        "EXO-49 Emancipator Exosuit",
+                        addBackpack("LIFT-850 Jump Pack"),
+                        addBackpack("B-1 Supply Pack"),
+                        addBackpack("AX/LAS-5 \"Guard Dog\" Rover"),
+                        addBackpack("SH-20 Ballistic Shield Backpack"),
+                        addBackpack("SH-32 Shield Generator Pack"),
+                        addBackpack("AX/AR-23 \"Guard Dog\""),
+                        addWeaponStratagem("MG-43 Machine Gun"),
+                        addWeaponStratagem("APW-1 Anti-Materiel Rifle"),
+                        addWeaponStratagem("M-105 Stalwart"),
+                        addWeaponStratagem("EAT-17 Expendable Anti-Tank"),
+                        addBackpackWeapon("GR-8 Recoilless Rifle"),
+                        addWeaponStratagem("FLAM-40 Flamethrower"),
+                        addBackpackWeapon("AC-8 Autocannon"),
+                        addWeaponStratagem("MG-206 Heavy Machine Gun"),
+                        addBackpackWeapon("RL-77 Airburst Rocket Launcher"),
+                        addWeaponStratagem("MLS-4X Commando"),
+                        addWeaponStratagem("RS-422 Railgun"),
+                        addBackpackWeapon("FAF-14 Spear"),
+                        addBackpackWeapon("StA-X3 W.A.S.P. Launcher"),
+                        addVehicle("M-102 Fast Recon Vehicle"),
+                        addWeaponStratagem("GL-21 Grenade Launcher"),
+                        addWeaponStratagem("LAS-98 Laser Cannon"),
+                        addWeaponStratagem("Arc Thrower"),
+                        addWeaponStratagem("LAS-99 Quasar Cannon"),
+                        addMech("EXO-45 Patriot Exosuit"),
+                        addMech("EXO-49 Emancipator Exosuit"),
 
                         // Red Strats
-                        "Orbital Gatling Barrage",
-                        "Orbital Airburst Strike",
-                        "Orbital 120mm HE Barrage",
-                        "Orbital 380mm HE Barrage",
-                        "Orbital Walking Barrage",
-                        "Orbital Laser",
-                        "Orbital Napalm Barrage",
-                        "Orbital Railcannon Strike",
-                        "Eagle Strafing Run",
-                        "Eagle Airstrike",
-                        "Eagle Cluster Bomb",
-                        "Eagle Napalm Airstrike",
-                        "Eagle Smoke Strike",
-                        "Eagle 110mm Rocket Pods",
-                        "Eagle 500kg Bomb",
-                        "Orbital Precision Strike",
-                        "Orbital Gas Strike",
-                        "Orbital EMS Strike",
-                        "Orbital Smoke Strike",
+                        addOrbital("Orbital Gatling Barrage"),
+                        addOrbital("Orbital Airburst Strike"),
+                        addOrbital("Orbital 120mm HE Barrage"),
+                        addOrbital("Orbital 380mm HE Barrage"),
+                        addOrbital("Orbital Walking Barrage"),
+                        addOrbital("Orbital Laser"),
+                        addOrbital("Orbital Napalm Barrage"),
+                        addOrbital("Orbital Railcannon Strike"),
+                        addOrbital("Orbital Precision Strike"),
+                        addOrbital("Orbital Gas Strike"),
+                        addOrbital("Orbital EMS Strike"),
+                        addOrbital("Orbital Smoke Strike"),
+                        addEagleStrike("Eagle Strafing Run"),
+                        addEagleStrike("Eagle Airstrike"),
+                        addEagleStrike("Eagle Cluster Bomb"),
+                        addEagleStrike("Eagle Napalm Airstrike"),
+                        addEagleStrike("Eagle Smoke Strike"),
+                        addEagleStrike("Eagle 110mm Rocket Pods"),
+                        addEagleStrike("Eagle 500kg Bomb"),
 
                         //Green Strats
-                        "E/MG-101 HMG Emplacement",
-                        "FX-12 Shield Generator Relay",
-                        "A/ARC-3 Tesla Tower",
-                        "E/GL-21 Grenadier Battlement",
-                        "MD-6 Anti-Personnel Minefield",
-                        "MD-I4 Incendiary Mines",
-                        "MD-17 Anti-Tank Mines",
-                        "MD-8 Gas Mines",
-                        "A/MG-43 Machine Gun Sentry",
-                        "A/G-16 Gatling Sentry",
-                        "A/M-12 Mortar Sentry",
-                        "A/AC-8 Autocannon Sentry",
-                        "A/MLS-4X Rocket Sentry",
-                        "A/M-23 EMS Mortar Sentry",
+                        addEncampment("E/MG-101 HMG Emplacement"),
+                        addEncampment("FX-12 Shield Generator Relay"),
+                        addEncampment("E/GL-21 Grenadier Battlement"),
+                        addTurret("A/ARC-3 Tesla Tower"),
+                        addTurret("A/MG-43 Machine Gun Sentry"),
+                        addTurret("A/G-16 Gatling Sentry"),
+                        addTurret("A/M-12 Mortar Sentry"),
+                        addTurret( "A/AC-8 Autocannon Sentry"),
+                        addTurret("A/MLS-4X Rocket Sentry"),
+                        addTurret("A/M-23 EMS Mortar Sentry"),
+                        addMines("MD-6 Anti-Personnel Minefield"),
+                        addMines("MD-I4 Incendiary Mines"),
+                        addMines("MD-17 Anti-Tank Mines"),
+                        addMines("MD-8 Gas Mines")
 
                 },
                 new String[]{addMedArmor("Extra Padding"),},
                 new String[]{"",""}
         ),
-
 
         Helldivers_Mobilize(
                 new String[]{
@@ -101,8 +101,7 @@ public class Warbonds {
                         "G-6 Frag",
                         "G-16 Impact",
                         "G-3 Smoke"}, //throw
-                new String[]{"",""}, //backpack
-                new String[]{"",""}, //strat
+                new String[]{}, //strat
                 new String[]{ //armor
                         addLightArmor("Scout"),
                         addLightArmor("Extra Padding"),
@@ -130,7 +129,6 @@ public class Warbonds {
                 new String[]{"P-4 Senator"},
                 new String[]{"G-10 Incendiary"},
                 new String[]{"",""},
-                new String[]{"",""},
                 new String[]{
                         addLightArmor("Servo-Assisted"),
                         addMedArmor("Servo-Assisted"),
@@ -144,8 +142,7 @@ public class Warbonds {
                         "SG-8P Punisher Plasma"},
                 new String[]{"Las-7 Dagger"},
                 new String[]{"G-23 Stun"},
-                new String[]{"",""},  //backpack
-                new String[]{"",""},  //Strats
+                new String[]{},  //Strats
                 new String[]{
                         addLightArmor("Electrical Conduit"),
                         addMedArmor("Electrical Conduit"),
@@ -159,8 +156,7 @@ public class Warbonds {
                         "R-36 Eruiptor"},
                 new String[]{"Gp-31 Grenade Pistol"},
                 new String[]{"6-123 Thermite"},
-                new String[]{"",""},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{
                         addLightArmor("Engineering Kit"),
                         addMedArmor("Engineering Kit"),
@@ -174,8 +170,7 @@ public class Warbonds {
                 "Plas-101 Purifier"},
                 new String[]{"P-2 P-113 Verdict"},
                 new String[]{"G-13 Incendiary"},
-                new String[]{"",""}, // Backpack
-                new String[]{"",""},  // Strats
+                new String[]{},  // Strats
                 new String[]{ // Armor
                         addLightArmor("Scout"),
                         addHeavyArmor("Fortifeid"),
@@ -186,8 +181,7 @@ public class Warbonds {
                 new String[]{"Ar-23A Liberator Carbine"},
                 new String[]{"sg-22 Bushwhacker"},
                 new String[]{"K-2 Throwing Knife"},
-                new String[]{"",""},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{
                         addLightArmor("Peak Physique"),
                         addMedArmor("Peak Physique"),
@@ -200,8 +194,7 @@ public class Warbonds {
                         "Flam-66 Torcher"},
                 new String[]{"P-72 Crisper"},
                 new String[]{"",""},
-                new String[]{"",""},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{
                         addLightArmor("Inflammable"),
                         addMedArmor("Inflammable"),
@@ -212,8 +205,8 @@ public class Warbonds {
                 new String[]{"",""},    //pri
                 new String[]{"P-11 Stim Pistol"},    //sec
                 new String[]{"G-4 Gas"},    //thrown
-                new String[]{"AX/TX-13 “Guard Dog” Dog Breath"},    //back
-                new String[]{"TX-41 Sterilizer"}, //strat
+                new String[]{addBackpack("AX/TX-13 \"Guard Dog\" Dog Breath"),
+                        addWeaponStratagem("TX-41 Sterilizer")}, //strat
                 new String[]{           //armor
                         addLightArmor("Advanced Filtration"),
                         addMedArmor("Advanced Filtration")},
@@ -225,8 +218,7 @@ public class Warbonds {
                         "Sg-20 Halt"},
                 new String[]{"Plas-15 Loyalist"},
                 new String[]{"",""},
-                new String[]{"",""},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{
                         addLightArmor("Unflinching"),
                         addMedArmor("Unflinching") },
@@ -236,11 +228,10 @@ public class Warbonds {
                 new String[]{"",""},
                 new String[]{"Cqc-19 stun B","CQC-30 Stun Baton"},
                 new String[]{"",""},
-                new String[]{"",""},
                 new String[]{
-                        "Flame Sentry",
-                        "Anti-Tank Emplacement",
-                        "Directional Shield"},
+                        addTurret("Flame Sentry"),
+                        addEncampment("Anti-Tank Emplacement"),
+                        addBackpack("Directional Shield")},
                 new String[]{
                         addLightArmor("Siege-Ready"),
                         addHeavyArmor("Siege-Ready"),},
@@ -250,8 +241,7 @@ public class Warbonds {
                 new String[]{"LAS-17 Double-Edge Sickle"},
                 new String[]{"GP-31 Ultimatum"},
                 new String[]{"G-50 Seeker"},
-                new String[]{"Portable Hellbomb",""},
-                new String[]{"",""},
+                new String[]{addBackpack("Portable Hellbomb")},
                 new String[]{
                         addLightArmor("Integrated Explosives"),
                         addMedArmor("Integrated Explosives")},
@@ -261,8 +251,7 @@ public class Warbonds {
                 new String[]{"R-6 Deadeye"},
                 new String[]{"LAS-58 Talon"},
                 new String[]{"TED-63 Dynamite"},
-                new String[]{"LIFT-860 Hover Pack",""},
-                new String[]{"",""},
+                new String[]{addBackpack("LIFT-860 Hover Pack")},
                 new String[]{
                         addLightArmor("Gunslinger"),
                         addMedArmor("Gunslinger"),
@@ -273,8 +262,7 @@ public class Warbonds {
                 new String[]{"R-2 Amendment"},
                 new String[]{"CQC-2 Saber"},
                 new String[]{"G-142 Pyrotech"},
-                new String[]{"",""},
-                new String[]{"CQC-1 One True Flag"},
+                new String[]{addWeaponStratagem("CQC-1 One True Flag")},
                 new String[]{
                         addLightArmor("Reinforced Epaulettes"),
                         addMedArmor("Reinforced Epaulettes"),
@@ -285,8 +273,7 @@ public class Warbonds {
                 new String[]{"AR-32 Pacifier"},
                 new String[]{"",""},
                 new String[]{"G-109 Urchin",""},
-                new String[]{"AX/ARC-3 “Guard Dog” K-9"},
-                new String[]{"GL-52 De-Escalator",""},
+                new String[]{addBackpack("AX/ARC-3 \"Guard Dog\" K-9"),addWeaponStratagem("GL-52 De-Escalator")},
                 new String[]{
                         addLightArmor("Ballistic Padding"),
                         addMedArmor("Ballistic Padding"),
@@ -297,10 +284,10 @@ public class Warbonds {
                 new String[]{"VG-70 Variable",""},
                 new String[]{"",""},
                 new String[]{"G-31 Arc",""},
-                new String[]{"LIFT-182 Warp Pack"},
                 new String[]{
-                        "PLAS-45 Epoch",
-                        "A/LAS-98 Laser Sentry"},
+                        addBackpack("LIFT-182 Warp Pack"),
+                        addWeaponStratagem("PLAS-45 Epoch"),
+                        addTurret("A/LAS-98 Laser Sentry")},
                 new String[]{
                         addHeavyArmor("Adreno-Defibrillator"),
                         addMedArmor("Adreno-Defibrillator"),
@@ -311,11 +298,10 @@ public class Warbonds {
                 new String[]{"AR-2 Coyote",""},
                 new String[]{"",""},
                 new String[]{"G-7 Pineapple"},
-                new String[]{"",""},
                 new String[]{
-                        "S-11 Speargun",
-                        "EAT-700 Expendable Napalm",
-                        "MS-11 Solo Silo"},
+                        addWeaponStratagem("S-11 Speargun"),
+                        addWeaponStratagem("EAT-700 Expendable Napalm"),
+                        addWeaponStratagem("MS-11 Solo Silo")},
                 new String[]{
                         addLightArmor("Desert Stormer"),
                         addMedArmor("Desert Stormer"),
@@ -326,10 +312,10 @@ public class Warbonds {
                 new String[]{"AR/GL-21 One-Two",""},
                 new String[]{"",""},
                 new String[]{"",""},
-                new String[]{"AX/FLAM-75 \"Guard Dog\" Hot Dog"},
                 new String[]{
-                        "CQC-9 Defoliation Tool",
-                        "M-1000 Maxigun"},
+                        addBackpack("AX/FLAM-75 \"Guard Dog\" Hot Dog"),
+                        addWeaponStratagem("CQC-9 Defoliation Tool"),
+                        addBackpackWeapon("M-1000 Maxigun")},
                 new String[]{
                         addLightArmor("Rock Solid"),
                         addMedArmor("Rock Solid"),
@@ -343,8 +329,7 @@ public class Warbonds {
                         "M90A Shotgun"},
                 new String[]{"M6C/SOCOM Pistol"},
                 new String[]{"",""},
-                new String[]{"",""},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{addMedArmor("Feet First")},
                 new String[]{"",""}), //opt),
 
@@ -353,7 +338,6 @@ public class Warbonds {
                         "PLAS-39 Accelerator Rifle",
                         "StA-52 Assault Rifle",
                         "StA-11 SMG"},
-                new String[]{},
                 new String[]{},
                 new String[]{},
                 new String[]{},
@@ -367,8 +351,7 @@ public class Warbonds {
                 new String[]{"",""},
                 new String[]{"",""},
                 new String[]{"",""},
-                new String[]{"",""},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{
                         addLightArmor("Servo-Assisted"),
                         addLightArmor("Engineering Kit"),
@@ -389,8 +372,7 @@ public class Warbonds {
                 new String[]{""},
                 new String[]{"",""},
                 new String[]{"",""},
-                new String[]{"",""},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{
                         addMedArmor("Extra Padding"),
                         addMedArmor("Democracy Protects"),
@@ -401,8 +383,7 @@ public class Warbonds {
                 new String[]{"MP-98 Knight"},
                 new String[]{""},
                 new String[]{""},
-                new String[]{""},
-                new String[]{""},
+                new String[]{},
                 new String[]{addMedArmor("Democracy Protects")},
                 new String[]{""});
 
@@ -411,17 +392,19 @@ public class Warbonds {
         private final String[] primary;
         private final String[] secondary;
         private final String[] throwable;
-        private final String[] backpack;
+        //private final String[] backpack;
         private final String[] stratagem;
         private final String[] armor;
         private final String[] opt; // optional string
 
-        Bonds(String[] primary, String[] secondary, String[] throwable, String[] backpack, String[] stratagem, String[] armor, String[] opt) {
+        Bonds(String[] primary, String[] secondary, String[] throwable,
+              //String[] backpack,
+              String[] stratagem, String[] armor, String[] opt) {
             // store copies to keep enum instances immutable
             this.primary = Arrays.copyOf(primary, primary.length);
             this.secondary = Arrays.copyOf(secondary, secondary.length);
             this.throwable = Arrays.copyOf(throwable, throwable.length);
-            this.backpack = Arrays.copyOf(backpack, backpack.length);
+            //this.backpack = Arrays.copyOf(backpack, backpack.length);
             this.stratagem = Arrays.copyOf(stratagem, stratagem.length);
             this.armor = armor;
             this.opt = opt;
@@ -440,9 +423,9 @@ public class Warbonds {
             return Arrays.copyOf(throwable, throwable.length);
         }
 
-        public String[] getBackpack() {
-            return Arrays.copyOf(backpack, backpack.length);
-        }
+//        public String[] getBackpack() {
+//            return Arrays.copyOf(backpack, backpack.length);
+//        }
 
         public String[] getArmor() {
             return Arrays.copyOf(armor, armor.length);
@@ -484,6 +467,37 @@ public class Warbonds {
     public static String addHeavyArmor(String passive){
         return String.valueOf(new Armor(Armor.Level.Heavy, passive));
     }
+    public static String addEagleStrike(String name){
+        return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.RED,Stratagems.Subtype.EAGLE));
+    }
+    public static String addOrbital(String name){
+        return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.RED,Stratagems.Subtype.ORBITAL));
+    }
+    public static String addBackpack(String name){
+        return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.BLUE,Stratagems.Subtype.BACKPACK));
+    }
+    public static String addBackpackWeapon(String name){
+        return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.BLUE,Stratagems.Subtype.WEAPON_WITH_BACKPACK));
+    }
+    public static String addWeaponStratagem(String name){
+        return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.BLUE,Stratagems.Subtype.WEAPON));
+    }
+    public static String addMech(String name){
+        return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.BLUE,Stratagems.Subtype.MECH));
+    }
+    public static String addVehicle(String name){
+        return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.BLUE,Stratagems.Subtype.VEHICLE));
+    }
+    public static String addMines(String name){
+        return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.GREEN,Stratagems.Subtype.MINES));
+    }
+    public static String addTurret(String name){
+        return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.GREEN,Stratagems.Subtype.TURRET));
+    }
+    public static String addEncampment(String name){
+        return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.GREEN,Stratagems.Subtype.ENCAMPMENT));
+    }
+
 
     private static String[] concat(String[]... arrays) {
         int total = 0;

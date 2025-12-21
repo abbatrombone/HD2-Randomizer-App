@@ -33,5 +33,19 @@ public class StringParser {
         }
         return passive;
     }
+    public String parseStrategem(String stratagem){
+        String name = "";
+
+        Pattern pattern = Pattern.compile(
+                "\\s*name='([^']+)'"
+        );
+
+        Matcher matcher = pattern.matcher(stratagem);
+
+        if (matcher.find()) {
+            name = matcher.group(1);
+        }
+        return name;
+    }
 
 }

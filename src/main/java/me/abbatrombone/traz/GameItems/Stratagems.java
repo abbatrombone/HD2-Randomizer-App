@@ -50,7 +50,8 @@ public class Stratagems {
     @Override
     public String toString() {
         return "Stratgem{" +
-                "color=" + staragemColor +
+                "name='" + stragemName + '\'' +
+                ", color=" + staragemColor +
                 ", subtype='" + subtype + '\'' +
                 '}';
     }
