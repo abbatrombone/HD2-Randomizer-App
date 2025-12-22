@@ -1,18 +1,15 @@
-package me.abbatrombone.traz;
+package me.abbatrombone.traz.GameItems;
 
 import java.util.Arrays;
 
-import me.abbatrombone.traz.GameItems.Armor;
-import me.abbatrombone.traz.GameItems.Stratagems;
 //remove backpack values and move into stratagems. for all!
 public class Warbonds {
 
     public enum Bonds {
-        //med "Extra Padding" armor is always avaible work into logic!
         Cadet_Loadout(
                 new String[]{"AR-23 Liberator"},
                 new String[]{"P-2 Peacemaker"},
-                new String[]{"G-12 High Explosive"},
+                new String[]{addThrowable("G-12 High Explosive", Throwable.ThrowableType.Standard,Throwable.Penitration.Heavy)},
                 new String[]{
                         // Blue Strats
                         addBackpack("LIFT-850 Jump Pack"),
@@ -80,8 +77,8 @@ public class Warbonds {
                         addMines("MD-8 Gas Mines")
 
                 },
-                new String[]{addMedArmor("Extra Padding"),},
-                new String[]{"",""}
+                new String[]{addMedArmor("Extra Padding")},
+                new String[]{}
         ),
 
         Helldivers_Mobilize(
@@ -98,9 +95,9 @@ public class Warbonds {
                         "Plas-1 Scorcher"},
                 new String[]{"P-19 Redeemer"}, //sec
                 new String[]{
-                        "G-6 Frag",
-                        "G-16 Impact",
-                        "G-3 Smoke"}, //throw
+                       addThrowable("G-6 Frag", Throwable.ThrowableType.Standard,Throwable.Penitration.Medium),
+                       addThrowable("G-16 Impact", Throwable.ThrowableType.Special, Throwable.Penitration.Heavy),
+                       addThrowable("G-3 Smoke", Throwable.ThrowableType.Special, Throwable.Penitration.No_Hitbox)}, //throw
                 new String[]{}, //strat
                 new String[]{ //armor
                         addLightArmor("Scout"),
@@ -127,12 +124,12 @@ public class Warbonds {
                         "Jar-5 Dominator",
                         "Sg-2251E Breaker Incendiary"},
                 new String[]{"P-4 Senator"},
-                new String[]{"G-10 Incendiary"},
+                new String[]{addThrowable("G-10 Incendiary", Throwable.ThrowableType.Standard,Throwable.Penitration.Medium)},
                 new String[]{"",""},
                 new String[]{
                         addLightArmor("Servo-Assisted"),
                         addMedArmor("Servo-Assisted"),
-                        addHeavyArmor("Servo-Assisted"),},
+                        addHeavyArmor("Servo-Assisted")},
                 new String[]{"Flexible Reinforcement Budget"}), //opt),
 
         Cutting_Edge(
@@ -141,13 +138,13 @@ public class Warbonds {
                         "Las-16 Sickle",
                         "SG-8P Punisher Plasma"},
                 new String[]{"Las-7 Dagger"},
-                new String[]{"G-23 Stun"},
+                new String[]{addThrowable("G-23 Stun", Throwable.ThrowableType.Special, Throwable.Penitration.Anti_Tank_II)},
                 new String[]{},  //Strats
                 new String[]{
                         addLightArmor("Electrical Conduit"),
                         addMedArmor("Electrical Conduit"),
                 },
-                new String[]{"Localization Confusion",}), //opt),
+                new String[]{"Localization Confusion"}), //opt),
 
         Democratic_Detonation(
                 new String[]{
@@ -155,7 +152,7 @@ public class Warbonds {
                         "Cb Exploding Crossbow",
                         "R-36 Eruiptor"},
                 new String[]{"Gp-31 Grenade Pistol"},
-                new String[]{"6-123 Thermite"},
+                new String[]{addThrowable("6-123 Thermite", Throwable.ThrowableType.Special, Throwable.Penitration.Anti_Tank_III)},
                 new String[]{},
                 new String[]{
                         addLightArmor("Engineering Kit"),
@@ -169,18 +166,18 @@ public class Warbonds {
                 "Smg-72 Pummeler",
                 "Plas-101 Purifier"},
                 new String[]{"P-2 P-113 Verdict"},
-                new String[]{"G-13 Incendiary"},
+                new String[]{addThrowable("G-13 Incendiary Impact", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
                 new String[]{},  // Strats
                 new String[]{ // Armor
                         addLightArmor("Scout"),
                         addHeavyArmor("Fortifeid"),
-                        addHeavyArmor("Servo-Assisted"),},
+                        addHeavyArmor("Servo-Assisted")},
                 new String[]{"Motivational Shocks"}), //booster),
 
         Viper_Commandos(
                 new String[]{"Ar-23A Liberator Carbine"},
                 new String[]{"sg-22 Bushwhacker"},
-                new String[]{"K-2 Throwing Knife"},
+                new String[]{addThrowable("K-2 Throwing Knife", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
                 new String[]{},
                 new String[]{
                         addLightArmor("Peak Physique"),
@@ -193,7 +190,7 @@ public class Warbonds {
                         "Sg-451 Cookout",
                         "Flam-66 Torcher"},
                 new String[]{"P-72 Crisper"},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{},
                 new String[]{
                         addLightArmor("Inflammable"),
@@ -202,22 +199,22 @@ public class Warbonds {
                 new String[]{"Firebomb Hellpods"}), //Booster),
 
         Chemical_Agents(
-                new String[]{"",""},    //pri
+                new String[]{},    //pri
                 new String[]{"P-11 Stim Pistol"},    //sec
-                new String[]{"G-4 Gas"},    //thrown
+                new String[]{addThrowable("G-4 Gas", Throwable.ThrowableType.Special, Throwable.Penitration.Anti_Tank_II)},    //thrown
                 new String[]{addBackpack("AX/TX-13 \"Guard Dog\" Dog Breath"),
                         addWeaponStratagem("TX-41 Sterilizer")}, //strat
                 new String[]{           //armor
                         addLightArmor("Advanced Filtration"),
                         addMedArmor("Advanced Filtration")},
-                new String[]{"",""}), //booster),
+                new String[]{}), //booster),
 
         Truth_Enforcers(
                 new String[]{
                         "Smg-32 Reprimand",
                         "Sg-20 Halt"},
                 new String[]{"Plas-15 Loyalist"},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{},
                 new String[]{
                         addLightArmor("Unflinching"),
@@ -225,22 +222,22 @@ public class Warbonds {
                 new String[]{"Dead Sprint"}), //opt),
 
         Urban_Legends(
-                new String[]{"",""},
+                new String[]{},
                 new String[]{"Cqc-19 stun Lance","CQC-30 Stun Baton"},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{
                         addTurret("Flame Sentry"),
                         addEncampment("Anti-Tank Emplacement"),
                         addBackpack("Directional Shield")},
                 new String[]{
                         addLightArmor("Siege-Ready"),
-                        addHeavyArmor("Siege-Ready"),},
+                        addHeavyArmor("Siege-Ready")},
                 new String[]{"Armed Resupply Pods"}), //opt),
 
         Servants_of_Freedom(
                 new String[]{"LAS-17 Double-Edge Sickle"},
                 new String[]{"GP-31 Ultimatum"},
-                new String[]{"G-50 Seeker"},
+                new String[]{addThrowable("G-50 Seeker", Throwable.ThrowableType.Special, Throwable.Penitration.Heavy)},
                 new String[]{addBackpack("Portable Hellbomb")},
                 new String[]{
                         addLightArmor("Integrated Explosives"),
@@ -250,7 +247,7 @@ public class Warbonds {
         Borderline_Justice(
                 new String[]{"R-6 Deadeye"},
                 new String[]{"LAS-58 Talon"},
-                new String[]{"TED-63 Dynamite"},
+                new String[]{addThrowable("TED-63 Dynamite", Throwable.ThrowableType.Standard, Throwable.Penitration.Heavy)},
                 new String[]{addBackpack("LIFT-860 Hover Pack")},
                 new String[]{
                         addLightArmor("Gunslinger"),
@@ -261,7 +258,7 @@ public class Warbonds {
         Masters_of_Ceremony(
                 new String[]{"R-2 Amendment"},
                 new String[]{"CQC-2 Saber"},
-                new String[]{"G-142 Pyrotech"},
+                new String[]{addThrowable("G-142 Pyrotech", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
                 new String[]{addWeaponStratagem("CQC-1 One True Flag")},
                 new String[]{
                         addLightArmor("Reinforced Epaulettes"),
@@ -271,19 +268,19 @@ public class Warbonds {
 
         Force_of_Law(
                 new String[]{"AR-32 Pacifier"},
-                new String[]{"",""},
-                new String[]{"G-109 Urchin",""},
+                new String[]{},
+                new String[]{addThrowable("G-109 Urchin", Throwable.ThrowableType.Special, Throwable.Penitration.Anti_Tank_II)},
                 new String[]{addBackpack("AX/ARC-3 \"Guard Dog\" K-9"),addWeaponStratagem("GL-52 De-Escalator")},
                 new String[]{
                         addLightArmor("Ballistic Padding"),
                         addMedArmor("Ballistic Padding"),
                         addHeavyArmor("Ballistic Padding")},
-                new String[]{"Stun Pods",""}), //opt),
+                new String[]{"Stun Pods"}), //opt),
 
         Control_Group(
-                new String[]{"VG-70 Variable",""},
-                new String[]{"",""},
-                new String[]{"G-31 Arc",""},
+                new String[]{"VG-70 Variable"},
+                new String[]{},
+                new String[]{addThrowable("G-31 Arc", Throwable.ThrowableType.Special, Throwable.Penitration.Heavy)},
                 new String[]{
                         addBackpack("LIFT-182 Warp Pack"),
                         addWeaponStratagem("PLAS-45 Epoch"),
@@ -292,12 +289,12 @@ public class Warbonds {
                         addHeavyArmor("Adreno-Defibrillator"),
                         addMedArmor("Adreno-Defibrillator"),
                         addLightArmor("Adreno-Defibrillator")},
-                new String[]{"",""}), //opt),
+                new String[]{}), //opt),
 
         Dust_Devils(
-                new String[]{"AR-2 Coyote",""},
-                new String[]{"",""},
-                new String[]{"G-7 Pineapple"},
+                new String[]{"AR-2 Coyote"},
+                new String[]{},
+                new String[]{addThrowable("G-7 Pineapple", Throwable.ThrowableType.Standard,Throwable.Penitration.Medium)},
                 new String[]{
                         addWeaponStratagem("S-11 Speargun"),
                         addWeaponStratagem("EAT-700 Expendable Napalm"),
@@ -306,12 +303,12 @@ public class Warbonds {
                         addLightArmor("Desert Stormer"),
                         addMedArmor("Desert Stormer"),
                         addHeavyArmor("Desert Stormer")},
-                new String[]{"",""}), //opt),
+                new String[]{}), //opt),
 
         Python_Commandos(
-                new String[]{"AR/GL-21 One-Two",""},
-                new String[]{"",""},
-                new String[]{"",""},
+                new String[]{"AR/GL-21 One-Two"},
+                new String[]{},
+                new String[]{},
                 new String[]{
                         addBackpack("AX/FLAM-75 \"Guard Dog\" Hot Dog"),
                         addWeaponStratagem("CQC-9 Defoliation Tool"),
@@ -319,8 +316,8 @@ public class Warbonds {
                 new String[]{
                         addLightArmor("Rock Solid"),
                         addMedArmor("Rock Solid"),
-                        addHeavyArmor("Rock Solid"),},
-                new String[]{"",""}),
+                        addHeavyArmor("Rock Solid")},
+                new String[]{}),
 
         Obedient_Democracy_Support_Troopers(
                 new String[]{
@@ -328,10 +325,10 @@ public class Warbonds {
                         "M7S SMG",
                         "M90A Shotgun"},
                 new String[]{"M6C/SOCOM Pistol"},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{},
                 new String[]{addMedArmor("Feet First")},
-                new String[]{"",""}), //opt),
+                new String[]{}), //opt),
 
         Helldivers_X_Killzone(
                 new String[]{
@@ -348,9 +345,9 @@ public class Warbonds {
                 new String[]{}),
 
         Super_Store(
-                new String[]{"",""},
-                new String[]{"",""},
-                new String[]{"",""},
+                new String[]{},
+                new String[]{},
+                new String[]{},
                 new String[]{},
                 new String[]{
                         addLightArmor("Servo-Assisted"),
@@ -366,26 +363,26 @@ public class Warbonds {
                         addMedArmor("Extra Padding"),
                         addMedArmor("Peak Physique"),
                         addMedArmor("Advanced Filtration")},
-                new String[]{"",""}), //opt),
+                new String[]{}), //opt),
 
         Pre_Order(
-                new String[]{""},
-                new String[]{"",""},
-                new String[]{"",""},
+                new String[]{},
+                new String[]{},
+                new String[]{},
                 new String[]{},
                 new String[]{
                         addMedArmor("Extra Padding"),
                         addMedArmor("Democracy Protects"),
                         addHeavyArmor("Servo-Assisted")},
-                new String[]{"",""}), //opt),
+                new String[]{}), //opt),
 
         Super_Citizen(
                 new String[]{"MP-98 Knight"},
-                new String[]{""},
-                new String[]{""},
+                new String[]{},
+                new String[]{},
                 new String[]{},
                 new String[]{addMedArmor("Democracy Protects")},
-                new String[]{""});
+                new String[]{});
 
 
 
@@ -496,6 +493,10 @@ public class Warbonds {
     }
     public static String addEncampment(String name){
         return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.GREEN,Stratagems.Subtype.ENCAMPMENT));
+    }
+    public static String addThrowable(String name,Throwable.ThrowableType type, Throwable.Penitration pen){
+        System.out.println(new Throwable(name, type,pen));
+        return String.valueOf(new Throwable(name, type,pen));
     }
 
 

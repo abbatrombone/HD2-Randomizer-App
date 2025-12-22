@@ -1,10 +1,10 @@
-package me.abbatrombone.traz;
+package me.abbatrombone.traz.Utilities;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringParser {
-    StringParser(){}
+    public StringParser(){}
 
     public String parseArmorLevel(String armor){
         String level = "";
@@ -41,6 +41,20 @@ public class StringParser {
         );
 
         Matcher matcher = pattern.matcher(stratagem);
+
+        if (matcher.find()) {
+            name = matcher.group(1);
+        }
+        return name;
+    }
+    public String parseThrowable(String throwable){
+        String name = "";
+
+        Pattern pattern = Pattern.compile(
+                "\\s*throwableName='([^']+)'"
+        );
+
+        Matcher matcher = pattern.matcher(throwable);
 
         if (matcher.find()) {
             name = matcher.group(1);
