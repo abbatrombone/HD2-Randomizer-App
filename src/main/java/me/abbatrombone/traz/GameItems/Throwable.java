@@ -5,11 +5,11 @@ public class Throwable {
     private final Penitration penitration;
     private final String throwableName;
 
-    enum ThrowableType{
+    public enum ThrowableType{
         Standard,
         Special
     }
-    enum Penitration{
+    public enum Penitration{
         Light,
         Medium,
         Heavy,
