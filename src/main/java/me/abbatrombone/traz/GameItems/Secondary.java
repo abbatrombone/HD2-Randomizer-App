@@ -24,7 +24,7 @@ public class Secondary {
     @Override
     public String toString() {
         return "Secondary{" +
-                "ArmorPen=" + armorPen +
+                "ArmorPen='" + armorPen + '\'' +
                 ", GunType='" + gunType + '\'' +
                 '}';
     }
