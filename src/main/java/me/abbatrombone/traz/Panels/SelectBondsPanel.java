@@ -1,5 +1,7 @@
 package me.abbatrombone.traz.Panels;
-import me.abbatrombone.traz.Warbonds;
+import me.abbatrombone.traz.CustomComponents.JScrollbarUIComp.CustomScrollbar;
+import me.abbatrombone.traz.CustomComponents.WarbondCheckBox;
+import me.abbatrombone.traz.GameItems.Warbonds;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,21 +12,25 @@ public class SelectBondsPanel {
     private final JScrollPane jScrollPane = new JScrollPane(panel);
     private final ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
     private final JPanel[] lines;
+    private final Color backgroundColor = new Color(51, 51, 51);
 
     public SelectBondsPanel(){
 
-        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
+        jScrollPane. getVerticalScrollBar().setUI(new CustomScrollbar().getUI());
+        jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollbar().getUI());
         JPanel labelHeaderPanel = new JPanel();
+        labelHeaderPanel.setBackground(backgroundColor);
         labelHeaderPanel.setLayout(new BoxLayout(labelHeaderPanel, BoxLayout.X_AXIS));
         labelHeaderPanel.add(Box.createHorizontalGlue());
+
         JLabel labelHeader = new JLabel("Warbonds");
+        labelHeader.setForeground(Color.WHITE);
         labelHeaderPanel.add(labelHeader);
         labelHeaderPanel.add(Box.createHorizontalGlue());
 
         GroupLayout layout = new GroupLayout(panel);
         panel.setLayout(layout);
+        panel.setBackground(backgroundColor);
         labelHeader.setAlignmentX(GroupLayout.Alignment.CENTER.ordinal());
         labelHeader.setOpaque(false);
 
@@ -35,7 +41,7 @@ public class SelectBondsPanel {
             lines[i] = makeRow(bonds[i]);
         }
 
-        GroupLayout.ParallelGroup h = layout.createParallelGroup(GroupLayout.Alignment.LEADING);
+        GroupLayout.ParallelGroup h = layout.createParallelGroup(); //removed GroupLayout.Alignment.LEADING
         GroupLayout.SequentialGroup v = layout.createSequentialGroup();
 
         h.addComponent(labelHeaderPanel);
@@ -46,21 +52,28 @@ public class SelectBondsPanel {
             v.addComponent(line);
         }
 
+
         layout.setHorizontalGroup(h);
         layout.setVerticalGroup(v);
+
+        panel.revalidate();
+        panel.setPreferredSize(panel.getPreferredSize());
     }
 
     private JPanel makeRow(Warbonds.Bonds bond) {
         JPanel p = new JPanel();
+        p.setBackground(backgroundColor);
+
         if(!bond.toString().equals("Cadet_Loadout")){
             p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
 
             String name = bond.toString();
             String nameWithSpace = name.replace("_"," ");
 
-            JCheckBox checkBox = new JCheckBox();
+            WarbondCheckBox checkBox = new WarbondCheckBox();
+            checkBox.setBackground(backgroundColor);
             JLabel label = new JLabel(nameWithSpace);
-            checkBox.setSelected(true);
+            label.setForeground(Color.WHITE);
             checkBox.setName(name);
 
             checkBoxes.add(checkBox);
