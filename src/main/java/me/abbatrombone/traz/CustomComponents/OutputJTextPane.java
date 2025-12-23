@@ -1,6 +1,6 @@
 package me.abbatrombone.traz.CustomComponents;
 
-import me.abbatrombone.traz.RandomLoadOut;
+import me.abbatrombone.traz.Panels.ButtonActions.RandomLoadOut;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,9 +12,14 @@ import java.util.Objects;
 
 public class OutputJTextPane extends JTextPane {
     private BufferedImage backgroundImage;
-    private float imageOpacity = 0.3f;
+    private final float imageOpacity = 0.3f;
+    private final static SimpleAttributeSet attributeSet = new SimpleAttributeSet();
 
     public OutputJTextPane() {
+
+        StyleConstants.setBold(attributeSet, true);
+        StyleConstants.setForeground(attributeSet, Color.BLACK);
+        setFont(new Font("FS Sinclair", Font.BOLD, 12)); //Swiss 721 Extended
 
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Super_Earth_Flag.jpg")));
@@ -27,9 +32,6 @@ public class OutputJTextPane extends JTextPane {
     public void updateText(){
         StyledDocument doc = getStyledDocument();
 
-        SimpleAttributeSet attributeSet = new SimpleAttributeSet();
-        StyleConstants.setBold(attributeSet, true);
-        StyleConstants.setForeground(attributeSet, Color.BLACK);
         //StyleConstants.setBackground(attributeSet, Color.ORANGE);
         if(!getText().isEmpty()){
             setText("");
