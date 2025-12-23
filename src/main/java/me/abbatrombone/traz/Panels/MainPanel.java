@@ -13,9 +13,12 @@ public class MainPanel {
     private static final OutputJTextPane output = new OutputJTextPane();
     private static final SelectBondsPanel selectBondsPanel = new SelectBondsPanel();
     private final ButtonPanel buttonPanel = new ButtonPanel(output);
+    private final Color bgColor = new Color(51,51,51);
 
     public MainPanel(){
-        labelPanelFull.setBackground(new Color(51, 51, 51));
+        output.setOpaque(true);
+        labelPanelFull.setBackground(bgColor);
+        mainPanel.setBackground(bgColor);
 
         GroupLayout mainPanelLayout = new GroupLayout(labelPanelFull);
 
@@ -51,7 +54,7 @@ public class MainPanel {
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelPanelFull, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(output, 350,350,350)
                                                 .addComponent(buttonPanel.getPanel())
