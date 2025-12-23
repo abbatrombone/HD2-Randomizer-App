@@ -1,7 +1,11 @@
-package me.abbatrombone.traz;
+package me.abbatrombone.traz.Panels.ButtonActions;
 
+import me.abbatrombone.traz.GameItems.Stratagems;
+import me.abbatrombone.traz.GameItems.Warbonds;
+import me.abbatrombone.traz.Panels.GearPanel;
 import me.abbatrombone.traz.Panels.MainPanel;
 import me.abbatrombone.traz.Panels.SelectBondsPanel;
+import me.abbatrombone.traz.Utilities.StringParser;
 
 import javax.swing.*;
 import java.util.*;
@@ -24,8 +28,7 @@ public class RandomLoadOut {
         warbondThrowable();
         warbondSecondary();
         warbondBooster();
-        enemyType(); //change output area to have flag of the enemy.
-
+        enemyType();
         String difficulty = diff();
 
         return "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType + "\n\n" +
@@ -211,19 +214,20 @@ public class RandomLoadOut {
     public static void warbondThrowable(){
         SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
         ArrayList<String> throwableList = new ArrayList<>();
+        StringParser stringParser = new StringParser();
         Set<String> seen = new HashSet<>();
 
         for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
             if(box.isSelected()){
                 Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
-                for(String thorwn : bond.getThrowable()){
-                    if (seen.add(thorwn) && !thorwn.isBlank()) {
-                        throwableList.add(thorwn);
+                for(String thrown : bond.getThrowable()){
+                    if (seen.add(thrown) && !thrown.isBlank()) {
+                        throwableList.add(thrown);
                     }
                 }
             }
         }
-        throwable = throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size()));
+        throwable = stringParser.parseThrowable(throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size())));
     }
     public static void warbondSecondary(){
         SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
