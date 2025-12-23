@@ -1,4 +1,4 @@
-package me.abbatrombone.traz;
+package me.abbatrombone.traz.Panels.ButtonActions;
 
 import java.util.ArrayList;
 import java.util.List;
