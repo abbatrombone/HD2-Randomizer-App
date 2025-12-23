@@ -1,11 +1,12 @@
 package me.abbatrombone.traz.Panels;
 
-import me.abbatrombone.traz.Challenges;
+import me.abbatrombone.traz.Panels.ButtonActions.Challenges;
 import me.abbatrombone.traz.CustomComponents.OutputJTextPane;
-import me.abbatrombone.traz.SemiRandomLoadOut;
-import me.abbatrombone.traz.Tips;
+import me.abbatrombone.traz.Panels.ButtonActions.SemiRandomLoadOut;
+import me.abbatrombone.traz.Panels.ButtonActions.Tips;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -18,30 +19,42 @@ public class ButtonPanel {
     private JButton challenges = new JButton();
     private JButton tips = new JButton();
     private OutputJTextPane output;
+    private final Color backgroundColor = new Color(51, 51, 51);
 
     public ButtonPanel(OutputJTextPane output){
         this.output = output;
 
+        panel.setBackground(new Color(51, 51, 51));
 
         random.setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14)); // NOI18N
         random.setText("Full Random");
         random.addActionListener(this::randomButtonActionPerformed);
+        random.setBackground(backgroundColor);
+        random.setForeground(Color.WHITE);
 
         semirandom.setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14)); // NOI18N
         semirandom.setText("Semi Random");
         semirandom.addActionListener(this::semiRandomButtonActionPerformed);
+        semirandom.setBackground(backgroundColor);
+        semirandom.setForeground(Color.WHITE);
 
         clear.setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14)); // NOI18N
         clear.setText("Clear");
         clear.addActionListener(this::clearButtonActionPerformed);
+        clear.setBackground(backgroundColor);
+        clear.setForeground(Color.WHITE);
 
         challenges.setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14)); // NOI18N
         challenges.setText("Challenges");
         challenges.addActionListener(this::challengeButtonActionPerformed);
+        challenges.setBackground(backgroundColor);
+        challenges.setForeground(Color.WHITE);
 
         tips.setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14));
         tips.setText("Tips");
         tips.addActionListener(this::tipButtonActionPerformed);
+        tips.setBackground(backgroundColor);
+        tips.setForeground(Color.WHITE);
 
         panel.setMaximumSize(new Dimension(200,300));
         panel.setPreferredSize(new Dimension(200,300));
