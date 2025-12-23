@@ -1,5 +1,6 @@
-package me.abbatrombone.traz;
+package me.abbatrombone.traz.Utilities;
 
+import me.abbatrombone.traz.Main;
 import me.abbatrombone.traz.Managers.OSManager;
 import me.abbatrombone.traz.Managers.SettingsManager;
 
