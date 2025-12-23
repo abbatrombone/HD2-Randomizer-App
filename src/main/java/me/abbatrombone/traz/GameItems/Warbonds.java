@@ -2,7 +2,6 @@ package me.abbatrombone.traz.GameItems;
 
 import java.util.Arrays;
 
-//remove backpack values and move into stratagems. for all!
 public class Warbonds {
 
     public enum Bonds {
@@ -495,7 +494,6 @@ public class Warbonds {
         return String.valueOf(new Stratagems(name, Stratagems.StratagemColor.GREEN,Stratagems.Subtype.ENCAMPMENT));
     }
     public static String addThrowable(String name,Throwable.ThrowableType type, Throwable.Penitration pen){
-        System.out.println(new Throwable(name, type,pen));
         return String.valueOf(new Throwable(name, type,pen));
     }
 
