@@ -32,6 +32,7 @@ public class RulesPanel {
                 4) Win for Democracy!
                 """);
         panel.add(textArea);
+        panel.setBackground(new Color(51,51,51));
 
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

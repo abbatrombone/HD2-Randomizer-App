@@ -19,7 +19,7 @@ public class RulesTextArea extends JTextArea {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        setOpaque(false);
+        setOpaque(true);
         setEditable(false);
     }
 
