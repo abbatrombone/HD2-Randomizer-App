@@ -26,6 +26,7 @@ public class WarbondCheckBox extends JCheckBox {
             setFocusPainted(false);
             setBorderPainted(false);
             setSelected(true);
+            setToolTipText("Warbond is selected");
             addActionListener(e -> setToolTipText(isSelected() ? "Warbond is selected" : "Warbond is not selected"));
 
         } catch (IOException e) {
