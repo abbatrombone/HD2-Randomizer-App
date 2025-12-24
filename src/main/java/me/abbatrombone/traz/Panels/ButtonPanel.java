@@ -29,10 +29,19 @@ public class ButtonPanel {
 
 
         random.addActionListener(this::randomButtonActionPerformed);
+        random.setToolTipText("Provides random weapons, armor, and stratagems based on selected warbonds");
+
         semirandom.addActionListener(this::semiRandomButtonActionPerformed);
+        semirandom.setToolTipText("Provides random weapons, armor, and stratagems based on selected warbonds. Stratagmes will have a more even mix");
+
         clear.addActionListener(this::clearButtonActionPerformed);
+        clear.setToolTipText("Clears text panel");
+
         challenges.addActionListener(this::challengeButtonActionPerformed);
+        challenges.setToolTipText("Provides extra challenges for a run");
+
         tips.addActionListener(this::tipButtonActionPerformed);
+        tips.setToolTipText("Tips provided by your local democracy officer");
 
         panel.setMaximumSize(new Dimension(200,300));
         panel.setPreferredSize(new Dimension(200,300));
