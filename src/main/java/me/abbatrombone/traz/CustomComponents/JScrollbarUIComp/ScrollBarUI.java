@@ -51,15 +51,16 @@ public class ScrollBarUI extends BasicScrollBarUI {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         Color color = null;
         JScrollBar sb = (JScrollBar) c;
-        if (!sb.isEnabled() || r.width > r.height) {
+        if (!sb.isEnabled() ) { // removed || r.width > r.height
             return;
         } else if (isDragging) {
-            color = Color.YELLOW; // change color
+            color = Color.YELLOW;
         } else if (isThumbRollover()) {
-            color = Color.YELLOW; // change color
+            color = Color.YELLOW;
         } else {
-            color = Color.WHITE; // change color
+            color = Color.WHITE;
         }
+
         g2.setPaint(color);
         g2.fillRoundRect(r.x, r.y, r.width, r.height, 10, 10);
         g2.setPaint(new Color(51,51,51));
