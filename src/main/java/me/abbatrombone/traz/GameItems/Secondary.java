@@ -5,18 +5,18 @@ public class Secondary {
     private final GunType gunType;
     private final String gunName;
 
-    enum ArmorPen{
+    public enum ArmorPen{
         Light,
         Med,
         Heavy
     }
 
-    enum GunType{
+    public enum GunType{
         Pistol,
         Melee,
         Special
     }
-    public Secondary(String gunName, ArmorPen armorPen, GunType gunType){
+    public Secondary(String gunName, GunType gunType,ArmorPen armorPen){
         this.gunName = gunName;
         this.armorPen = armorPen;
         this.gunType = gunType;
@@ -24,6 +24,7 @@ public class Secondary {
     @Override
     public String toString() {
         return "Secondary{" +
+                "gunName='" + gunName + '\'' +
                 "ArmorPen='" + armorPen + '\'' +
                 ", GunType='" + gunType + '\'' +
                 '}';

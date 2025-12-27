@@ -20,7 +20,7 @@ public class Primaries {
         Energy,
         Special
     }
-    public Primaries(String gunName, ArmorPen armorPen, GunType gunType){
+    public Primaries(String gunName, GunType gunType,ArmorPen armorPen){
         this.gunName = gunName;
         this.armorPen = armorPen;
         this.gunType = gunType;
@@ -28,9 +28,9 @@ public class Primaries {
     @Override
     public String toString() {
         return "Primary{" +
-                "ArmorPen=" + armorPen +
+                "gunName='" + gunName + '\'' +
+                "ArmorPen='" + armorPen + '\'' +
                 ", GunType='" + gunType + '\'' +
                 '}';
     }
-
 }

@@ -89,5 +89,19 @@ public class StringParser {
         }
         return name;
     }
+    public String parseSecondaryName(String primary){
+        String name = "";
+
+        Pattern pattern = Pattern.compile(
+                "\\s*gunName='([^']+)'"
+        );
+
+        Matcher matcher = pattern.matcher(primary);
+
+        if (matcher.find()) {
+            name = matcher.group(1);
+        }
+        return name;
+    }
 
 }

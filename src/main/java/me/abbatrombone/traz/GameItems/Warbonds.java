@@ -6,8 +6,8 @@ public class Warbonds {
 
     public enum Bonds {
         Cadet_Loadout(
-                new String[]{"AR-23 Liberator"},
-                new String[]{"P-2 Peacemaker"},
+                new String[]{addPrimary("AR-23 Liberator", Primaries.GunType.AR, Primaries.ArmorPen.Light)},
+                new String[]{addSecondary("P-2 Peacemaker",Secondary.GunType.Pistol,Secondary.ArmorPen.Light)},
                 new String[]{addThrowable("G-12 High Explosive", Throwable.ThrowableType.Standard,Throwable.Penitration.Heavy)},
                 new String[]{
                         // Blue Strats
@@ -496,6 +496,13 @@ public class Warbonds {
     public static String addThrowable(String name,Throwable.ThrowableType type, Throwable.Penitration pen){
         return String.valueOf(new Throwable(name, type,pen));
     }
+    public static String addPrimary(String name, Primaries.GunType guntype,Primaries.ArmorPen armorPen){
+        return String.valueOf(new Primaries(name, guntype,armorPen));
+    }
+    public static String addSecondary(String name, Secondary.GunType guntype,Secondary.ArmorPen armorPen){
+        return String.valueOf(new Secondary(name, guntype,armorPen));
+    }
+
 
 
     private static String[] concat(String[]... arrays) {
