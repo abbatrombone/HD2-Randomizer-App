@@ -16,8 +16,14 @@ public class SelectBondsPanel {
 
     public SelectBondsPanel(){
 
-        jScrollPane. getVerticalScrollBar().setUI(new CustomScrollbar().getUI());
+        jScrollPane.getVerticalScrollBar().setUI(new CustomScrollbar().getUI());
         jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollbar().getUI());
+
+        //fixes uncolored corner when both scrollbars exist
+        JPanel corner = new JPanel();
+        corner.setBackground(new Color(51,51,51));
+        jScrollPane.setCorner(JScrollPane.LOWER_RIGHT_CORNER, corner);
+
         JPanel labelHeaderPanel = new JPanel();
         labelHeaderPanel.setBackground(backgroundColor);
         labelHeaderPanel.setLayout(new BoxLayout(labelHeaderPanel, BoxLayout.X_AXIS));
@@ -51,7 +57,6 @@ public class SelectBondsPanel {
             h.addComponent(line);
             v.addComponent(line);
         }
-
 
         layout.setHorizontalGroup(h);
         layout.setVerticalGroup(v);
