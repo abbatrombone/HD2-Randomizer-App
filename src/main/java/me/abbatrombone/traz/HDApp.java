@@ -1,9 +1,10 @@
 package me.abbatrombone.traz;
 
+import me.abbatrombone.traz.GameItems.Warbonds;
 import me.abbatrombone.traz.Panels.*;
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
+import java.util.Arrays;
 
 public class HDApp {
     private final JFrame frame = new JFrame();
@@ -11,13 +12,12 @@ public class HDApp {
     private final MainPanel mainPanel = new MainPanel();
     private final GearPanel gearPanel = new GearPanel();
     private final RulesPanel rulesPanel = new RulesPanel();
-    JPanel cards;
 
     public HDApp() {
         initComponents();
     }
     private void initComponents() {
-
+        System.out.println(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary()));
         frame.getContentPane().setBackground(new Color(51,51,51));
         frame.setTitle("Helldivers 2 Randomizer");
         frame.setLocationRelativeTo(null);
@@ -32,8 +32,8 @@ public class HDApp {
         JPanel randomizerPage = mainPanel.getMainPanel();
         tabPanel.addTab("Randomizer", randomizerPage);
 
-        JPanel gearPage = gearPanel.getPanel();
-        tabPanel.addTab("Gear Information", gearPage);
+//        JPanel gearPage = gearPanel.getPanel();
+//        tabPanel.addTab("Gear Information", gearPage);
 
         JScrollPane rulePage = rulesPanel.getjScrollPane();
         tabPanel.addTab("Randomzier Rules", rulePage);
