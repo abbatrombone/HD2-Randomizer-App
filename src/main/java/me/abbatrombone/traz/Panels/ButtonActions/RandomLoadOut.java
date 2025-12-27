@@ -229,6 +229,8 @@ public class RandomLoadOut {
                 }
             }
         }
+        StringParser p = new StringParser();
+        throwableList.add(p.parseThrowable(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable())));
         throwable = stringParser.parseThrowable(throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size())));
     }
     public static void warbondSecondary(){
@@ -246,6 +248,8 @@ public class RandomLoadOut {
                 }
             }
         }
+        StringParser p = new StringParser();
+        secondaryList.add(p.parseSecondaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary())));
         secondaryWeapon = secondaryList.get(ThreadLocalRandom.current().nextInt(secondaryList.size()));
     }
 }
