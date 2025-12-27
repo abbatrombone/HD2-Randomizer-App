@@ -61,5 +61,33 @@ public class StringParser {
         }
         return name;
     }
+    public String parsePrimaryType(String primary){
+        String name = "";
+
+        Pattern pattern = Pattern.compile(
+                "\\s*GunType='([^']+)'"
+        );
+
+        Matcher matcher = pattern.matcher(primary);
+
+        if (matcher.find()) {
+            name = matcher.group(1);
+        }
+        return name;
+    }
+    public String parsePrimaryName(String primary){
+        String name = "";
+
+        Pattern pattern = Pattern.compile(
+                "\\s*gunName='([^']+)'"
+        );
+
+        Matcher matcher = pattern.matcher(primary);
+
+        if (matcher.find()) {
+            name = matcher.group(1);
+        }
+        return name;
+    }
 
 }

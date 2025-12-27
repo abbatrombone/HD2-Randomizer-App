@@ -209,6 +209,8 @@ public class RandomLoadOut {
                 }
             }
         }
+        StringParser p = new StringParser();
+        primaryList.add(p.parsePrimaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
         primaryWeapon = primaryList.get(ThreadLocalRandom.current().nextInt(primaryList.size()));
     }
     public static void warbondThrowable(){
