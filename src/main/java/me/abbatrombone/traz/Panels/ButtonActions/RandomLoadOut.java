@@ -57,6 +57,10 @@ public class RandomLoadOut {
                 }
             }
         }
+        String[] basic = Warbonds.Bonds.Cadet_Loadout.getStratagem();
+        for(String s : basic){
+            stratagemsList.add(stringParser.parseStrategem(s));
+        }
 
         Collections.shuffle(stratagemsList, ThreadLocalRandom.current());
 
@@ -189,6 +193,8 @@ public class RandomLoadOut {
                 }
             }
         }
+
+        armorList.add(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getArmor()));
         String selectedArmor = armorList.get(ThreadLocalRandom.current().nextInt(armorList.size()));
 
         armorLevel = stringParser.parseArmorLevel(selectedArmor);
@@ -212,6 +218,7 @@ public class RandomLoadOut {
         StringParser p = new StringParser();
         primaryList.add(p.parsePrimaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
         primaryWeapon = primaryList.get(ThreadLocalRandom.current().nextInt(primaryList.size()));
+        primaryWeapon = p.parsePrimaryName(primaryWeapon);
     }
     public static void warbondThrowable(){
         SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
@@ -251,5 +258,6 @@ public class RandomLoadOut {
         StringParser p = new StringParser();
         secondaryList.add(p.parseSecondaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary())));
         secondaryWeapon = secondaryList.get(ThreadLocalRandom.current().nextInt(secondaryList.size()));
+        secondaryWeapon =  p.parseSecondaryName(secondaryWeapon);
     }
 }
