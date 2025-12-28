@@ -82,23 +82,23 @@ public class Warbonds {
 
         Helldivers_Mobilize(
                 new String[]{
-                        "Ar-23P Liberator Penetrator", //prim
-                        "R-63 Dilligence",
-                        "R-63CS Dilligence Counter Sniper",
-                        "Smg-37 Defender",
-                        "Sg-8 Punisher",
-                        "Sg-8S Slugger",
-                        "Sg-255 Breaker",
-                        "Sg-225SP Breaker Spray & Pray",
-                        "Las-5 Scythe",
-                        "Plas-1 Scorcher"},
-                new String[]{"P-19 Redeemer"}, //sec
+                        addPrimary("Ar-23P Liberator Penetrator", Primaries.GunType.AR, Primaries.ArmorPen.Med),
+                        addPrimary("R-63 Dilligence", Primaries.GunType.Marksmen, Primaries.ArmorPen.Light),
+                        addPrimary("R-63CS Dilligence Counter Sniper",Primaries.GunType.Marksmen, Primaries.ArmorPen.Med),
+                        addPrimary("Smg-37 Defender", Primaries.GunType.Submachine, Primaries.ArmorPen.Light),
+                        addPrimary("Sg-8 Punisher", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
+                        addPrimary("Sg-8S Slugger", Primaries.GunType.Shotgun, Primaries.ArmorPen.Med),
+                        addPrimary("Sg-255 Breaker", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
+                        addPrimary("Sg-225SP Breaker Spray & Pray", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
+                        addPrimary("Las-5 Scythe", Primaries.GunType.Energy, Primaries.ArmorPen.Light),
+                        addPrimary("Plas-1 Scorcher", Primaries.GunType.Special, Primaries.ArmorPen.Med)},
+                new String[]{addSecondary("P-19 Redeemer",Secondary.GunType.Pistol, Secondary.ArmorPen.Light)},
                 new String[]{
                        addThrowable("G-6 Frag", Throwable.ThrowableType.Standard,Throwable.Penitration.Medium),
                        addThrowable("G-16 Impact", Throwable.ThrowableType.Special, Throwable.Penitration.Heavy),
-                       addThrowable("G-3 Smoke", Throwable.ThrowableType.Special, Throwable.Penitration.No_Hitbox)}, //throw
+                       addThrowable("G-3 Smoke", Throwable.ThrowableType.Special, Throwable.Penitration.No_Hitbox)},
                 new String[]{}, //strat
-                new String[]{ //armor
+                new String[]{
                         addLightArmor("Scout"),
                         addLightArmor("Extra Padding"),
                         addMedArmor("Scout"),
@@ -107,7 +107,6 @@ public class Warbonds {
                         addMedArmor("Democracy Protects"),
                         addHeavyArmor("Fortifeid"),
                         addHeavyArmor("Democracy Protects")},
-                //opt
                 new String[]{
                         "Hellpod Space Optimization",
                         "Vitality Enhancement",
@@ -119,110 +118,110 @@ public class Warbonds {
 
         Steeled_Veterans(
                 new String[]{
-                        "Ar-23C- Liberator Concussive",
-                        "Jar-5 Dominator",
-                        "Sg-2251E Breaker Incendiary"},
-                new String[]{"P-4 Senator"},
+                        addPrimary("Ar-23C- Liberator Concussive", Primaries.GunType.AR, Primaries.ArmorPen.Light),
+                        addPrimary("Jar-5 Dominator", Primaries.GunType.Special, Primaries.ArmorPen.Med),
+                        addPrimary("Sg-2251E Breaker Incendiary", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light)},
+                new String[]{addSecondary("P-4 Senator", Secondary.GunType.Pistol, Secondary.ArmorPen.Heavy)},
                 new String[]{addThrowable("G-10 Incendiary", Throwable.ThrowableType.Standard,Throwable.Penitration.Medium)},
-                new String[]{"",""},
+                new String[]{},
                 new String[]{
                         addLightArmor("Servo-Assisted"),
                         addMedArmor("Servo-Assisted"),
                         addHeavyArmor("Servo-Assisted")},
-                new String[]{"Flexible Reinforcement Budget"}), //opt),
+                new String[]{"Flexible Reinforcement Budget"}),
 
         Cutting_Edge(
                 new String[]{
-                        "Arc-12 Blitzer",
-                        "Las-16 Sickle",
-                        "SG-8P Punisher Plasma"},
-                new String[]{"Las-7 Dagger"},
+                        addPrimary("Arc-12 Blitzer", Primaries.GunType.Energy, Primaries.ArmorPen.Med),
+                        addPrimary("Las-16 Sickle", Primaries.GunType.Energy, Primaries.ArmorPen.Light),
+                        addPrimary("SG-8P Punisher Plasma", Primaries.GunType.Energy, Primaries.ArmorPen.Med)},
+                new String[]{addSecondary("Las-7 Dagger", Secondary.GunType.Special, Secondary.ArmorPen.Light)},
                 new String[]{addThrowable("G-23 Stun", Throwable.ThrowableType.Special, Throwable.Penitration.Anti_Tank_II)},
-                new String[]{},  //Strats
+                new String[]{},
                 new String[]{
                         addLightArmor("Electrical Conduit"),
                         addMedArmor("Electrical Conduit"),
                 },
-                new String[]{"Localization Confusion"}), //opt),
+                new String[]{"Localization Confusion"}),
 
         Democratic_Detonation(
                 new String[]{
-                        "Br-14 Adjudicator",
-                        "Cb Exploding Crossbow",
-                        "R-36 Eruiptor"},
-                new String[]{"Gp-31 Grenade Pistol"},
+                        addPrimary("Br-14 Adjudicator", Primaries.GunType.AR, Primaries.ArmorPen.Med),
+                        addPrimary("Cb Exploding Crossbow", Primaries.GunType.Explosive, Primaries.ArmorPen.Med),
+                        addPrimary("R-36 Eruiptor", Primaries.GunType.Explosive, Primaries.ArmorPen.Heavy)},
+                new String[]{addSecondary("Gp-31 Grenade Pistol", Secondary.GunType.Special, Secondary.ArmorPen.Med)},
                 new String[]{addThrowable("6-123 Thermite", Throwable.ThrowableType.Special, Throwable.Penitration.Anti_Tank_III)},
                 new String[]{},
                 new String[]{
                         addLightArmor("Engineering Kit"),
                         addMedArmor("Engineering Kit"),
                         addHeavyArmor("Fortified")},
-                new String[]{"Expert Extraction Pilot"}), //opt),
+                new String[]{"Expert Extraction Pilot"}),
 
 
         Polar_Patriots( new String[]{
-                "Ar-61 Tenderizer",
-                "Smg-72 Pummeler",
-                "Plas-101 Purifier"},
-                new String[]{"P-2 P-113 Verdict"},
+                addPrimary("Ar-61 Tenderizer", Primaries.GunType.AR, Primaries.ArmorPen.Light),
+                addPrimary("Smg-72 Pummeler", Primaries.GunType.Submachine, Primaries.ArmorPen.Light),
+                addPrimary("Plas-101 Purifier", Primaries.GunType.Energy, Primaries.ArmorPen.Med)},
+                new String[]{addSecondary("P-2 P-113 Verdict", Secondary.GunType.Pistol, Secondary.ArmorPen.Med)},
                 new String[]{addThrowable("G-13 Incendiary Impact", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
-                new String[]{},  // Strats
-                new String[]{ // Armor
+                new String[]{},
+                new String[]{
                         addLightArmor("Scout"),
                         addHeavyArmor("Fortifeid"),
                         addHeavyArmor("Servo-Assisted")},
-                new String[]{"Motivational Shocks"}), //booster),
+                new String[]{"Motivational Shocks"}),
 
         Viper_Commandos(
-                new String[]{"Ar-23A Liberator Carbine"},
-                new String[]{"sg-22 Bushwhacker"},
+                new String[]{addPrimary("Ar-23A Liberator Carbine", Primaries.GunType.AR, Primaries.ArmorPen.Light)},
+                new String[]{addSecondary("SG-22 Bushwhacker", Secondary.GunType.Special, Secondary.ArmorPen.Light)},
                 new String[]{addThrowable("K-2 Throwing Knife", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
                 new String[]{},
                 new String[]{
                         addLightArmor("Peak Physique"),
                         addMedArmor("Peak Physique"),
                         addHeavyArmor("Peak Physique")},
-                new String[]{"Experimental Infusion"}), //Booster),
+                new String[]{"Experimental Infusion"}),
 
         Freedom_Flame(
                 new String[]{
-                        "Sg-451 Cookout",
-                        "Flam-66 Torcher"},
-                new String[]{"P-72 Crisper"},
+                       addPrimary("Sg-451 Cookout", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
+                       addPrimary("Flam-66 Torcher", Primaries.GunType.Special, Primaries.ArmorPen.Heavy)},
+                new String[]{addSecondary("P-72 Crisper", Secondary.GunType.Special, Secondary.ArmorPen.Heavy)},
                 new String[]{},
                 new String[]{},
                 new String[]{
                         addLightArmor("Inflammable"),
                         addMedArmor("Inflammable"),
                         addHeavyArmor("Inflammable")},
-                new String[]{"Firebomb Hellpods"}), //Booster),
+                new String[]{"Firebomb Hellpods"}),
 
         Chemical_Agents(
-                new String[]{},    //pri
-                new String[]{"P-11 Stim Pistol"},    //sec
-                new String[]{addThrowable("G-4 Gas", Throwable.ThrowableType.Special, Throwable.Penitration.Anti_Tank_II)},    //thrown
+                new String[]{},
+                new String[]{addSecondary("P-11 Stim Pistol", Secondary.GunType.Special, Secondary.ArmorPen.NA)},
+                new String[]{addThrowable("G-4 Gas", Throwable.ThrowableType.Special, Throwable.Penitration.Anti_Tank_II)},
                 new String[]{addBackpack("AX/TX-13 \"Guard Dog\" Dog Breath"),
-                        addWeaponStratagem("TX-41 Sterilizer")}, //strat
-                new String[]{           //armor
+                        addWeaponStratagem("TX-41 Sterilizer")},
+                new String[]{
                         addLightArmor("Advanced Filtration"),
                         addMedArmor("Advanced Filtration")},
-                new String[]{}), //booster),
+                new String[]{}),
 
         Truth_Enforcers(
                 new String[]{
-                        "Smg-32 Reprimand",
-                        "Sg-20 Halt"},
-                new String[]{"Plas-15 Loyalist"},
+                       addPrimary("Smg-32 Reprimand", Primaries.GunType.Submachine, Primaries.ArmorPen.Med),
+                       addPrimary( "Sg-20 Halt", Primaries.GunType.Shotgun, Primaries.ArmorPen.Med)}, //techincally lighh & Med
+                new String[]{addSecondary("Plas-15 Loyalist", Secondary.GunType.Special, Secondary.ArmorPen.Med)},
                 new String[]{},
                 new String[]{},
                 new String[]{
                         addLightArmor("Unflinching"),
                         addMedArmor("Unflinching") },
-                new String[]{"Dead Sprint"}), //opt),
+                new String[]{"Dead Sprint"}),
 
         Urban_Legends(
                 new String[]{},
-                new String[]{"Cqc-19 stun Lance","CQC-30 Stun Baton"},
+                new String[]{addSecondary("Cqc-19 stun Lance", Secondary.GunType.Melee, Secondary.ArmorPen.Med),addSecondary("CQC-30 Stun Baton", Secondary.GunType.Melee, Secondary.ArmorPen.Med)},
                 new String[]{},
                 new String[]{
                         addTurret("Flame Sentry"),
@@ -231,42 +230,42 @@ public class Warbonds {
                 new String[]{
                         addLightArmor("Siege-Ready"),
                         addHeavyArmor("Siege-Ready")},
-                new String[]{"Armed Resupply Pods"}), //opt),
+                new String[]{"Armed Resupply Pods"}),
 
         Servants_of_Freedom(
-                new String[]{"LAS-17 Double-Edge Sickle"},
-                new String[]{"GP-31 Ultimatum"},
+                new String[]{addPrimary("LAS-17 Double-Edge Sickle", Primaries.GunType.Energy, Primaries.ArmorPen.Heavy)}, //techinaclly light & Med & Heavy
+                new String[]{addSecondary("GP-31 Ultimatum", Secondary.GunType.Special, Secondary.ArmorPen.Anti_Tank_II)},
                 new String[]{addThrowable("G-50 Seeker", Throwable.ThrowableType.Special, Throwable.Penitration.Heavy)},
                 new String[]{addBackpack("Portable Hellbomb")},
                 new String[]{
                         addLightArmor("Integrated Explosives"),
                         addMedArmor("Integrated Explosives")},
-                new String[]{"",""}), //opt),
+                new String[]{}),
 
         Borderline_Justice(
-                new String[]{"R-6 Deadeye"},
-                new String[]{"LAS-58 Talon"},
+                new String[]{addPrimary("R-6 Deadeye", Primaries.GunType.Marksmen, Primaries.ArmorPen.Med)},
+                new String[]{addSecondary("LAS-58 Talon", Secondary.GunType.Special, Secondary.ArmorPen.Med)},
                 new String[]{addThrowable("TED-63 Dynamite", Throwable.ThrowableType.Standard, Throwable.Penitration.Heavy)},
                 new String[]{addBackpack("LIFT-860 Hover Pack")},
                 new String[]{
                         addLightArmor("Gunslinger"),
                         addMedArmor("Gunslinger"),
                         addHeavyArmor("Gunslinger")},
-                new String[]{"Sample Extricator"}), //opt),
+                new String[]{"Sample Extricator"}),
 
         Masters_of_Ceremony(
-                new String[]{"R-2 Amendment"},
-                new String[]{"CQC-2 Saber"},
+                new String[]{addPrimary("R-2 Amendment", Primaries.GunType.Marksmen, Primaries.ArmorPen.Light)},
+                new String[]{addSecondary("CQC-2 Saber", Secondary.GunType.Melee, Secondary.ArmorPen.Med)},
                 new String[]{addThrowable("G-142 Pyrotech", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
                 new String[]{addWeaponStratagem("CQC-1 One True Flag")},
                 new String[]{
                         addLightArmor("Reinforced Epaulettes"),
                         addMedArmor("Reinforced Epaulettes"),
                         addHeavyArmor("Reinforced Epaulettes")},
-                new String[]{"Sample Scanner"}), //opt),
+                new String[]{"Sample Scanner"}),
 
         Force_of_Law(
-                new String[]{"AR-32 Pacifier"},
+                new String[]{addPrimary("AR-32 Pacifier", Primaries.GunType.AR, Primaries.ArmorPen.Med)},
                 new String[]{},
                 new String[]{addThrowable("G-109 Urchin", Throwable.ThrowableType.Special, Throwable.Penitration.Anti_Tank_II)},
                 new String[]{addBackpack("AX/ARC-3 \"Guard Dog\" K-9"),addWeaponStratagem("GL-52 De-Escalator")},
@@ -274,10 +273,10 @@ public class Warbonds {
                         addLightArmor("Ballistic Padding"),
                         addMedArmor("Ballistic Padding"),
                         addHeavyArmor("Ballistic Padding")},
-                new String[]{"Stun Pods"}), //opt),
+                new String[]{"Stun Pods"}),
 
         Control_Group(
-                new String[]{"VG-70 Variable"},
+                new String[]{addPrimary("VG-70 Variable", Primaries.GunType.Special, Primaries.ArmorPen.Light)},
                 new String[]{},
                 new String[]{addThrowable("G-31 Arc", Throwable.ThrowableType.Special, Throwable.Penitration.Heavy)},
                 new String[]{
@@ -288,10 +287,10 @@ public class Warbonds {
                         addHeavyArmor("Adreno-Defibrillator"),
                         addMedArmor("Adreno-Defibrillator"),
                         addLightArmor("Adreno-Defibrillator")},
-                new String[]{}), //opt),
+                new String[]{}),
 
         Dust_Devils(
-                new String[]{"AR-2 Coyote"},
+                new String[]{addPrimary("AR-2 Coyote", Primaries.GunType.AR, Primaries.ArmorPen.Med)},
                 new String[]{},
                 new String[]{addThrowable("G-7 Pineapple", Throwable.ThrowableType.Standard,Throwable.Penitration.Medium)},
                 new String[]{
@@ -302,10 +301,10 @@ public class Warbonds {
                         addLightArmor("Desert Stormer"),
                         addMedArmor("Desert Stormer"),
                         addHeavyArmor("Desert Stormer")},
-                new String[]{}), //opt),
+                new String[]{}),
 
         Python_Commandos(
-                new String[]{"AR/GL-21 One-Two"},
+                new String[]{addPrimary("AR/GL-21 One-Two", Primaries.GunType.AR, Primaries.ArmorPen.Light)}, //Secondary is med
                 new String[]{},
                 new String[]{},
                 new String[]{
@@ -320,20 +319,20 @@ public class Warbonds {
 
         Obedient_Democracy_Support_Troopers(
                 new String[]{
-                        "MA5C Assault Rifle",
-                        "M7S SMG",
-                        "M90A Shotgun"},
-                new String[]{"M6C/SOCOM Pistol"},
+                        addPrimary("MA5C Assault Rifle", Primaries.GunType.AR, Primaries.ArmorPen.Med),
+                        addPrimary("M7S SMG", Primaries.GunType.Submachine, Primaries.ArmorPen.Light),
+                        addPrimary("M90A Shotgun", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light)},
+                new String[]{addSecondary("M6C/SOCOM Pistol", Secondary.GunType.Pistol, Secondary.ArmorPen.Light)},
                 new String[]{},
                 new String[]{},
                 new String[]{addMedArmor("Feet First")},
-                new String[]{}), //opt),
+                new String[]{}),
 
         Helldivers_X_Killzone(
                 new String[]{
-                        "PLAS-39 Accelerator Rifle",
-                        "StA-52 Assault Rifle",
-                        "StA-11 SMG"},
+                        addPrimary("PLAS-39 Accelerator Rifle", Primaries.GunType.Energy, Primaries.ArmorPen.Med),
+                        addPrimary("StA-52 Assault Rifle", Primaries.GunType.AR, Primaries.ArmorPen.Light),
+                        addPrimary("StA-11 SMG", Primaries.GunType.Submachine, Primaries.ArmorPen.Light)},
                 new String[]{},
                 new String[]{},
                 new String[]{},
@@ -345,7 +344,11 @@ public class Warbonds {
 
         Super_Store(
                 new String[]{},
-                new String[]{},
+                new String[]{
+                        addSecondary("P-92 Warrant", Secondary.GunType.Pistol, Secondary.ArmorPen.Med),
+                        addSecondary("CQC-5 Combat Hatchet", Secondary.GunType.Melee, Secondary.ArmorPen.Med),
+                        addSecondary("CQC-42 Machte", Secondary.GunType.Melee, Secondary.ArmorPen.Med)
+                },
                 new String[]{},
                 new String[]{},
                 new String[]{
@@ -362,7 +365,7 @@ public class Warbonds {
                         addMedArmor("Extra Padding"),
                         addMedArmor("Peak Physique"),
                         addMedArmor("Advanced Filtration")},
-                new String[]{}), //opt),
+                new String[]{}),
 
         Pre_Order(
                 new String[]{},
@@ -373,10 +376,10 @@ public class Warbonds {
                         addMedArmor("Extra Padding"),
                         addMedArmor("Democracy Protects"),
                         addHeavyArmor("Servo-Assisted")},
-                new String[]{}), //opt),
+                new String[]{}),
 
         Super_Citizen(
-                new String[]{"MP-98 Knight"},
+                new String[]{addPrimary("MP-98 Knight", Primaries.GunType.Submachine, Primaries.ArmorPen.Light)},
                 new String[]{},
                 new String[]{},
                 new String[]{},
