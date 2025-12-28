@@ -47,6 +47,34 @@ public class StringParser {
         }
         return name;
     }
+    public String parseStrategemColor(String stratagem){
+        String name = "";
+
+        Pattern pattern = Pattern.compile(
+                "\\s*color='([^']+)'"
+        );
+
+        Matcher matcher = pattern.matcher(stratagem);
+
+        if (matcher.find()) {
+            name = matcher.group(1);
+        }
+        return name;
+    }
+    public String parseStrategemSubtype(String stratagem){
+        String name = "";
+
+        Pattern pattern = Pattern.compile(
+                "\\s*subtype='([^']+)'"
+        );
+
+        Matcher matcher = pattern.matcher(stratagem);
+
+        if (matcher.find()) {
+            name = matcher.group(1);
+        }
+        return name;
+    }
     public String parseThrowable(String throwable){
         String name = "";
 
