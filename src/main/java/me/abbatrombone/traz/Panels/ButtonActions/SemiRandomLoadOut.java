@@ -1,28 +1,45 @@
 package me.abbatrombone.traz.Panels.ButtonActions;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import me.abbatrombone.traz.GameItems.Warbonds;
+import me.abbatrombone.traz.Panels.MainPanel;
+import me.abbatrombone.traz.Panels.SelectBondsPanel;
+import me.abbatrombone.traz.Utilities.StringParser;
+
+import javax.swing.*;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SemiRandomLoadOut {
 
+    private static String secondaryWeapon;
+    private static String throwable;
+    private static List<String> boosterList;
+    private static String enemytype;
+    private static String supportWeapon;
+    private static String secondStrat;
+    private static String thirdStrat;
+    private static String forthStrat;
+    private static final StringParser stringParser = new StringParser();
     public static String result() {
 
         String enemyType = enemyType();
-        String difficulty = diff();
-        String primaryWeapon = primaryWeapon();
-        String secondaryWeapon = secWeapon();
-        String throwable = throwable();
-        String armorLevel = armorLevel();
+        warbondSecondary();
+        warbondThrowable();
+        warbondBooster();
+        supportWeapon();
+        OtherStratagems();
 
-        return "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType() + "\n" +
+        return "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType() + "\n\n" +
                 "Difficulty: " + diff() + "\n" +
-                "Your weapon category is: " + primaryWeapon() + "\n" +
-                "Your secondary is: " + secWeapon() + "\n" +
-                "Your throwable is: " + throwable() + "\n" +
-                "Armor: " + armorLevel() + " armor with any passive \n" +
-                "Your stratagems will be the following:\n" + stratagems() + "\n" +
-                "Your Booster is: \n" + hellpodOpt() +"\n" +
+                "Your weapon category is: " + primaryCategory() + "\n" +
+                "Your secondary is: " + secondaryWeapon + "\n" +
+                "Your throwable is: " + throwable + "\n" +
+                "Armor: " + armorLevel() + " armor with any passive \n\n" +
+                "Your stratagems will be the following:\n" + stringParser.parseStrategem(supportWeapon) + "\n" +
+                stringParser.parseStrategem(secondStrat) + "\n" +
+                stringParser.parseStrategem(thirdStrat) + "\n" +
+                stringParser.parseStrategem(forthStrat) + "\n\n" +
+                "Your Booster is: \n" + boosterFormat() +"\n" +
                 randomPhrase();
     }
 
@@ -38,116 +55,64 @@ public class SemiRandomLoadOut {
 
         return armorLevel;
     }
+    public static String primaryCategory(){
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        ArrayList<String> primaryList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
 
-    public static String primaryWeapon(){
-        String primary = "";
-        Random randomprimary = new Random();
-        int primaryInt = randomprimary.nextInt(6) +1;
-        switch (primaryInt){
-            case 1 -> primary = "AR";
-            case 2 -> primary = "Marksmen Rifle";
-            case 3-> primary = "Sniper Rifle";
-            case 4-> primary = "SMG";
-            case 5-> primary = "Shotgun";
-            case 6-> primary = "Special";
-
-        }
-        return primary;
-    }
-    public static String secWeapon(){
-        String secwep = "";
-        Random randomsecwep = new Random();
-        int secInt = randomsecwep.nextInt(12 -1 + 1) +1;
-
-        switch (secInt){
-            case 1  -> secwep = "P-2 Peacemaker";
-            case 2  -> secwep = "P-19 Redeemer";
-            case 3  -> secwep = "P-2 P-113 Verdict";
-            case 4  -> secwep = "P-4 Senator";
-            case 5  -> secwep = "Cqc-19 stun lance";
-            case 6  -> secwep = "cqc-30 Stun Baton";
-            case 7  -> secwep = "P-11 Stim Pistol";
-            case 8  -> secwep = "sg-22 Bushwhacker";
-            case 9  -> secwep = "P-72 Crisper";
-            case 10 -> secwep = "Gp-31 Grenade Pistol";
-            case 11 -> secwep = "Las-7 Dagger";
-            case 12 -> secwep = "Plas-15 Loyalist";
-
-        }
-        return secwep;
-    }
-
-    public static String throwable(){
-        String thrown = "";
-        Random randomthrown = new Random();
-        int thrownInt = randomthrown.nextInt(10 -1 + 1) +1;
-
-        switch (thrownInt){
-            case 1 -> thrown = "G-6 Frag";
-            case 2 -> thrown = "G-12 High Explosive";
-            case 3 -> thrown = "G-10 Incendiary";
-            case 4 -> thrown = "G-16 Impact";
-            case 5 -> thrown = "G-13 Incendiary";
-            case 6 -> thrown = "G-23 Stun";
-            case 7 -> thrown = "G-4 Gas";
-            case 8 -> thrown = "G-3 Smoke";
-            case 9 -> thrown = "6-123 Thermite";
-            case 10-> thrown = "k-2 Throwing Knife";
-
-        }
-        return thrown;
-    }
-    public static String stratagems(){
-        List<String> stratagems = new ArrayList<>();
-        Random stratagemran = new Random();
-        int backbackint = stratagemran.nextInt(2);
-        int stratagemInt_1 = stratagemran.nextInt(12);
-        int stratagemInt_2 = stratagemran.nextInt(7);
-        int stratagemInt_3a = stratagemran.nextInt(5);
-        int stratagemInt_3b = stratagemran.nextInt(8);
-        int stratagemInt_4 = stratagemran.nextInt(19) +1; //case statement starts at 1, arrays start at 0.
-        int stratagemInt_5 = stratagemran.nextInt(12);
-
-        String[] orbitals = { "Orbital Gatling Barrage\n", "Orbital Airburst Strike\n", "Orbital 120mm HE Barrage\n","Orbital 380mm HE Barrage\n","Orbital Walking Barrage\n", "Orbital Laser\n", "Orbital Napalm Barrage\n", "Orbital Railcannon Strike\n", "Orbital Precision Strike\n", "Orbital Gas Strike\n", "Orbital EMS Strike\n", "Orbital Smoke Strike\n"};
-        String[] eagle = {"Eagle Strafing Run\n", "Eagle Airstrike\n", "Eagle Cluster Bomb\n", "Eagle Napalm Airstrike\n", "Eagle Smoke Strike\n", "Eagle 110mm Rocket Pods\n", "Eagle 500kg Bomb\n"};
-        String[] supportBackPack = {"AC-8 Autocannon\n", "RL-77 Airburst Rocket Launcher\n", "FAF-14 Spear\n", "StA-X3 W.A.S.P. Launcher\n","GR-8 Recoilless Rifle\n"};
-        String[] backpack = {"LIFT-850 Jump Pack\n", "B-1 Supply Pack\n", "AX/LAS-5 Guard Dog Rover\n", "SH-20 Ballistic Shield Backpack\n", "SH-32 Shield Generator Pack\n", "AX/AR-23 Guard Dog\n", "AX/TX-13 Guard Dog Dog Breath\n", "SH-51 Directional Shield\n","B-100 Portable Hellbomb\n"};
-        String[] supportweapon = {"MG-43 Machine Gun\n", "APW-1 Anti-Materiel Rifle\n", "M-105 Stalwart\n", "EAT-17 Expendable Anti-Tank\n", "FLAM-40 Flamethrower\n", "MG-206 Heavy Machine Gun\n", "MLS-4X Commando\n", "RS-422 Railgun\n", "GL-21 Grenade Launcher\n", "LAS-98 Laser Cannon\n", "LAS-99 Quasar Cannon\n", "TX-41 Sterilizer\n",};
-
-        stratagems.add(orbitals[stratagemInt_1]);
-        stratagems.add(eagle[stratagemInt_2]);
-        if(backbackint == 1){
-            stratagems.add(supportBackPack[stratagemInt_3a]);
-            switch (stratagemInt_4){
-                case 1 ->stratagems.add("M-102 Fast Recon Vehicle\n");
-                case 2 ->stratagems.add("E/MG-101 HMG Emplacement\n");
-                case 3 ->stratagems.add("FX-12 Shield Generator Relay\n");
-                case 4 ->stratagems.add("A/ARC-3 Tesla Tower\n");
-                case 5 ->stratagems.add("MD-6 Anti-Personnel Minefield\n");
-                case 6 ->stratagems.add("MD-I4 Incendiary Mines\n");
-                case 7 ->stratagems.add("ARC-3 Arc Thrower\n");
-                case 8 ->stratagems.add("MD-17 Anti-Tank Mines\n");
-                case 9 ->stratagems.add("MD-8 Gas Mines\n");
-                case 10 ->stratagems.add("A/MG-43 Machine Gun Sentry\n");
-                case 11 ->stratagems.add("A/G-16 Gatling Sentry\n");
-                case 12 ->stratagems.add("A/M-12 Mortar Sentry\n");
-                case 13 ->stratagems.add("A/AC-8 Autocannon Sentry\n");
-                case 14 ->stratagems.add("A/MLS-4X Rocket Sentry\n");
-                case 15 ->stratagems.add("A/M-23 EMS Mortar Sentry\n");
-                case 16 ->stratagems.add("EXO-45 Patriot Exosuit\n");
-                case 17 ->stratagems.add("EXO-49 Emancipator Exosuit\n");
-                case 18 ->stratagems.add("E/AT-12 Anti-Tank Emplacement\n");
-                case 19 ->stratagems.add("A/FLAM-40 Flame Sentry\n");
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if(box.isSelected()){
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for(String primary : bond.getPrimary()){
+                    if (seen.add(stringParser.parsePrimaryType(primary)) && !stringParser.parsePrimaryType(primary).isBlank()) {
+                        primaryList.add(stringParser.parsePrimaryType(primary));
+                    }
+                }
             }
-        } else {
-            stratagems.add(backpack[stratagemInt_3b]);
-            stratagems.add(supportweapon[stratagemInt_5]);
+        }
+        StringParser p = new StringParser();
+        primaryList.add(p.parsePrimaryType(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
+        return primaryList.get(ThreadLocalRandom.current().nextInt(primaryList.size()));
+    }
+
+    public static String warbondStratagems() {
+        //Need to update to be semi random
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        List<String> stratagemsList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+
+        for (JCheckBox box : selectBondsPanel.getCheckBoxes()) {
+            if (box.isSelected()) {
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for (String strat : bond.getStratagem()) {
+                    if (!strat.isBlank() && seen.add(strat)) {
+                        stratagemsList.add(stringParser.parseStrategem(strat));
+                    }
+                }
+            }
+        }
+        String[] basic = Warbonds.Bonds.Cadet_Loadout.getStratagem();
+        for(String s : basic){
+            stratagemsList.add(stringParser.parseStrategem(s));
         }
 
-        return stratagems.toString().replace("[","").replace("]","").replace(",","");
+        Collections.shuffle(stratagemsList, ThreadLocalRandom.current());
+
+        String patriot = "EXO-45 Patriot Exosuit";
+        String emancipator = "EXO-49 Emancipator Exosuit";
+
+        List<String> top4 = new ArrayList<>(stratagemsList.subList(0, 4));
+
+        if (top4.contains(patriot) && top4.contains(emancipator)) {
+            top4.remove(ThreadLocalRandom.current().nextBoolean()
+                    ? patriot
+                    : emancipator);
+            top4.add(stratagemsList.get(5)); //replaces combo with next item on the list.
+        }
+        return String.join("\n", top4);
     }
     public static String enemyType(){
-        String enemytype = "";
+
         Random enemyran = new Random();
         int emenyInt = enemyran.nextInt(3 -1 +1) +1;
 
@@ -156,6 +121,7 @@ public class SemiRandomLoadOut {
             case 2-> enemytype = "Automatons";
             case 3-> enemytype = "Illuminate";
         }
+        MainPanel.getOutputTextPane().updateImage(enemytype);
 
         return  enemytype;
     }
@@ -176,40 +142,28 @@ public class SemiRandomLoadOut {
         }
         return diff;
     }
-    public static String hellpodOpt(){
-        String hellpodOpt = "";
-        List<Integer> hellpodoptnumbers = new ArrayList<>();
-        List<String> hellpodOpts = new ArrayList<>();
+    public static void warbondBooster(){
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        ArrayList<String> List = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
 
-        Random hellpodOptran = new Random();
-        for (int i = 0; i < 4; i++) {
-            int hellpodoptagemInt = hellpodOptran.nextInt(14 -1 + 1) +1;
-            if(!hellpodoptnumbers.contains(hellpodoptagemInt)){hellpodoptnumbers.add(hellpodoptagemInt);}
-            else i=i-1;
-        }
-        for (int number : hellpodoptnumbers){
-            switch (number) {
-                case 1 ->  hellpodOpts.add("Hellpod Space Optimization");
-                case 2 ->  hellpodOpts.add("Vitality Enhancement");
-                case 3 ->  hellpodOpts.add("UAV Recon Booster");
-                case 4 ->  hellpodOpts.add("Stamina Enhancement");
-                case 5 ->  hellpodOpts.add("Muscle Enhancement");
-                case 6 ->  hellpodOpts.add("Increased Reinforcement Budget");
-                case 7 ->  hellpodOpts.add("Flexible Reinforcement Budget");
-                case 8 ->  hellpodOpts.add("Localization Confusion Booster");
-                case 9 ->  hellpodOpts.add("Expert Extraction Pilot Booster");
-                case 10 -> hellpodOpts.add("Motivational Shocks");
-                case 11 -> hellpodOpts.add("Experimental Infusion");
-                case 12 -> hellpodOpts.add("Firebomb Hellpods");
-                case 13 -> hellpodOpts.add("Dead Sprint");
-                case 14 -> hellpodOpts.add("Armed Resupply Pods");
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if(box.isSelected()){
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for(String booster : bond.getOpt()){
+                    if (seen.add(booster) && !booster.isBlank()) {
+                        List.add(booster);
+                    }
+                }
             }
         }
+        Collections.shuffle(List, ThreadLocalRandom.current());
 
-        int phrasefranInt = hellpodOptran.nextInt(14 -1 +1) +1;
-
-        return "1. " + hellpodOpts.get(0) + "\n" +  "2. " + hellpodOpts.get(1) + "\n" + "3. " + hellpodOpts.get(2) + "\n" + "4. " + hellpodOpts.get(3);
-        //return hellpodOpt;
+        boosterList = List.subList(0,4);
+        //opt = boosterList.get(ThreadLocalRandom.current().nextInt(boosterList.size()));
+    }
+    public static String boosterFormat(){
+        return "1. " + boosterList.get(0) + "\n" +  "2. " + boosterList.get(1) + "\n" + "3. " + boosterList.get(2) + "\n" + "4. " + boosterList.get(3);
     }
     public static String operation(String enemy){
         String operation = "";
@@ -242,5 +196,141 @@ public class SemiRandomLoadOut {
 
         }
         return phrase;
+    }
+    public static void warbondThrowable(){
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        ArrayList<String> throwableList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if(box.isSelected()){
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for(String thrown : bond.getThrowable()){
+                    if (seen.add(thrown) && !thrown.isBlank()) {
+                        throwableList.add(thrown);
+                    }
+                }
+            }
+        }
+        throwableList.add(stringParser.parseThrowable(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable())));
+        throwable = stringParser.parseThrowable(throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size())));
+    }
+    public static void warbondSecondary(){
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        ArrayList<String> secondaryList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if(box.isSelected()){
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for(String secondary : bond.getSecondary()){
+                    if (seen.add(secondary) && !secondary.isBlank()) {
+                        secondaryList.add(secondary);
+                    }
+                }
+            }
+        }
+
+        secondaryList.add(stringParser.parseSecondaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary())));
+        secondaryWeapon = secondaryList.get(ThreadLocalRandom.current().nextInt(secondaryList.size()));
+        secondaryWeapon =  stringParser.parseSecondaryName(secondaryWeapon);
+    }
+    public static void supportWeapon() {
+        //Need to update to be semi random
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        List<String> sList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if (box.isSelected()) {
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for(String st: bond.getStratagem()){
+                    if(seen.add(st) && (stringParser.parseStrategemSubtype(st).equals("WEAPON") || stringParser.parseStrategemSubtype(st).equals("WEAPON_WITH_BACKPACK"))){
+                        sList.add(st);
+                    }
+                }
+            }
+        }
+        String[] basic = Warbonds.Bonds.Cadet_Loadout.getStratagem();
+        for(String s : basic){
+            if(seen.add(s) && (stringParser.parseStrategemSubtype(s).equals("WEAPON") || stringParser.parseStrategemSubtype(s).equals("WEAPON_WITH_BACKPACK"))){
+                sList.add(s);
+            }
+        }
+        supportWeapon = sList.get(ThreadLocalRandom.current().nextInt(sList.size()));
+    }
+    public static void OtherStratagems() {
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        List<String> sList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+
+        String stratOneSub = stringParser.parseStrategemSubtype(supportWeapon);
+        if(stratOneSub.equals("WEAPON")){
+            for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+                if (box.isSelected()) {
+                    Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                    for(String st: bond.getStratagem()){
+                        if(seen.add(st) && stringParser.parseStrategemSubtype(st).equals("BACKPACK")){
+                            sList.add(st);
+                        }
+                    }
+                }
+            }
+            secondStrat = sList.get(ThreadLocalRandom.current().nextInt(sList.size()));
+            thirdStrat = generateGreenStrat();
+            forthStrat = generateRedStrat();
+        }
+        else{
+            secondStrat = generateGreenStrat();
+            thirdStrat = generateRedStrat();
+            forthStrat = ThreadLocalRandom.current().nextInt() % 2 == 0 ? generateGreenStrat() : generateRedStrat();
+        }
+
+    }
+    public static String generateGreenStrat(){
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        List<String> sList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if (box.isSelected()) {
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for(String st: bond.getStratagem()){
+                    if(seen.add(st) && stringParser.parseStrategemColor(st).equals("GREEN")){
+                        sList.add(st);
+                    }
+                }
+            }
+        }
+        String[] basic = Warbonds.Bonds.Cadet_Loadout.getStratagem();
+        for(String s : basic){
+            if(seen.add(s) && stringParser.parseStrategemColor(s).equals("GREEN")){
+                sList.add(s);
+            }
+        }
+        return sList.get(ThreadLocalRandom.current().nextInt(sList.size()));
+    }
+    public static String generateRedStrat(){
+        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+        List<String> sList = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+
+        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
+            if (box.isSelected()) {
+                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
+                for(String st: bond.getStratagem()){
+                    if(seen.add(st) && stringParser.parseStrategemColor(st).equals("RED")){
+                        sList.add(st);
+                    }
+                }
+            }
+        }
+        String[] basic = Warbonds.Bonds.Cadet_Loadout.getStratagem();
+        for(String s : basic){
+            if(seen.add(s) && stringParser.parseStrategemColor(s).equals("RED")){
+                sList.add(s);
+            }
+        }
+        return sList.get(ThreadLocalRandom.current().nextInt(sList.size()));
     }
 }
