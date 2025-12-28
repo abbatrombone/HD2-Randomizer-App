@@ -51,7 +51,7 @@ public class Stratagems {
     public String toString() {
         return "Stratgem{" +
                 "name='" + stragemName + '\'' +
-                ", color=" + staragemColor +
+                ", color='" + staragemColor + '\'' +
                 ", subtype='" + subtype + '\'' +
                 '}';
     }
