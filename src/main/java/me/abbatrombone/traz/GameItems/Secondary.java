@@ -6,9 +6,12 @@ public class Secondary {
     private final String gunName;
 
     public enum ArmorPen{
+        NA,
         Light,
         Med,
-        Heavy
+        Heavy,
+        Anti_Tank_I,
+        Anti_Tank_II
     }
 
     public enum GunType{
