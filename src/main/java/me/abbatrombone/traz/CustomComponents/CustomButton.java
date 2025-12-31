@@ -4,11 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomButton extends JButton {
     private Color baseColor;
     private boolean hover = false;
     private boolean pressed = false;
+
+    private final Map<String, String> hoverMessages = new HashMap<>();
+    private final JWindow tooltipWindow = new JWindow();
+    private final JLabel tooltipLabel = new JLabel();
 
     public CustomButton(String text, Color baseColor) {
         super(text);
@@ -20,6 +27,9 @@ public class CustomButton extends JButton {
         setForeground(Color.WHITE);
         setBaseColor(new Color(51,51,51));
         setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14));
+
+        setupTooltipUI();
+        addMouseMotionListener(new CustomButton.ButtonHoverHandler());
 
         addMouseListener(
         new MouseAdapter() {
@@ -34,6 +44,8 @@ public class CustomButton extends JButton {
                 hover = false;
                 pressed = false;
                 repaint();
+                tooltipWindow.setVisible(false); // close tooltip when leaving the button
+                setCursor(Cursor.getDefaultCursor());
             }
 
             @Override
@@ -47,6 +59,7 @@ public class CustomButton extends JButton {
                 pressed = false;
                 repaint();
             }
+
         });
     }
 
@@ -94,5 +107,59 @@ public class CustomButton extends JButton {
 
         g2.dispose();
         super.paintComponent(g);
+    }
+
+    public void addHoverWord(String message) {
+        hoverMessages.put(this.getText(), message);
+    }
+
+    private void setupTooltipUI() {
+        tooltipWindow.setBackground(new Color(0, 0, 0, 0));
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(30, 30, 30));
+        panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+        panel.setLayout(new GridBagLayout());
+
+        tooltipLabel.setForeground(Color.WHITE);
+        tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
+        panel.add(tooltipLabel);
+
+        tooltipWindow.add(panel);
+        tooltipLabel.addPropertyChangeListener("text", evt -> {
+            FontMetrics fm = tooltipLabel.getFontMetrics(tooltipLabel.getFont());
+            int textWidth = fm.stringWidth(tooltipLabel.getText());
+            int textHeight = fm.getHeight();
+
+            int paddingW = 20;
+            int paddingH = 14;
+
+            tooltipWindow.setSize(textWidth + paddingW, textHeight + paddingH);
+            tooltipWindow.pack();
+        });
+
+        tooltipWindow.pack();
+    }
+    private class ButtonHoverHandler extends MouseMotionAdapter {
+        @Override
+        public void mouseMoved(MouseEvent e) {
+
+            String key = getText();
+
+            boolean hovering = false;
+
+            if (contains(e.getPoint()) && hoverMessages.containsKey(key)) {
+                tooltipLabel.setText(hoverMessages.get(key));
+                tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
+                tooltipWindow.setVisible(true);
+                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                hovering = true;
+            }
+
+            if (!hovering) {
+                tooltipWindow.setVisible(false);
+                setCursor(Cursor.getDefaultCursor());
+            }
+
+        }
     }
 }

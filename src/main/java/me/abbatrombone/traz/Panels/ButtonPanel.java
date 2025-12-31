@@ -9,19 +9,18 @@ import me.abbatrombone.traz.Panels.ButtonActions.Tips;
 import me.abbatrombone.traz.Utilities.StringParser;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class ButtonPanel {
 
-    private JPanel panel = new JPanel();
-    private CustomButton random = new CustomButton("Full Random",Color.WHITE);
-    private CustomButton semirandom = new CustomButton("Semi Random",Color.WHITE);
-    private CustomButton clear = new CustomButton("Clear",Color.WHITE);
-    private CustomButton challenges = new CustomButton("Challenges",Color.WHITE);
-    private CustomButton tips = new CustomButton("Tips",Color.WHITE);
-    private OutputJTextPane output;
+    private final JPanel panel = new JPanel();
+    private final CustomButton random = new CustomButton("Full Random",Color.WHITE);
+    private final CustomButton semirandom = new CustomButton("Semi Random",Color.WHITE);
+    private final CustomButton clear = new CustomButton("Clear",Color.WHITE);
+    private final CustomButton challenges = new CustomButton("Challenges",Color.WHITE);
+    private final CustomButton tips = new CustomButton("Tips",Color.WHITE);
+    private final OutputJTextPane output;
     private final Color backgroundColor = new Color(51, 51, 51);
 
     public ButtonPanel(OutputJTextPane output){
@@ -30,19 +29,19 @@ public class ButtonPanel {
         panel.setBackground(new Color(51, 51, 51));
 
         random.addActionListener(this::randomButtonActionPerformed);
-        random.setToolTipText("Provides random weapons, armor, and stratagems based on selected warbonds");
+        random.addHoverWord("Provides random weapons, armor, and stratagems based on selected warbonds");
 
         semirandom.addActionListener(this::semiRandomButtonActionPerformed);
-        semirandom.setToolTipText("Provides random weapons, armor, and stratagems based on selected warbonds. Stratagmes will have a more even mix");
+        semirandom.addHoverWord("Provides random weapons, armor, and stratagems based on selected warbonds. Stratagmes will have a more even mix");
 
         clear.addActionListener(this::clearButtonActionPerformed);
-        clear.setToolTipText("Clears text panel");
+        clear.addHoverWord("Clears text panel");
 
         challenges.addActionListener(this::challengeButtonActionPerformed);
-        challenges.setToolTipText("Provides extra challenges for a run");
+        challenges.addHoverWord("Provides extra challenges for a run");
 
         tips.addActionListener(this::tipButtonActionPerformed);
-        tips.setToolTipText("Tips provided by your local democracy officer");
+        tips.addHoverWord("Tips provided by your local democracy officer");
 
         panel.setMaximumSize(new Dimension(200,300));
         panel.setPreferredSize(new Dimension(200,300));
