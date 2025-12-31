@@ -1,10 +1,10 @@
 package me.abbatrombone.traz;
 
-import me.abbatrombone.traz.GameItems.Warbonds;
+import me.abbatrombone.traz.CustomComponents.TabPane.MyComponent;
+import me.abbatrombone.traz.CustomComponents.TabPane.MyTabbedPane;
 import me.abbatrombone.traz.Panels.*;
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class HDApp {
     private final JFrame frame = new JFrame();
@@ -17,7 +17,7 @@ public class HDApp {
         initComponents();
     }
     private void initComponents() {
-        System.out.println(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary()));
+
         frame.getContentPane().setBackground(new Color(51,51,51));
         frame.setTitle("Helldivers 2 Randomizer");
         frame.setLocationRelativeTo(null);
@@ -29,16 +29,28 @@ public class HDApp {
         tabPanel.setForeground(Color.WHITE);
         tabPanel.setBorder(null);
 
+        MyTabbedPane tabPanelz = new MyTabbedPane(new Dimension(1042, 540));
+        tabPanelz.setBackground(new Color(51,51,51));
+        tabPanelz.setBackground(new Color(51,51,51));
+        tabPanelz.setForeground(Color.WHITE);
+        tabPanelz.setBorder(null);
+
         JPanel randomizerPage = mainPanel.getMainPanel();
-        tabPanel.addTab("Randomizer", randomizerPage);
-
-//        JPanel gearPage = gearPanel.getPanel();
-//        tabPanel.addTab("Gear Information", gearPage);
-
         JScrollPane rulePage = rulesPanel.getjScrollPane();
-        tabPanel.addTab("Randomzier Rules", rulePage);
 
-        frame.add(tabPanel);
+        tabPanelz.addTab(randomizerPage, new MyComponent("Randomizer" ));
+        tabPanelz.addTab(rulePage, new MyComponent("Randomzier Rules" ));
+
+//        JPanel randomizerPage = mainPanel.getMainPanel();
+//        tabPanel.addTab("Randomizer", randomizerPage);
+//
+////        JPanel gearPage = gearPanel.getPanel();
+////        tabPanel.addTab("Gear Information", gearPage);
+//
+//        JScrollPane rulePage = rulesPanel.getjScrollPane();
+//        tabPanel.addTab("Randomzier Rules", rulePage);
+
+        frame.add(tabPanelz);
         frame.setVisible(true);
     }
     private JTabbedPane makeTabPane(){
