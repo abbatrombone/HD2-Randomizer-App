@@ -1,8 +1,6 @@
 package me.abbatrombone.traz.Panels.ButtonActions;
 
-import me.abbatrombone.traz.GameItems.Stratagems;
 import me.abbatrombone.traz.GameItems.Warbonds;
-import me.abbatrombone.traz.Panels.GearPanel;
 import me.abbatrombone.traz.Panels.MainPanel;
 import me.abbatrombone.traz.Panels.SelectBondsPanel;
 import me.abbatrombone.traz.Utilities.StringParser;
@@ -13,7 +11,6 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomLoadOut {
-
     private static String primaryWeapon;
     private static String secondaryWeapon;
     private static String throwable;
@@ -21,6 +18,8 @@ public class RandomLoadOut {
     private static String armorPassive;
     private static List<String> boosterList;
     private static String enemyType;
+    private static String resultText = "";
+    private static StringParser p = new StringParser();
 
     public static String result() {
         warbondArmor();
@@ -31,15 +30,18 @@ public class RandomLoadOut {
         enemyType();
         String difficulty = diff();
 
-        return "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType + "\n\n" +
+        resultText =
+                "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType + "\n\n" +
                 "Difficulty: " + difficulty + "\n" +
-                "Your weapon is: " + primaryWeapon + "\n" +
-                "Your secondary is: " + secondaryWeapon + "\n" +
-                "Your throwable is: " + throwable + "\n" +
+                "Your weapon is: " + p.parsePrimaryName(primaryWeapon) + "\n" +
+                "Your secondary is: " + p.parseSecondaryName(secondaryWeapon) + "\n" +
+                "Your throwable is: " + p.parseThrowable(throwable) + "\n" +
                 "Armor: " + armorLevel + " armor with the " + armorPassive + " Passive." + "\n\n" +
                 "Your stratagems will be the following:\n" + warbondStratagems() + "\n\n" +
                 "Your Booster is: \n" + boosterFormat() + "\n" +
                 randomPhrase();
+
+        return resultText;
     }
     public static String warbondStratagems() {
         SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
@@ -215,15 +217,14 @@ public class RandomLoadOut {
                 }
             }
         }
-        StringParser p = new StringParser();
+
         primaryList.add(p.parsePrimaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
         primaryWeapon = primaryList.get(ThreadLocalRandom.current().nextInt(primaryList.size()));
-        primaryWeapon = p.parsePrimaryName(primaryWeapon);
+        //primaryWeapon = p.parsePrimaryName(primaryWeapon);
     }
     public static void warbondThrowable(){
         SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
         ArrayList<String> throwableList = new ArrayList<>();
-        StringParser stringParser = new StringParser();
         Set<String> seen = new HashSet<>();
 
         for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
@@ -236,9 +237,9 @@ public class RandomLoadOut {
                 }
             }
         }
-        StringParser p = new StringParser();
+
         throwableList.add(p.parseThrowable(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable())));
-        throwable = stringParser.parseThrowable(throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size())));
+        throwable = throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size()));
     }
     public static void warbondSecondary(){
         SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
@@ -255,9 +256,22 @@ public class RandomLoadOut {
                 }
             }
         }
-        StringParser p = new StringParser();
         secondaryList.add(p.parseSecondaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary())));
         secondaryWeapon = secondaryList.get(ThreadLocalRandom.current().nextInt(secondaryList.size()));
-        secondaryWeapon =  p.parseSecondaryName(secondaryWeapon);
+    }
+    public static String getPrimaryWeapon() {
+        return primaryWeapon;
+    }
+
+    public static String getSecondaryWeapon() {
+        return secondaryWeapon;
+    }
+
+    public static String getThrowable() {
+        return throwable;
+    }
+
+    public static String getResultText() {
+        return resultText;
     }
 }
