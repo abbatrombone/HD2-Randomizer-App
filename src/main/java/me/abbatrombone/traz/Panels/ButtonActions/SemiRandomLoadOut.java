@@ -32,8 +32,8 @@ public class SemiRandomLoadOut {
         return "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType() + "\n\n" +
                 "Difficulty: " + diff() + "\n" +
                 "Your weapon category is: " + primaryCategory() + "\n" +
-                "Your secondary is: " + secondaryWeapon + "\n" +
-                "Your throwable is: " + throwable + "\n" +
+                "Your secondary is: " +  stringParser.parseSecondaryName(secondaryWeapon) + "\n" +
+                "Your throwable is: " + stringParser.parseThrowable(throwable) + "\n" +
                 "Armor: " + armorLevel() + " armor with any passive \n\n" +
                 "Your stratagems will be the following:\n" + stringParser.parseStrategem(supportWeapon) + "\n" +
                 stringParser.parseStrategem(secondStrat) + "\n" +
@@ -122,7 +122,6 @@ public class SemiRandomLoadOut {
             case 3-> enemytype = "Illuminate";
         }
         MainPanel.getOutputTextPane().updateImage(enemytype);
-
         return  enemytype;
     }
 
@@ -213,7 +212,7 @@ public class SemiRandomLoadOut {
             }
         }
         throwableList.add(stringParser.parseThrowable(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable())));
-        throwable = stringParser.parseThrowable(throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size())));
+        throwable = throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size()));
     }
     public static void warbondSecondary(){
         SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
@@ -233,7 +232,7 @@ public class SemiRandomLoadOut {
 
         secondaryList.add(stringParser.parseSecondaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary())));
         secondaryWeapon = secondaryList.get(ThreadLocalRandom.current().nextInt(secondaryList.size()));
-        secondaryWeapon =  stringParser.parseSecondaryName(secondaryWeapon);
+//        secondaryWeapon =  stringParser.parseSecondaryName(secondaryWeapon);
     }
     public static void supportWeapon() {
         //Need to update to be semi random
@@ -332,5 +331,12 @@ public class SemiRandomLoadOut {
             }
         }
         return sList.get(ThreadLocalRandom.current().nextInt(sList.size()));
+    }
+    public static String getThrowable() {
+        return throwable;
+    }
+
+    public static String getSecondaryWeapon() {
+        return secondaryWeapon;
     }
 }
