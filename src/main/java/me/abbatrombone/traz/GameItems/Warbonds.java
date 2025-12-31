@@ -82,14 +82,14 @@ public class Warbonds {
 
         Helldivers_Mobilize(
                 new String[]{
-                        addPrimary("Ar-23P Liberator Penetrator", Primaries.GunType.AR, Primaries.ArmorPen.Med),
+                        addPrimary("AR-23P Liberator Penetrator", Primaries.GunType.AR, Primaries.ArmorPen.Med),
                         addPrimary("R-63 Dilligence", Primaries.GunType.Marksmen, Primaries.ArmorPen.Light),
                         addPrimary("R-63CS Dilligence Counter Sniper",Primaries.GunType.Marksmen, Primaries.ArmorPen.Med),
-                        addPrimary("Smg-37 Defender", Primaries.GunType.Submachine, Primaries.ArmorPen.Light),
-                        addPrimary("Sg-8 Punisher", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
-                        addPrimary("Sg-8S Slugger", Primaries.GunType.Shotgun, Primaries.ArmorPen.Med),
-                        addPrimary("Sg-255 Breaker", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
-                        addPrimary("Sg-225SP Breaker Spray & Pray", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
+                        addPrimary("SMG-37 Defender", Primaries.GunType.Submachine, Primaries.ArmorPen.Light),
+                        addPrimary("SG-8 Punisher", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
+                        addPrimary("SG-8S Slugger", Primaries.GunType.Shotgun, Primaries.ArmorPen.Med),
+                        addPrimary("SG-255 Breaker", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
+                        addPrimary("SG-225SP Breaker Spray & Pray", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
                         addPrimary("Las-5 Scythe", Primaries.GunType.Energy, Primaries.ArmorPen.Light),
                         addPrimary("Plas-1 Scorcher", Primaries.GunType.Special, Primaries.ArmorPen.Med)},
                 new String[]{addSecondary("P-19 Redeemer",Secondary.GunType.Pistol, Secondary.ArmorPen.Light)},
@@ -118,9 +118,9 @@ public class Warbonds {
 
         Steeled_Veterans(
                 new String[]{
-                        addPrimary("Ar-23C- Liberator Concussive", Primaries.GunType.AR, Primaries.ArmorPen.Light),
+                        addPrimary("AR-23C- Liberator Concussive", Primaries.GunType.AR, Primaries.ArmorPen.Light),
                         addPrimary("Jar-5 Dominator", Primaries.GunType.Special, Primaries.ArmorPen.Med),
-                        addPrimary("Sg-2251E Breaker Incendiary", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light)},
+                        addPrimary("SG-2251E Breaker Incendiary", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light)},
                 new String[]{addSecondary("P-4 Senator", Secondary.GunType.Pistol, Secondary.ArmorPen.Heavy)},
                 new String[]{addThrowable("G-10 Incendiary", Throwable.ThrowableType.Standard,Throwable.Penitration.Medium)},
                 new String[]{},
@@ -160,8 +160,8 @@ public class Warbonds {
 
 
         Polar_Patriots( new String[]{
-                addPrimary("Ar-61 Tenderizer", Primaries.GunType.AR, Primaries.ArmorPen.Light),
-                addPrimary("Smg-72 Pummeler", Primaries.GunType.Submachine, Primaries.ArmorPen.Light),
+                addPrimary("AR-61 Tenderizer", Primaries.GunType.AR, Primaries.ArmorPen.Light),
+                addPrimary("SMG-72 Pummeler", Primaries.GunType.Submachine, Primaries.ArmorPen.Light),
                 addPrimary("Plas-101 Purifier", Primaries.GunType.Energy, Primaries.ArmorPen.Med)},
                 new String[]{addSecondary("P-2 P-113 Verdict", Secondary.GunType.Pistol, Secondary.ArmorPen.Med)},
                 new String[]{addThrowable("G-13 Incendiary Impact", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
@@ -173,7 +173,7 @@ public class Warbonds {
                 new String[]{"Motivational Shocks"}),
 
         Viper_Commandos(
-                new String[]{addPrimary("Ar-23A Liberator Carbine", Primaries.GunType.AR, Primaries.ArmorPen.Light)},
+                new String[]{addPrimary("AR-23A Liberator Carbine", Primaries.GunType.AR, Primaries.ArmorPen.Light)},
                 new String[]{addSecondary("SG-22 Bushwhacker", Secondary.GunType.Special, Secondary.ArmorPen.Light)},
                 new String[]{addThrowable("K-2 Throwing Knife", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
                 new String[]{},
@@ -185,7 +185,7 @@ public class Warbonds {
 
         Freedom_Flame(
                 new String[]{
-                       addPrimary("Sg-451 Cookout", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
+                       addPrimary("SG-451 Cookout", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
                        addPrimary("Flam-66 Torcher", Primaries.GunType.Special, Primaries.ArmorPen.Heavy)},
                 new String[]{addSecondary("P-72 Crisper", Secondary.GunType.Special, Secondary.ArmorPen.Heavy)},
                 new String[]{},
@@ -209,8 +209,8 @@ public class Warbonds {
 
         Truth_Enforcers(
                 new String[]{
-                       addPrimary("Smg-32 Reprimand", Primaries.GunType.Submachine, Primaries.ArmorPen.Med),
-                       addPrimary( "Sg-20 Halt", Primaries.GunType.Shotgun, Primaries.ArmorPen.Med)}, //techincally lighh & Med
+                       addPrimary("SMG-32 Reprimand", Primaries.GunType.Submachine, Primaries.ArmorPen.Med),
+                       addPrimary( "SG-20 Halt", Primaries.GunType.Shotgun, Primaries.ArmorPen.Med)}, //techincally lighh & Med
                 new String[]{addSecondary("Plas-15 Loyalist", Secondary.GunType.Special, Secondary.ArmorPen.Med)},
                 new String[]{},
                 new String[]{},
@@ -221,7 +221,7 @@ public class Warbonds {
 
         Urban_Legends(
                 new String[]{},
-                new String[]{addSecondary("Cqc-19 stun Lance", Secondary.GunType.Melee, Secondary.ArmorPen.Med),addSecondary("CQC-30 Stun Baton", Secondary.GunType.Melee, Secondary.ArmorPen.Med)},
+                new String[]{addSecondary("CQC-19 stun Lance", Secondary.GunType.Melee, Secondary.ArmorPen.Med),addSecondary("CQC-30 Stun Baton", Secondary.GunType.Melee, Secondary.ArmorPen.Med)},
                 new String[]{},
                 new String[]{
                         addTurret("Flame Sentry"),
