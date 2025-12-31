@@ -51,17 +51,16 @@ public class MainPanel {
                         .addComponent(labelPanelFull)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup() //GroupLayout.Alignment.LEADING
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelPanelFull, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup() //GroupLayout.Alignment.LEADING
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(output, 350,350,350)
                                                 .addComponent(buttonPanel.getPanel())
                                         )
-                                        .addComponent(selectBondsPanel.getJScrollPane())
-                                        .addGroup(layout.createSequentialGroup()
-                                        ))
+                                        .addComponent(selectBondsPanel.getJScrollPane(),430,430,430)
+                                        )
                         )
         );
     }
