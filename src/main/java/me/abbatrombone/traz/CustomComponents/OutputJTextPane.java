@@ -1,8 +1,7 @@
 package me.abbatrombone.traz.CustomComponents;
 
+import me.abbatrombone.traz.Managers.OSManager;
 import me.abbatrombone.traz.Panels.ButtonActions.RandomLoadOut;
-import me.abbatrombone.traz.Panels.ButtonActions.SemiRandomLoadOut;
-import me.abbatrombone.traz.Utilities.StringParser;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,6 +17,7 @@ import java.util.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 public class OutputJTextPane extends JTextPane {
     private BufferedImage backgroundImage;
@@ -42,6 +42,7 @@ public class OutputJTextPane extends JTextPane {
         setOpaque(false);
         setEditable(false);
 
+
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Super_Earth_Flag.jpg")));
         } catch (IOException e) {
@@ -61,6 +62,8 @@ public class OutputJTextPane extends JTextPane {
 
         addMouseMotionListener(new HoverHandler());
         addMouseListener(new ClickHandler());
+
+
     }
 
     public void updateText(){
@@ -167,6 +170,7 @@ public class OutputJTextPane extends JTextPane {
         tooltipWindow.pack();
     }
     private class HoverHandler extends MouseMotionAdapter {
+        CustomCursor cursor = new CustomCursor();
         @Override
         public void mouseMoved(MouseEvent e) {
             int pos = viewToModel2D(e.getPoint());
@@ -184,7 +188,7 @@ public class OutputJTextPane extends JTextPane {
                     Point p = e.getLocationOnScreen();
                     tooltipWindow.setLocation(p.x + 12, p.y + 18);
                     tooltipWindow.setVisible(true);
-                    setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    setCursor(cursor.create(CustomCursor.Type.CUSTOM_HAND_ARROW));
                     hovering = true;
                 } else {
                     doc.setCharacterAttributes(range[0], range[1] - range[0], normalStyle, true);
@@ -193,12 +197,13 @@ public class OutputJTextPane extends JTextPane {
 
             if (!hovering) {
                 tooltipWindow.setVisible(false);
-                setCursor(Cursor.getDefaultCursor());
+                setCursor(cursor.create(CustomCursor.Type.CUSTOM_ARROW));
             }
         }
     }
 
     private class ClickHandler extends MouseAdapter {
+        CustomCursor cursor = new CustomCursor();
         @Override
         public void mouseClicked(MouseEvent e) {
             int pos = viewToModel2D(e.getPoint());
@@ -213,6 +218,7 @@ public class OutputJTextPane extends JTextPane {
             }
         }
     }
+
     private void openURL(String url) {
         try {
             if (Desktop.isDesktopSupported()) {
@@ -222,8 +228,9 @@ public class OutputJTextPane extends JTextPane {
             }
 
         } catch (Exception e) {
-            //if(){} make sure OS is not linux
+            if(!OSManager.getOperatingSystem().equals("linux")){ //make sure OS is not linux
             logger.log(Level.SEVERE, "Desktop API failed for URL: " + url, e);
+            }
         }
 
         try {
