@@ -59,7 +59,6 @@ public class CustomButton extends JButton {
                 pressed = false;
                 repaint();
             }
-
         });
     }
 
@@ -96,7 +95,6 @@ public class CustomButton extends JButton {
         g2.setPaint(gp);
         g2.fillRoundRect(0, pressed ? 2 : 0, width, height - 2, arc, arc);
 
-        // Yellow border
         g2.setStroke(new BasicStroke(2f));
         g2.setColor(Color.YELLOW);
         g2.drawRoundRect(1, offset + 1, width - 3, height - 4, arc, arc);
@@ -140,6 +138,8 @@ public class CustomButton extends JButton {
         tooltipWindow.pack();
     }
     private class ButtonHoverHandler extends MouseMotionAdapter {
+        CustomCursor cursor = new CustomCursor();
+
         @Override
         public void mouseMoved(MouseEvent e) {
 
@@ -151,15 +151,19 @@ public class CustomButton extends JButton {
                 tooltipLabel.setText(hoverMessages.get(key));
                 tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
                 tooltipWindow.setVisible(true);
-                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                setCursor(cursor.create(CustomCursor.Type.CUSTOM_HAND_ARROW));
                 hovering = true;
             }
 
             if (!hovering) {
                 tooltipWindow.setVisible(false);
-                setCursor(Cursor.getDefaultCursor());
+                setCursor(cursor.create(CustomCursor.Type.CUSTOM_ARROW));
             }
-
+            //helps mitigate phantom tool tips but does not resolve.
+            if(!contains(e.getPoint())){
+                tooltipWindow.setVisible(false);
+                setCursor(cursor.create(CustomCursor.Type.CUSTOM_ARROW));
+            }
         }
     }
 }

@@ -28,6 +28,8 @@ public class WarbondCheckBox extends JCheckBox {
             setSelected(true);
             setToolTipText("Warbond is selected");
             addActionListener(e -> setToolTipText(isSelected() ? "Warbond is selected" : "Warbond is not selected"));
+            CustomCursor cursor = new CustomCursor();
+            setCursor(cursor.create(CustomCursor.Type.CUSTOM_HAND_ARROW));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
