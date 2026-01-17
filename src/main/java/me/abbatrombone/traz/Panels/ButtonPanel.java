@@ -26,7 +26,7 @@ public class ButtonPanel {
     public ButtonPanel(OutputJTextPane output){
         this.output = output;
 
-        panel.setBackground(new Color(51, 51, 51));
+        panel.setBackground(backgroundColor);
 
         random.addActionListener(this::randomButtonActionPerformed);
         random.addHoverWord("Provides random weapons, armor, and stratagems based on selected warbonds");
