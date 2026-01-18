@@ -89,4 +89,14 @@ public class SettingsManager {
         settings.setProperty("Cursor_On/Off",truthy);
         saveSettings();
     }
+    public boolean defaultCheckboxIsOn(){return Boolean.parseBoolean(settings.getProperty("Checkbox_On/Off", "true"));}
+    public void setCheckboxSetting(String truthy){
+        settings.setProperty("Checkbox_On/Off",truthy);
+        saveSettings();
+    }
+    public boolean soundIsOn(){return Boolean.parseBoolean(settings.getProperty("Sound_On/Off", "false"));}
+    public void setSoundSetting(String truthy){
+        settings.setProperty("Sound_On/Off",truthy);
+        saveSettings();
+    }
 }
