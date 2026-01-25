@@ -1,10 +1,12 @@
 package me.abbatrombone.traz.CustomComponents;
 
+import me.abbatrombone.traz.Managers.SettingsManager;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
+
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
