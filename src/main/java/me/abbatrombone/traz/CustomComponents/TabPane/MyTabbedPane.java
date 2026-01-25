@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyTabbedPane extends JPanel {
+    private final Dimension prefSize;
 
     Container tabsConteiner, panelsContainer;
     List<MyComponent> tabs;
@@ -15,8 +16,7 @@ public class MyTabbedPane extends JPanel {
     int margin = 0;
 
     public MyTabbedPane( Dimension dim ) {
-
-
+        this.prefSize = dim;
         // here I set the same frame size, but that depends on your needs.
         setSize( dim );
         tabs = new ArrayList<>();
@@ -93,5 +93,27 @@ public class MyTabbedPane extends JPanel {
                 panelsContainer.repaint();
             }
         });
+    }
+    public void updateTheme(Color bg, Color fg) {
+
+        tabsConteiner.setBackground(bg);
+        panelsContainer.setBackground(bg);
+
+        for (MyComponent tab : tabs) {
+            tab.updateColors(bg, fg);
+        }
+
+        for (JComponent panel : panels) {
+            panel.setBackground(bg);
+            panel.setForeground(fg);
+            panel.repaint();
+        }
+
+        revalidate();
+        repaint();
+    }
+    @Override
+    public Dimension getPreferredSize() {
+        return prefSize;
     }
 }

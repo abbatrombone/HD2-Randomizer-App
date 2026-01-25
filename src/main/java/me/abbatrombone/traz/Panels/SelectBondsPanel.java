@@ -2,6 +2,7 @@ package me.abbatrombone.traz.Panels;
 import me.abbatrombone.traz.CustomComponents.JScrollbarUIComp.CustomScrollbar;
 import me.abbatrombone.traz.CustomComponents.WarbondCheckBox;
 import me.abbatrombone.traz.GameItems.Warbonds;
+import me.abbatrombone.traz.Managers.SettingsManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +14,8 @@ public class SelectBondsPanel {
     private final ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
     private final JPanel[] lines;
     private final Color backgroundColor = new Color(51, 51, 51);
+    private static final SettingsManager settingsManager = new SettingsManager();
+    private final Color fgColor = settingsManager.getColor("Label_Color","#ff6699");
 
     public SelectBondsPanel(){
 
@@ -30,7 +33,7 @@ public class SelectBondsPanel {
         labelHeaderPanel.add(Box.createHorizontalGlue());
 
         JLabel labelHeader = new JLabel("Warbonds");
-        labelHeader.setForeground(Color.WHITE);
+        labelHeader.setForeground(fgColor);
         labelHeaderPanel.add(labelHeader);
         labelHeaderPanel.add(Box.createHorizontalGlue());
 
@@ -75,12 +78,12 @@ public class SelectBondsPanel {
             String name = bond.toString();
             String nameWithSpace = name.replace("_"," ");
 
-            WarbondCheckBox checkBox = new WarbondCheckBox();
+            JCheckBox checkBox = settingsManager.defaultCheckboxIsOn() ? new JCheckBox() : new WarbondCheckBox() ;
             checkBox.setBackground(backgroundColor);
             JLabel label = new JLabel(nameWithSpace);
-            label.setForeground(Color.WHITE);
+            label.setForeground(fgColor);
             checkBox.setName(name);
-
+            checkBox.setSelected(true);
             checkBoxes.add(checkBox);
 
             p.add(checkBox);

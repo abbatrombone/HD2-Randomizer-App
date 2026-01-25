@@ -1,6 +1,7 @@
 package me.abbatrombone.traz.Panels;
 
 import me.abbatrombone.traz.CustomComponents.CustomButton;
+import me.abbatrombone.traz.Managers.SettingsManager;
 import me.abbatrombone.traz.Panels.ButtonActions.Challenges;
 import me.abbatrombone.traz.CustomComponents.OutputJTextPane;
 import me.abbatrombone.traz.Panels.ButtonActions.RandomLoadOut;
@@ -15,11 +16,13 @@ import java.awt.event.ActionEvent;
 public class ButtonPanel {
 
     private final JPanel panel = new JPanel();
-    private final CustomButton random = new CustomButton("Full Random",Color.WHITE);
-    private final CustomButton semirandom = new CustomButton("Semi Random",Color.WHITE);
-    private final CustomButton clear = new CustomButton("Clear",Color.WHITE);
-    private final CustomButton challenges = new CustomButton("Challenges",Color.WHITE);
-    private final CustomButton tips = new CustomButton("Tips",Color.WHITE);
+    private static final SettingsManager settingsManager = new SettingsManager();
+    private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
+    private final CustomButton random = new CustomButton("Full Random",fgColor);
+    private final CustomButton semirandom = new CustomButton("Semi Random",fgColor);
+    private final CustomButton clear = new CustomButton("Clear",fgColor);
+    private final CustomButton challenges = new CustomButton("Challenges",fgColor);
+    private final CustomButton tips = new CustomButton("Tips",fgColor);
     private final OutputJTextPane output;
     private final Color backgroundColor = new Color(51, 51, 51);
 

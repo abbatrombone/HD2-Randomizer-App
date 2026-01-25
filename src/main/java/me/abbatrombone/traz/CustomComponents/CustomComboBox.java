@@ -1,8 +1,14 @@
 package me.abbatrombone.traz.CustomComponents;
 
+import me.abbatrombone.traz.CustomComponents.JScrollbarUIComp.ScrollBarUI;
+import me.abbatrombone.traz.Managers.SettingsManager;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.plaf.basic.BasicComboPopup;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -12,18 +18,19 @@ public class CustomComboBox extends JComboBox<String>  {
     private final JLabel tooltipLabel = new JLabel();
     private String hoverMessages = "Choosing \"All\" may TANK preformance!";
     private boolean hovering = false;
-    private CustomCursor cursor = new CustomCursor();
+    private static final SettingsManager settingsManager = new SettingsManager();
+    private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
 
     public CustomComboBox(String[] options){
         super(options);
 
         UIManager.put("ComboBox.background", bgColor);
-        UIManager.put("ComboBox.foreground", Color.WHITE);
+        UIManager.put("ComboBox.foreground", fgColor);
         UIManager.put("ComboBox.selectionBackground", new Color(51,51,51));
-        UIManager.put("ComboBox.selectionForeground", Color.WHITE);
+        UIManager.put("ComboBox.selectionForeground", fgColor);
 
         setBackground(bgColor);
-        setForeground(Color.WHITE);
+        setForeground(fgColor);
         setPreferredSize(new Dimension(10,10));
         setFont(new Font("FS Sinclair", Font.BOLD, 14));
         setBorder(new EmptyBorder(5, 10, 5, 10));
@@ -45,8 +52,7 @@ public class CustomComboBox extends JComboBox<String>  {
             @Override
             public void mouseExited(MouseEvent e) {
                 tooltipWindow.setVisible(false);
-                setCursor(cursor.create(CustomCursor.Type.CUSTOM_ARROW));
-                //setCursor(Cursor.getDefaultCursor());
+                putClientProperty("hoverCursor", false);
                 hovering = false;
             }
         });
@@ -56,7 +62,7 @@ public class CustomComboBox extends JComboBox<String>  {
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 label.setBackground(isSelected ? new Color(70, 70, 70) : bgColor);
-                label.setForeground(Color.WHITE);
+                label.setForeground(fgColor);
                 label.setBorder(new EmptyBorder(5, 10, 5, 10));
 
                 return label;
@@ -68,7 +74,7 @@ public class CustomComboBox extends JComboBox<String>  {
             protected JButton createArrowButton() {
                 JButton btn = new JButton("▼");
                 btn.setFont(new Font("FS Sinclair", Font.BOLD, 12));
-                btn.setForeground(Color.WHITE);
+                btn.setForeground(fgColor);
                 btn.setBackground(bgColor);
                 btn.setBorder(null);
                 btn.setFocusable(false);
@@ -137,10 +143,25 @@ public class CustomComboBox extends JComboBox<String>  {
             protected void installDefaults() {
                 super.installDefaults();
                 comboBox.setBackground(bgColor);
-                comboBox.setForeground(Color.WHITE);
+                comboBox.setForeground(fgColor);
                 comboBox.setFont(new Font("FS Sinclair", Font.BOLD, 14));
             }
 
+        });
+        addPopupMenuListener(new PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                Object popup = getAccessibleContext().getAccessibleChild(0);
+
+                if (popup instanceof BasicComboPopup bcp) {
+                    JScrollPane scrollPane = (JScrollPane) bcp.getComponent(0);
+                    scrollPane.getVerticalScrollBar()
+                            .setUI(new ScrollBarUI());
+                }
+            }
+
+            @Override public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {}
+            @Override public void popupMenuCanceled(PopupMenuEvent e) {}
         });
     }
     public void setHoverWord(String message) {
@@ -154,7 +175,7 @@ public class CustomComboBox extends JComboBox<String>  {
         panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
         panel.setLayout(new GridBagLayout());
 
-        tooltipLabel.setForeground(Color.WHITE);
+        tooltipLabel.setForeground(fgColor);
         tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
         panel.add(tooltipLabel);
 
@@ -183,11 +204,11 @@ public class CustomComboBox extends JComboBox<String>  {
                 tooltipLabel.setText(hoverMessages);
                 tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
                 tooltipWindow.setVisible(true);
-                setCursor(cursor.create(CustomCursor.Type.CUSTOM_HAND_ARROW));
+                putClientProperty("hoverCursor", true);
                 hovering = true;
             } else {
                 tooltipWindow.setVisible(false);
-                setCursor(cursor.create(CustomCursor.Type.CUSTOM_ARROW));
+                putClientProperty("hoverCursor", false);
                 hovering = false;
             }
         }

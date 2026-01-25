@@ -1,6 +1,7 @@
 package me.abbatrombone.traz.CustomComponents;
 
 import me.abbatrombone.traz.Managers.OSManager;
+import me.abbatrombone.traz.Managers.SettingsManager;
 import me.abbatrombone.traz.Panels.ButtonActions.RandomLoadOut;
 
 import javax.imageio.ImageIO;
@@ -13,11 +14,13 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 public class OutputJTextPane extends JTextPane {
     private BufferedImage backgroundImage;
@@ -32,7 +35,9 @@ public class OutputJTextPane extends JTextPane {
     private final JLabel tooltipLabel = new JLabel();
 
     private static final Logger logger = Logger.getLogger(OutputJTextPane.class.getName());
-
+    private static final SettingsManager settingsManager = new SettingsManager();
+    private final Color hoverColor = settingsManager.getColor("Label_Color","#ffffff");
+    private final Color textColor = settingsManager.getColor("Text_Color","#ffffff");
 
     public OutputJTextPane() {
 
@@ -50,7 +55,7 @@ public class OutputJTextPane extends JTextPane {
         }
 
         normalStyle = addStyle("normal", null);
-        StyleConstants.setForeground(normalStyle, Color.BLACK);
+        StyleConstants.setForeground(normalStyle, textColor.equals(Color.WHITE) ? Color.BLACK : textColor);
         StyleConstants.setFontSize(normalStyle, 12);
 
         hoverStyle = addStyle("hover", null);
@@ -150,7 +155,7 @@ public class OutputJTextPane extends JTextPane {
         panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
         panel.setLayout(new GridBagLayout());
 
-        tooltipLabel.setForeground(Color.WHITE);
+        tooltipLabel.setForeground(hoverColor);
         tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
         panel.add(tooltipLabel);
 
@@ -170,7 +175,7 @@ public class OutputJTextPane extends JTextPane {
         tooltipWindow.pack();
     }
     private class HoverHandler extends MouseMotionAdapter {
-        CustomCursor cursor = new CustomCursor();
+
         @Override
         public void mouseMoved(MouseEvent e) {
             int pos = viewToModel2D(e.getPoint());
@@ -188,7 +193,7 @@ public class OutputJTextPane extends JTextPane {
                     Point p = e.getLocationOnScreen();
                     tooltipWindow.setLocation(p.x + 12, p.y + 18);
                     tooltipWindow.setVisible(true);
-                    setCursor(cursor.create(CustomCursor.Type.CUSTOM_HAND_ARROW));
+                    putClientProperty("hoverCursor", true);
                     hovering = true;
                 } else {
                     doc.setCharacterAttributes(range[0], range[1] - range[0], normalStyle, true);
@@ -197,13 +202,13 @@ public class OutputJTextPane extends JTextPane {
 
             if (!hovering) {
                 tooltipWindow.setVisible(false);
-                setCursor(cursor.create(CustomCursor.Type.CUSTOM_ARROW));
+                putClientProperty("hoverCursor", false);
             }
         }
     }
 
     private class ClickHandler extends MouseAdapter {
-        CustomCursor cursor = new CustomCursor();
+
         @Override
         public void mouseClicked(MouseEvent e) {
             int pos = viewToModel2D(e.getPoint());

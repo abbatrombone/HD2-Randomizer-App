@@ -1,5 +1,7 @@
 package me.abbatrombone.traz.Panels.IsoGraphics;
 
+import me.abbatrombone.traz.Managers.SettingsManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
@@ -9,15 +11,16 @@ import java.util.List;
 
 public class IsoPanel extends JPanel{
     private static final Logger logger = Logger.getLogger(IsoPanel.class.getName());
-    int minH = -300;
-    int maxH = 300;
-    Surface3D surface= new Surface3D(50, 50, 150, minH, maxH);
+    private static final SettingsManager settingsManager = new SettingsManager();
+    private static final int minH = -300;
+    private static final int maxH = 300;
+    private static final Surface3D surface= new Surface3D(50, 50, 150, minH, maxH);
     public int originX=getPreferredSize().width;
     public int originY=250;
     public float ySkew=1.0f;
     public Iso3D iso3D= new Iso3D();
-    int xs = surface.xSquareSize;
-    int ys = surface.ySquareSize;
+    private static final int xs = surface.xSquareSize;
+    private static final int ys = surface.ySquareSize;
 
     private double[][] elev;
     private List<Point> rivers;
@@ -29,7 +32,8 @@ public class IsoPanel extends JPanel{
         setOpaque(true);
         setLayout(null);
 
-        label.setForeground(Color.WHITE);
+        Color fgColor = settingsManager.getColor("Label_Color", "#ff6699");
+        label.setForeground(fgColor);
         label.setFont(new Font("FS Sinclair",Font.BOLD,16));
         label.setSize(label.getPreferredSize());
         add(label);
