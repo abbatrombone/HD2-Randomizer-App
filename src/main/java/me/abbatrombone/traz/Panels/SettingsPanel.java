@@ -1,44 +1,74 @@
 package me.abbatrombone.traz.Panels;
 
-import me.abbatrombone.traz.CustomComponents.CustomButton;
-import me.abbatrombone.traz.CustomComponents.CustomComboBox;
-import me.abbatrombone.traz.CustomComponents.CustomCursor;
+import me.abbatrombone.traz.CustomComponents.*;
 import me.abbatrombone.traz.Managers.SettingsManager;
 import me.abbatrombone.traz.Panels.IsoGraphics.IsoPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
+import java.util.Objects;
 
 public class SettingsPanel{
     private final JPanel panel = new JPanel();
     private final IsoPanel isoPanel = new IsoPanel();
     private final Color bgColor = new Color(51,51,51);
-    private final CustomButton imageButton = new CustomButton("Select Image",Color.WHITE);
-    private final CustomButton colorButton = new CustomButton("Select Color",Color.WHITE);
-    private final CustomButton checkmarksButton = new CustomButton("Use Democratic Checkmarks",Color.WHITE);
-    private final CustomButton soundsButton = new CustomButton("Sound is Disabled",Color.WHITE);
+    private static final SettingsManager settingsManager = new SettingsManager();
+    private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
+    private final CustomButton imageButton = new CustomButton("Select Image",fgColor);
+    private final CustomButton standardCursorButton = new CustomButton("Default",fgColor);
+    private final CustomButton hellDiversCursorButton = new CustomButton("HD2",fgColor);
+    private final CustomButton guiColorButton = new CustomButton("Select Color",fgColor);
+    private final CustomButton textColorButton = new CustomButton("Select Color",fgColor);
+    private final CustomButton checkmarksButton = new CustomButton("Use Democratic Checkmarks",fgColor);
+    private final CustomButton soundsButton = new CustomButton("Sound is Disabled",fgColor);
     String[] options = { "all","config","fine","finer","finest","Info","off","servere","warning"};
     private final CustomComboBox dropdown = new CustomComboBox(options);
 
-    private final SettingsManager settingsManager =new SettingsManager();
+    private final CustomFileChooser fileChooser =  new CustomFileChooser(getPanel());
+    private final CustomColorChooser customColorChooser = new CustomColorChooser(getPanel());
 
     public SettingsPanel() {
 
-        JPanel cursorRow = makeRow("Use Custom Cursor:", imageButton);
-        JPanel textColorRow = makeRow("Change Text Color:", colorButton);
+        JPanel cursorRow = makeRow("Cursor Settings:", imageButton);
+        JPanel guiColorRow = makeRow("Change GUI Color:", guiColorButton);
+        JPanel textColorRow = makeRow("Change Text Color",textColorButton);
         JPanel checkMarkRow = makeRow("Use Default Checkmarks:", checkmarksButton);
         JPanel logRow = makeRow("Change Log level:",dropdown);
         JPanel soundsRow = makeRow("Enable/Disable Sounds:",soundsButton);
         dropdown.setSelectedIndex(options.length -1);
 
         imageButton.addHoverWord("Make sure its democracy approved");
-        colorButton.addHoverWord("Using a color unaffiliated with super earth is treason");
+        guiColorButton.addHoverWord("Using a color unaffiliated with super earth is treason");
+        textColorButton.addHoverWord("Using a color unaffiliated with super earth is treason");
         checkmarksButton.addHoverWord("Your willingness to commit treason is noted helldiver");
         soundsButton.addHoverWord("What the button says");
+        standardCursorButton.addHoverWord("This is what you have your computers cursor as");
+        hellDiversCursorButton.addHoverWord("Will use the Helldivers 2 cursor");
 
         isoPanel.setPreferredSize(new Dimension(500, 600));
         panel.setBackground(bgColor);
 
+        standardCursorButton.addActionListener(e-> settingsManager.setCursorSetting("std"));
+        hellDiversCursorButton.addActionListener(e -> settingsManager.setCursorSetting("hd2"));
+        imageButton.addActionListener(e ->{
+
+
+            fileChooser.showOpenDialog();
+            if (fileChooser.getSelectedFile() != null) {
+                String selectedFile = fileChooser.getSelectedFile().toPath().toString();
+                settingsManager.setCursorSetting(selectedFile);
+            }
+        });
+        guiColorButton.addActionListener(e ->{
+            Color newColor = customColorChooser.showDialog(getPanel(),fgColor);
+            settingsManager.setColor("Label_Color", newColor);
+
+        });
+        textColorButton.addActionListener(e ->{
+            Color newColor = customColorChooser.showDialog(getPanel(),fgColor);
+            settingsManager.setColor("Text_Color", newColor);
+        });
         checkmarksButton.addActionListener(e -> {
             changeCheckboxButtonText((JButton) e.getSource());
             changeCheckboxButtonSetting();
@@ -48,6 +78,9 @@ public class SettingsPanel{
             changeSoundsButtonText((JButton) e.getSource());
             changeSoundsSetting();
         });
+
+        JLabel hd2Symbol = makeHD2Symbol();
+        JLabel noteLabel = makeNoteLabel();
 
         GroupLayout groupLayout = new GroupLayout(panel);
         groupLayout.setAutoCreateGaps(true);
@@ -60,10 +93,14 @@ public class SettingsPanel{
                         )
                         .addGroup(groupLayout.createParallelGroup()
                                 .addComponent(cursorRow)
+                                .addComponent(guiColorRow)
                                 .addComponent(textColorRow)
                                 .addComponent(checkMarkRow)
                                 .addComponent(logRow)
-                                .addComponent(soundsRow))
+                                .addComponent(soundsRow)
+                                .addComponent(hd2Symbol)
+                                .addComponent(noteLabel)
+                        )
                         .addGap(0, 0, Short.MAX_VALUE) // pushes everything else right
         );
 
@@ -72,10 +109,14 @@ public class SettingsPanel{
                         .addComponent(isoPanel)
                         .addGroup(groupLayout.createSequentialGroup()
                                 .addComponent(cursorRow)
+                                .addComponent(guiColorRow)
                                 .addComponent(textColorRow)
                                 .addComponent(checkMarkRow)
                                 .addComponent(logRow)
-                                .addComponent(soundsRow))
+                                .addComponent(soundsRow)
+                                .addComponent(hd2Symbol)
+                                .addComponent(noteLabel)
+                        )
         );
 
         panel.setLayout(groupLayout);
@@ -93,12 +134,24 @@ public class SettingsPanel{
         JLabel l = new JLabel(label);
 
         l.setBackground(bgColor);
-        l.setForeground(Color.WHITE);
+        l.setForeground(fgColor);
 
-        p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
-        p.add(l);
-        p.add(Box.createRigidArea(new Dimension(5,0)));
-        p.add(component);
+        if(label.equals("Cursor Settings:")){
+            p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
+            p.add(l);
+            p.add(Box.createRigidArea(new Dimension(5,0)));
+            p.add(component);
+            p.add(Box.createRigidArea(new Dimension(5,0)));
+            p.add(standardCursorButton);
+            p.add(Box.createRigidArea(new Dimension(5,0)));
+            p.add(hellDiversCursorButton);
+        }else{
+            p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
+            p.add(l);
+            p.add(Box.createRigidArea(new Dimension(5,0)));
+            p.add(component);
+        }
+
         return p;
     }
     private void changeCheckboxButtonText(JButton button){
@@ -130,5 +183,19 @@ public class SettingsPanel{
         }else{
             settingsManager.setSoundSetting("false");
         }
+    }
+    private JLabel makeHD2Symbol(){
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/HD2_header.png")));
+        Image scaled = icon.getImage().getScaledInstance(400, 100, Image.SCALE_SMOOTH);
+
+        JLabel label = new JLabel(new ImageIcon(scaled));
+        label.setPreferredSize(new Dimension(400,100));
+        label.setOpaque(false);
+        return label;
+    }
+    private JLabel makeNoteLabel(){
+        JLabel label = new JLabel("Restart App To Load New Settings");
+        label.setFont(new Font("FS Sinclair", Font.BOLD, 20));
+        return label;
     }
 }
