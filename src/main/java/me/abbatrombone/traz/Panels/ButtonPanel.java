@@ -2,6 +2,7 @@ package me.abbatrombone.traz.Panels;
 
 import me.abbatrombone.traz.CustomComponents.CustomButton;
 import me.abbatrombone.traz.Managers.SettingsManager;
+import me.abbatrombone.traz.Managers.SoundManager;
 import me.abbatrombone.traz.Panels.ButtonActions.Challenges;
 import me.abbatrombone.traz.CustomComponents.OutputJTextPane;
 import me.abbatrombone.traz.Panels.ButtonActions.RandomLoadOut;
@@ -12,6 +13,7 @@ import me.abbatrombone.traz.Utilities.StringParser;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class ButtonPanel {
 
@@ -25,6 +27,8 @@ public class ButtonPanel {
     private final CustomButton tips = new CustomButton("Tips",fgColor);
     private final OutputJTextPane output;
     private final Color backgroundColor = new Color(51, 51, 51);
+
+    private final SoundManager soundManager = new SoundManager();
 
     public ButtonPanel(OutputJTextPane output){
         this.output = output;
@@ -81,11 +85,55 @@ public class ButtonPanel {
     }
 
     private void randomButtonActionPerformed(ActionEvent evt) {
-        output.updateText();
-        StringParser p = new StringParser();
-         output.addHoverWord(p.parsePrimaryName(RandomLoadOut.getPrimaryWeapon()),RandomLoadOut.getPrimaryWeapon());
-         output.addHoverWord(p.parseSecondaryName(RandomLoadOut.getSecondaryWeapon()),RandomLoadOut.getSecondaryWeapon());
-         output.addHoverWord(p.parseThrowable(RandomLoadOut.getThrowable()),RandomLoadOut.getThrowable());
+        SoundManager.playSound("Alien Menace.wav");
+        List<String> selectedBonds = RandomLoadOut.getSelectedBondNames();
+
+        new SwingWorker<String, Void>() {
+
+            @Override
+            protected String doInBackground() {
+                // HEAVY WORK — runs off the EDT
+                System.out.println("doIn");
+                return RandomLoadOut.result(selectedBonds);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    String resultText = get();
+                    output.updateText(resultText);
+                    System.out.println("DONE");
+
+                    StringParser p = new StringParser();
+
+                    output.addHoverWord(
+                            p.parsePrimaryName(RandomLoadOut.getPrimaryWeapon()),
+                            RandomLoadOut.getPrimaryWeapon()
+                    );
+                    output.addHoverWord(
+                            p.parseSecondaryName(RandomLoadOut.getSecondaryWeapon()),
+                            RandomLoadOut.getSecondaryWeapon()
+                    );
+                    output.addHoverWord(
+                            p.parseThrowable(RandomLoadOut.getThrowable()),
+                            RandomLoadOut.getThrowable()
+                    );
+                    output.rebuildHoverRanges();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }.execute();
+
+//
+//        output.updateText();
+//
+//        StringParser p = new StringParser();
+//        output.addHoverWord(p.parsePrimaryName(RandomLoadOut.getPrimaryWeapon()),RandomLoadOut.getPrimaryWeapon());
+//        output.addHoverWord(p.parseSecondaryName(RandomLoadOut.getSecondaryWeapon()),RandomLoadOut.getSecondaryWeapon());
+//        output.addHoverWord(p.parseThrowable(RandomLoadOut.getThrowable()),RandomLoadOut.getThrowable());
     }
 
     private void clearButtonActionPerformed(ActionEvent evt) {
