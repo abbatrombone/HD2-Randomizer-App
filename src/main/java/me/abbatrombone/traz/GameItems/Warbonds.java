@@ -342,6 +342,21 @@ public class Warbonds {
                 },
                 new String[]{}),
 
+        Redacted(  new String[]{
+                addPrimary("R-72 Censor", Primaries.GunType.Marksmen, Primaries.ArmorPen.Light),
+                addPrimary("AR-59 Suppressor", Primaries.GunType.AR, Primaries.ArmorPen.Light)},
+                new String[]{ addSecondary("P-35 Re-Educator", Secondary.GunType.Special, Secondary.ArmorPen.Heavy),},
+                new String[]{},
+                new String[]{
+                        addMines("TM-01 Lure Mine"),
+                        addBackpackWeapon("C4 Pack")
+                },
+                new String[]{
+                        addLightArmor("Reduced Signature"),
+                        addMedArmor("Acclimated"),
+                },
+                new String[]{"Concealed Insertion"}),
+
         Super_Store(
                 new String[]{},
                 new String[]{
