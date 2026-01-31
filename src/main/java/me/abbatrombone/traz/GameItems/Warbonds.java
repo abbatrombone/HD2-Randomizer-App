@@ -373,6 +373,7 @@ public class Warbonds {
                         addLightArmor("Extra Padding"),
                         addLightArmor("Med-Kit"),
                         addLightArmor("Integrated Explosives"),
+                        addLightArmor("Reduced Signature"),
                         addMedArmor("Acclimated"),
                         addMedArmor("Engineering Kit"),
                         addMedArmor("Fortified"),
