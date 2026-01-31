@@ -20,9 +20,7 @@ import java.util.logging.Logger;
 
 public class HDApp {
     private final JFrame frame = new JFrame();
-    private final JTabbedPane tabPanel = makeTabPane();
     private final MainPanel mainPanel = new MainPanel();
-    private final GearPanel gearPanel = new GearPanel();
     private final SettingsPanel settingsPanel = new SettingsPanel();
     private final RulesPanel rulesPanel = new RulesPanel();
     private final Toolkit toolkit = Toolkit.getDefaultToolkit();
