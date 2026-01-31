@@ -1,5 +1,7 @@
 package me.abbatrombone.traz.CustomComponents;
 
+import me.abbatrombone.traz.Managers.SettingsManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -16,6 +18,8 @@ public class CustomButton extends JButton {
     private final Map<String, String> hoverMessages = new HashMap<>();
     private final JWindow tooltipWindow = new JWindow();
     private final JLabel tooltipLabel = new JLabel();
+    private static final SettingsManager settingsManager = new SettingsManager();
+    private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
 
     public CustomButton(String text, Color baseColor) {
         super(text);
@@ -24,7 +28,8 @@ public class CustomButton extends JButton {
         setContentAreaFilled(false);
         setFocusPainted(false);
         setBorderPainted(false);
-        setForeground(Color.WHITE);
+
+        setForeground(fgColor);
         setBaseColor(new Color(51,51,51));
         setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14));
 
@@ -45,7 +50,7 @@ public class CustomButton extends JButton {
                 pressed = false;
                 repaint();
                 tooltipWindow.setVisible(false); // close tooltip when leaving the button
-                setCursor(Cursor.getDefaultCursor());
+                putClientProperty("hoverCursor", false);
             }
 
             @Override
@@ -118,7 +123,7 @@ public class CustomButton extends JButton {
         panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
         panel.setLayout(new GridBagLayout());
 
-        tooltipLabel.setForeground(Color.WHITE);
+        tooltipLabel.setForeground(fgColor);
         tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
         panel.add(tooltipLabel);
 
@@ -138,7 +143,6 @@ public class CustomButton extends JButton {
         tooltipWindow.pack();
     }
     private class ButtonHoverHandler extends MouseMotionAdapter {
-        CustomCursor cursor = new CustomCursor();
 
         @Override
         public void mouseMoved(MouseEvent e) {
@@ -151,18 +155,18 @@ public class CustomButton extends JButton {
                 tooltipLabel.setText(hoverMessages.get(key));
                 tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
                 tooltipWindow.setVisible(true);
-                setCursor(cursor.create(CustomCursor.Type.CUSTOM_HAND_ARROW));
+                putClientProperty("hoverCursor", true);
                 hovering = true;
             }
 
             if (!hovering) {
                 tooltipWindow.setVisible(false);
-                setCursor(cursor.create(CustomCursor.Type.CUSTOM_ARROW));
+                putClientProperty("hoverCursor", false);
             }
             //helps mitigate phantom tool tips but does not resolve.
             if(!contains(e.getPoint())){
                 tooltipWindow.setVisible(false);
-                setCursor(cursor.create(CustomCursor.Type.CUSTOM_ARROW));
+                putClientProperty("hoverCursor", true);
             }
         }
     }

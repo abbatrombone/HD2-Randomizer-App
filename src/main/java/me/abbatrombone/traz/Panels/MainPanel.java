@@ -1,9 +1,18 @@
 package me.abbatrombone.traz.Panels;
 
+import me.abbatrombone.traz.CustomComponents.CustomCursor;
 import me.abbatrombone.traz.CustomComponents.OutputJTextPane;
+import me.abbatrombone.traz.Managers.SettingsManager;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainPanel {
 
@@ -14,6 +23,10 @@ public class MainPanel {
     private static final SelectBondsPanel selectBondsPanel = new SelectBondsPanel();
     private final ButtonPanel buttonPanel = new ButtonPanel(output);
     private final Color bgColor = new Color(51,51,51);
+
+    private static final Logger logger = Logger.getLogger(MainPanel.class.getName());
+    private static final SettingsManager settingsManager = new SettingsManager();
+
 
     public MainPanel(){
         output.setOpaque(true);

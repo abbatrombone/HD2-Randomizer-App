@@ -27,17 +27,17 @@ public class SettingsManager {
         return Boolean.parseBoolean(settings.getProperty("editable", "true"));
     }
 
-    public void setTextColor(Color color) {
-        setColor("textColor", color);
-        saveSettings();
-    }
+//    public void setTextColor(Color color) {
+//        setColor("textColor", color);
+//        saveSettings();
+//    }
+//
+//    public void setBackgroundColor(Color color) {
+//        setColor("bgColor", color);
+//        saveSettings();
+//    }
 
-    public void setBackgroundColor(Color color) {
-        setColor("bgColor", color);
-        saveSettings();
-    }
-
-    private Color getColor(String key, String defaultHex) {
+    public Color getColor(String key, String defaultHex) {
         try {
             return Color.decode(settings.getProperty(key, defaultHex));
         } catch (NumberFormatException e) {
@@ -45,8 +45,9 @@ public class SettingsManager {
         }
     }
 
-    private void setColor(String key, Color color) {
+    public void setColor(String key, Color color) {
         settings.setProperty(key, "#" + Integer.toHexString(color.getRGB()).substring(2));
+        saveSettings();
     }
 
     private void loadSettings() {
@@ -82,11 +83,21 @@ public class SettingsManager {
         settings.setProperty("imagiePath",absolutePath);
         saveSettings();
     }
-    public boolean isHardHatCursor() {
-        return Boolean.parseBoolean(settings.getProperty("Cursor_On/Off", "true"));
+    public String getCursorSettings() {
+        return settings.getProperty("Cursor", "HD2");
     }
-    public void setCursorSetting(String truthy){
-        settings.setProperty("Cursor_On/Off",truthy);
+    public void setCursorSetting(String cursor){
+        settings.setProperty("Cursor",cursor);
+        saveSettings();
+    }
+    public boolean defaultCheckboxIsOn(){return Boolean.parseBoolean(settings.getProperty("Checkbox_On/Off", "true"));}
+    public void setCheckboxSetting(String truthy){
+        settings.setProperty("Checkbox_On/Off",truthy);
+        saveSettings();
+    }
+    public boolean soundIsOn(){return Boolean.parseBoolean(settings.getProperty("Sound_On/Off", "false"));}
+    public void setSoundSetting(String truthy){
+        settings.setProperty("Sound_On/Off",truthy);
         saveSettings();
     }
 }

@@ -1,7 +1,7 @@
 package me.abbatrombone.traz.CustomComponents;
 
 import me.abbatrombone.traz.Managers.OSManager;
-import me.abbatrombone.traz.Panels.ButtonActions.RandomLoadOut;
+import me.abbatrombone.traz.Managers.SettingsManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class OutputJTextPane extends JTextPane {
     private BufferedImage backgroundImage;
     private final float imageOpacity = 0.3f;
@@ -27,12 +26,19 @@ public class OutputJTextPane extends JTextPane {
     private final Style normalStyle;
     private final Style hoverStyle;
     private final Map<String, String> hoverMessages = new HashMap<>();
-    private final List<int[]> hoverRanges = new ArrayList<>();
+    //private final List<int[]> hoverRanges = new ArrayList<>();
     private final JWindow tooltipWindow = new JWindow();
     private final JLabel tooltipLabel = new JLabel();
 
     private static final Logger logger = Logger.getLogger(OutputJTextPane.class.getName());
+    private static final SettingsManager settingsManager = new SettingsManager();
+    private final Color hoverColor = settingsManager.getColor("Label_Color","#ffffff");
+    private final Color textColor = settingsManager.getColor("Text_Color","#ffffff");
+    private final Map<String, BufferedImage> imageCache = new HashMap<>();
 
+    //private int[] activeRange = null;
+    private final List<HoverRange> hoverRanges = new ArrayList<>();
+    private HoverRange activeRange = null;
 
     public OutputJTextPane() {
 
@@ -41,7 +47,7 @@ public class OutputJTextPane extends JTextPane {
         setFont(new Font("FS Sinclair", Font.BOLD, 12)); //Swiss 721 Extended
         setOpaque(false);
         setEditable(false);
-
+        setText(" ");
 
         try {
             backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Super_Earth_Flag.jpg")));
@@ -50,7 +56,7 @@ public class OutputJTextPane extends JTextPane {
         }
 
         normalStyle = addStyle("normal", null);
-        StyleConstants.setForeground(normalStyle, Color.BLACK);
+        StyleConstants.setForeground(normalStyle, textColor.equals(Color.WHITE) ? Color.BLACK : textColor);
         StyleConstants.setFontSize(normalStyle, 12);
 
         hoverStyle = addStyle("hover", null);
@@ -62,11 +68,9 @@ public class OutputJTextPane extends JTextPane {
 
         addMouseMotionListener(new HoverHandler());
         addMouseListener(new ClickHandler());
-
-
     }
 
-    public void updateText(){
+    public void updateText(String text){
         StyledDocument doc = getStyledDocument();
         //StyleConstants.setBackground(attributeSet, Color.ORANGE);
 
@@ -75,11 +79,12 @@ public class OutputJTextPane extends JTextPane {
         }
 
         try {
-            doc.insertString(doc.getLength(), RandomLoadOut.result(), attributeSet); //moved add hover to button panel
+            doc.insertString(doc.getLength(), text, attributeSet); //moved add hover to button panel
         } catch (BadLocationException e) {
             logger.log(Level.WARNING,"Unable to update Text" + e);
         }
     }
+
     public void updateImage(String enemy){
         switch (enemy){
             case "Terminids"  -> {
@@ -127,21 +132,49 @@ public class OutputJTextPane extends JTextPane {
     }
 
     public void addHoverWord(String word, String message) {
+        if (word == null || word.isBlank()) {
+            return;
+        }
         hoverMessages.put(word, message);
+        //logger.info("Hover words: " + hoverMessages.keySet());
+    }
+    public void rebuildHoverRanges() {
+        activeRange = null;
+        tooltipWindow.setVisible(false);
         scanForHoverRanges();
     }
 
-    private void scanForHoverRanges() {
-        hoverRanges.clear();
-        String text = getText();
-        for (String word : hoverMessages.keySet()) {
-            int index = 0;
-            while ((index = text.indexOf(word, index)) != -1) {
-                hoverRanges.add(new int[]{index, index + word.length(), word.hashCode()});
-                index += word.length();
-            }
+//    private void scanForHoverRanges() {
+//        hoverRanges.clear();
+//        String text = getText();
+//        for (String word : hoverMessages.keySet()) {
+//            int index = 0;
+//            while ((index = text.indexOf(word, index)) != -1) {
+//                hoverRanges.add(new int[]{index, index + word.length(), word.hashCode()});
+//                index += word.length();
+//            }
+//        }
+//    }
+private void scanForHoverRanges() {
+    hoverRanges.clear();
+    String text = getText();
+
+    for (String word : hoverMessages.keySet()) {
+
+        // 🔒 CRITICAL GUARD
+        if (word == null || word.isBlank()) {
+            continue;
+        }
+
+        int index = 0;
+        while ((index = text.indexOf(word, index)) != -1) {
+            hoverRanges.add(
+                    new HoverRange(index, index + word.length(), word)
+            );
+            index += word.length();
         }
     }
+}
 
     private void setupTooltipUI() {
         tooltipWindow.setBackground(new Color(0, 0, 0, 0));
@@ -150,7 +183,7 @@ public class OutputJTextPane extends JTextPane {
         panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
         panel.setLayout(new GridBagLayout());
 
-        tooltipLabel.setForeground(Color.WHITE);
+        tooltipLabel.setForeground(hoverColor);
         tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
         panel.add(tooltipLabel);
 
@@ -164,56 +197,98 @@ public class OutputJTextPane extends JTextPane {
             int paddingH = 14;
 
             tooltipWindow.setSize(textWidth + paddingW, textHeight + paddingH);
+            tooltipWindow.setAlwaysOnTop(true);
             tooltipWindow.pack();
         });
 
         tooltipWindow.pack();
     }
+
+    private static class HoverRange {
+        final int start;
+        final int end;
+        final String word;
+
+        HoverRange(int start, int end, String word) {
+            this.start = start;
+            this.end = end;
+            this.word = word;
+        }
+        boolean contains(int pos) {
+            return pos >= start && pos < end;
+        }
+        int length() {
+            return end - start;
+        }
+    }
     private class HoverHandler extends MouseMotionAdapter {
-        CustomCursor cursor = new CustomCursor();
+
         @Override
         public void mouseMoved(MouseEvent e) {
             int pos = viewToModel2D(e.getPoint());
+            if (pos < 0) {
+                return;
+            }
             StyledDocument doc = getStyledDocument();
 
-            boolean hovering = false;
-            for (int[] range : hoverRanges) {
-                if (pos >= range[0] && pos < range[1]) {
+            HoverRange newRange = null;
 
-                    String word = getText().substring(range[0], range[1]);
-                    String msg = hoverMessages.get(word);
-                    doc.setCharacterAttributes(range[0], range[1] - range[0], hoverStyle, true);
-                    tooltipLabel.setText(msg);
-
-                    Point p = e.getLocationOnScreen();
-                    tooltipWindow.setLocation(p.x + 12, p.y + 18);
-                    tooltipWindow.setVisible(true);
-                    setCursor(cursor.create(CustomCursor.Type.CUSTOM_HAND_ARROW));
-                    hovering = true;
-                } else {
-                    doc.setCharacterAttributes(range[0], range[1] - range[0], normalStyle, true);
+            for (HoverRange range : hoverRanges) {
+                if (range.contains(pos)) {
+                    newRange = range;
+                    break;
                 }
             }
 
-            if (!hovering) {
+            // No change → do nothing
+            if (activeRange == newRange) {
+                return;
+            }
+
+            // Clear old hover
+            if (activeRange != null) {
+                doc.setCharacterAttributes(
+                        activeRange.start,
+                        activeRange.length(),
+                        normalStyle,
+                        true
+                );
                 tooltipWindow.setVisible(false);
-                setCursor(cursor.create(CustomCursor.Type.CUSTOM_ARROW));
+            }
+
+            activeRange = newRange;
+
+            // Apply new hover
+            if (newRange != null) {
+                tooltipLabel.setText(hoverMessages.get(newRange.word));
+
+                doc.setCharacterAttributes(
+                        newRange.start,
+                        newRange.length(),
+                        hoverStyle,
+                        true
+                );
+
+                Point p = e.getLocationOnScreen();
+                tooltipWindow.setLocation(p.x + 12, p.y + 18);
+                tooltipWindow.setVisible(true);
             }
         }
     }
 
     private class ClickHandler extends MouseAdapter {
-        CustomCursor cursor = new CustomCursor();
+
         @Override
         public void mouseClicked(MouseEvent e) {
             int pos = viewToModel2D(e.getPoint());
-            for (int[] range : hoverRanges) {
-                if (pos >= range[0] && pos < range[1]) {
-                    String word = getText().substring(range[0], range[1]);
 
-                    //String url = "https://helldivers.fandom.com/wiki/"+word;
-                    String url = "https://helldivers.wiki.gg/wiki/"+word;
-                    openURL(url.replace(" ","_"));
+            for (HoverRange range : hoverRanges) {
+                if (range.contains(pos)) {
+                    openURL(
+                            ("https://helldivers.wiki.gg/wiki/" + range.word)
+                                    .replace(" ", "_")
+                    );
+                    break;
                 }
             }
         }

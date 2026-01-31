@@ -120,7 +120,7 @@ public class Warbonds {
                 new String[]{
                         addPrimary("AR-23C- Liberator Concussive", Primaries.GunType.AR, Primaries.ArmorPen.Light),
                         addPrimary("Jar-5 Dominator", Primaries.GunType.Special, Primaries.ArmorPen.Med),
-                        addPrimary("SG-2251E Breaker Incendiary", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light)},
+                        addPrimary("SG-225IE Breaker Incendiary", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light)},
                 new String[]{addSecondary("P-4 Senator", Secondary.GunType.Pistol, Secondary.ArmorPen.Heavy)},
                 new String[]{addThrowable("G-10 Incendiary", Throwable.ThrowableType.Standard,Throwable.Penitration.Medium)},
                 new String[]{},

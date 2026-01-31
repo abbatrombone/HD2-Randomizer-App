@@ -1,5 +1,7 @@
 package me.abbatrombone.traz.CustomComponents.TabPane;
 
+import me.abbatrombone.traz.Managers.SettingsManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,6 +10,10 @@ public class MyComponent extends JLabel {
     Color back, fore, line;
     String title;
     Color bg = new Color(51,51,51);
+    boolean isSelected;
+
+    private static final SettingsManager settingsManager = new SettingsManager();
+    private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
 
     public MyComponent( String tit ) {
         title = tit;
@@ -19,7 +25,7 @@ public class MyComponent extends JLabel {
         setSize(textWidth + paddingX, 26);
 
         back = bg;
-        fore = Color.WHITE;
+        fore = fgColor;
         line = bg;
     }
 
@@ -28,8 +34,9 @@ public class MyComponent extends JLabel {
         Graphics2D gra = (Graphics2D) g;
         int distanceOfMargin = 0;
 
-        gra.fillRoundRect( 2, 2, getWidth(), getHeight(), 8, 8 );
         gra.setColor( back );
+        gra.fillRoundRect( 2, 2, getWidth(), getHeight(), 8, 8 );
+
         //  gra.fillRect( 3, 3, getWidth(), getHeight() );
         gra.fillRoundRect( 3, 3, getWidth() -4, getHeight(), 5, 5 );
 
@@ -44,16 +51,27 @@ public class MyComponent extends JLabel {
                 RenderingHints.VALUE_ANTIALIAS_OFF );
     }
 
-    void setSelected( boolean selected ) {
-        if( selected ) {
+    void setSelected(boolean selected) {
+        isSelected = selected;
+
+        if (selected) {
             back = bg;
-            fore = Color.white;
-            line = Color.WHITE;
-        }
-        else {
+            fore = fgColor;
+            line = fgColor;
+        } else {
             back = bg;
-            fore = Color.WHITE;
+            fore = fgColor;
             line = bg;
         }
+
+        repaint();
+    }
+    void updateColors(Color bg, Color fg) {
+        this.bg = bg;
+        this.back = bg;
+        this.fore = fg;
+        this.line = isSelected ? fg : bg;
+
+        repaint();
     }
 }
