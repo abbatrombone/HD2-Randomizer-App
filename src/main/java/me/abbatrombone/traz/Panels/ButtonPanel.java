@@ -93,7 +93,6 @@ public class ButtonPanel {
             @Override
             protected String doInBackground() {
                 // HEAVY WORK — runs off the EDT
-                System.out.println("doIn");
                 return RandomLoadOut.result(selectedBonds);
             }
 
@@ -102,7 +101,6 @@ public class ButtonPanel {
                 try {
                     String resultText = get();
                     output.updateText(resultText);
-                    System.out.println("DONE");
 
                     StringParser p = new StringParser();
 
