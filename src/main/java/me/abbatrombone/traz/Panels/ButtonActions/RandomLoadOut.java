@@ -17,7 +17,7 @@ public class RandomLoadOut {
     private static String armorLevel;
     private static String armorPassive;
     private static List<String> boosterList;
-    private static String enemyType;
+    private static String enemyType = "";
     private static String resultText = "";
     private final static StringParser p = new StringParser();
 
@@ -336,7 +336,8 @@ public static String warbondStratagems(List<String> selectedBondNames) {
             }
         }
 
-        primaryList.add(p.parsePrimaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
+        //primaryList.add(p.parsePrimaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
+        primaryList.add(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary()));
         primaryWeapon = primaryList.get(ThreadLocalRandom.current().nextInt(primaryList.size()));
         //primaryWeapon = p.parsePrimaryName(primaryWeapon);
     }
@@ -364,7 +365,8 @@ public static String warbondStratagems(List<String> selectedBondNames) {
             }
         }
 
-        throwableList.add(p.parseThrowable(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable())));
+        //throwableList.add(p.parseThrowable(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable())));
+        throwableList.add(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable()));
         throwable = throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size()));
     }
     public static void warbondSecondary(List<String> selectedBondNames){
@@ -390,7 +392,8 @@ public static String warbondStratagems(List<String> selectedBondNames) {
                 }
             }
         }
-        secondaryList.add(p.parseSecondaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary())));
+        //secondaryList.add(p.parseSecondaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary())));
+        secondaryList.add(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary()));
         secondaryWeapon = secondaryList.get(ThreadLocalRandom.current().nextInt(secondaryList.size()));
     }
     public static String getPrimaryWeapon() {
