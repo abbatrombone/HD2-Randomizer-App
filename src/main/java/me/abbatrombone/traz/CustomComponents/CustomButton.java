@@ -1,21 +1,17 @@
 package me.abbatrombone.traz.CustomComponents;
 
+import me.abbatrombone.traz.CustomComponents.CustomMouseItems.HoverHandler;
 import me.abbatrombone.traz.Managers.SettingsManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CustomButton extends JButton {
     private Color baseColor;
     private boolean hover = false;
     private boolean pressed = false;
 
-    private final Map<String, String> hoverMessages = new HashMap<>();
+    //private final Map<String, String> hoverMessages = new HashMap<>();
     private final JWindow tooltipWindow = new JWindow();
     private final JLabel tooltipLabel = new JLabel();
     private static final SettingsManager settingsManager = new SettingsManager();
@@ -34,37 +30,41 @@ public class CustomButton extends JButton {
         setFont(new Font("Segoe UI", Font.BOLD + Font.ITALIC, 14));
 
         setupTooltipUI();
-        addMouseMotionListener(new CustomButton.ButtonHoverHandler());
+        //addMouseMotionListener(new CustomButton.ButtonHoverHandler());
+        HoverHandler hoverHandler = new HoverHandler(tooltipWindow, tooltipLabel);
 
-        addMouseListener(
-        new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                hover = true;
-                repaint();
-            }
+        addMouseMotionListener(hoverHandler);
+        addMouseListener(hoverHandler);
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                hover = false;
-                pressed = false;
-                repaint();
-                tooltipWindow.setVisible(false); // close tooltip when leaving the button
-                putClientProperty("hoverCursor", false);
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                pressed = true;
-                repaint();
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                pressed = false;
-                repaint();
-            }
-        });
+//        addMouseListener(
+//        new MouseAdapter() {
+//            @Override
+//            public void mouseEntered(MouseEvent e) {
+//                hover = true;
+//                repaint();
+//            }
+//
+//            @Override
+//            public void mouseExited(MouseEvent e) {
+//                hover = false;
+//                pressed = false;
+//                repaint();
+//                tooltipWindow.setVisible(false); // close tooltip when leaving the button
+//                putClientProperty("hoverCursor", false);
+//            }
+//
+//            @Override
+//            public void mousePressed(MouseEvent e) {
+//                pressed = true;
+//                repaint();
+//            }
+//
+//            @Override
+//            public void mouseReleased(MouseEvent e) {
+//                pressed = false;
+//                repaint();
+//            }
+//        });
     }
 
     public void setBaseColor(Color color) {
@@ -112,8 +112,12 @@ public class CustomButton extends JButton {
         super.paintComponent(g);
     }
 
-    public void addHoverWord(String message) {
-        hoverMessages.put(this.getText(), message);
+//    public void addHoverWord(String message) {
+//        //hoverMessages.put(this.getText(), message);
+//        putClientProperty("customTooltip", message);
+//    }
+    public void setHoverWord(String message) {
+        putClientProperty("customTooltip", message);
     }
 
     private void setupTooltipUI() {
@@ -142,32 +146,32 @@ public class CustomButton extends JButton {
 
         tooltipWindow.pack();
     }
-    private class ButtonHoverHandler extends MouseMotionAdapter {
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-
-            String key = getText();
-
-            boolean hovering = false;
-
-            if (contains(e.getPoint()) && hoverMessages.containsKey(key)) {
-                tooltipLabel.setText(hoverMessages.get(key));
-                tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
-                tooltipWindow.setVisible(true);
-                putClientProperty("hoverCursor", true);
-                hovering = true;
-            }
-
-            if (!hovering) {
-                tooltipWindow.setVisible(false);
-                putClientProperty("hoverCursor", false);
-            }
-            //helps mitigate phantom tool tips but does not resolve.
-            if(!contains(e.getPoint())){
-                tooltipWindow.setVisible(false);
-                putClientProperty("hoverCursor", true);
-            }
-        }
-    }
+//    private class ButtonHoverHandler extends MouseMotionAdapter {
+//
+//        @Override
+//        public void mouseMoved(MouseEvent e) {
+//
+//            String key = getText();
+//
+//            boolean hovering = false;
+//
+//            if (contains(e.getPoint()) && hoverMessages.containsKey(key)) {
+//                tooltipLabel.setText(hoverMessages.get(key));
+//                tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
+//                tooltipWindow.setVisible(true);
+//                putClientProperty("hoverCursor", true);
+//                hovering = true;
+//            }
+//
+//            if (!hovering) {
+//                tooltipWindow.setVisible(false);
+//                putClientProperty("hoverCursor", false);
+//            }
+//            //helps mitigate phantom tool tips but does not resolve.
+//            if(!contains(e.getPoint())){
+//                tooltipWindow.setVisible(false);
+//                putClientProperty("hoverCursor", true);
+//            }
+//        }
+//    }
 }
