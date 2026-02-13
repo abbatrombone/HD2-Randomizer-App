@@ -161,7 +161,6 @@ private void scanForHoverRanges() {
 
     for (String word : hoverMessages.keySet()) {
 
-        // 🔒 CRITICAL GUARD
         if (word == null || word.isBlank()) {
             continue;
         }
