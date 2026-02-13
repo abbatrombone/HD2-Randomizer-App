@@ -1,7 +1,9 @@
 package me.abbatrombone.traz.Panels;
+import com.fasterxml.jackson.core.type.TypeReference;
 import me.abbatrombone.traz.CustomComponents.JScrollbarUIComp.CustomScrollbar;
 import me.abbatrombone.traz.CustomComponents.WarbondCheckBox;
 import me.abbatrombone.traz.GameItems.Warbonds;
+import me.abbatrombone.traz.JSONTools.JSONReader;
 import me.abbatrombone.traz.Managers.SettingsManager;
 
 import javax.swing.*;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 public class SelectBondsPanel {
     private final JPanel panel = new JPanel();
     private final JScrollPane jScrollPane = new JScrollPane(panel);
+    private final JSONReader reader = new JSONReader();
     private final ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
     private final JPanel[] lines;
     private final Color backgroundColor = new Color(51, 51, 51);
@@ -70,6 +73,7 @@ public class SelectBondsPanel {
 
     private JPanel makeRow(Warbonds.Bonds bond) {
         JPanel p = new JPanel();
+
         p.setBackground(backgroundColor);
 
         if(!bond.toString().equals("Cadet_Loadout")){
@@ -83,7 +87,9 @@ public class SelectBondsPanel {
             JLabel label = new JLabel(nameWithSpace);
             label.setForeground(fgColor);
             checkBox.setName(name);
-            checkBox.setSelected(true);
+
+            checkBox.setSelected(reader.readValue(bond.toString()));
+
             checkBoxes.add(checkBox);
 
             p.add(checkBox);
