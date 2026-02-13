@@ -1,5 +1,6 @@
 package me.abbatrombone.traz.CustomComponents;
 
+import me.abbatrombone.traz.CustomComponents.CustomMouseItems.HoverHandler;
 import me.abbatrombone.traz.Managers.SettingsManager;
 
 import javax.imageio.ImageIO;
@@ -42,42 +43,49 @@ public class WarbondCheckBox extends JCheckBox {
             setFocusPainted(false);
             setBorderPainted(false);
             setSelected(true);
-            addHoverWord("Warbond is selected");
-            addActionListener(e -> addHoverWord(isSelected() ? "Warbond is selected" : "Warbond is not selected"));
+            //addHoverWord("Warbond is selected");
+            //addActionListener(e -> addHoverWord(isSelected() ? "Warbond is selected" : "Warbond is not selected"));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        putClientProperty("customTooltip", isSelected() ? "Warbond is selected" : "Warbond is not selected");
+        addItemListener(e -> putClientProperty("customTooltip", isSelected() ? "Warbond is selected" : "Warbond is not selected"));
         setupTooltipUI();
-        addMouseMotionListener(new WarbondCheckBox.CheckBoxHoverHandler());
+        //addMouseMotionListener(new WarbondCheckBox.CheckBoxHoverHandler());
+        HoverHandler hoverHandler =
+                new HoverHandler(tooltipWindow, tooltipLabel);
 
-        addMouseListener(
-                new MouseAdapter() {
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        hover = true;
-                        repaint();
-                    }
+        addMouseMotionListener(hoverHandler);
+        addMouseListener(hoverHandler);
 
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        hover = false;
-                        repaint();
-                        tooltipWindow.setVisible(false); // close tooltip when leaving the button
-                        putClientProperty("hoverCursor", false);
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        repaint();
-                    }
-
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                        repaint();
-                    }
-                });
+//        addMouseListener(
+//                new MouseAdapter() {
+//                    @Override
+//                    public void mouseEntered(MouseEvent e) {
+//                        hover = true;
+//                        repaint();
+//                    }
+//
+//                    @Override
+//                    public void mouseExited(MouseEvent e) {
+//                        hover = false;
+//                        repaint();
+//                        tooltipWindow.setVisible(false); // close tooltip when leaving the button
+//                        putClientProperty("hoverCursor", false);
+//                    }
+//
+//                    @Override
+//                    public void mousePressed(MouseEvent e) {
+//                        repaint();
+//                    }
+//
+//                    @Override
+//                    public void mouseReleased(MouseEvent e) {
+//                        repaint();
+//                    }
+//                });
     }
     private Image getScaledImage(Image srcImg, int w, int h){
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -137,32 +145,32 @@ public class WarbondCheckBox extends JCheckBox {
         tooltipWindow.pack();
     }
 
-    private class CheckBoxHoverHandler extends MouseMotionAdapter {
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-
-            String key = getText();
-
-            boolean hovering = false;
-
-            if (contains(e.getPoint()) && hoverMessages.containsKey(key)) {
-                tooltipLabel.setText(hoverMessages.get(key));
-                tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
-                tooltipWindow.setVisible(true);
-                putClientProperty("hoverCursor", true);
-                hovering = true;
-            }
-
-            if (!hovering) {
-                tooltipWindow.setVisible(false);
-                putClientProperty("hoverCursor", false);
-            }
-            //helps mitigate phantom tool tips but does not resolve.
-            if(!contains(e.getPoint())){
-                tooltipWindow.setVisible(false);
-                putClientProperty("hoverCursor", true);
-            }
-        }
-    }
+//    private class CheckBoxHoverHandler extends MouseMotionAdapter {
+//
+//        @Override
+//        public void mouseMoved(MouseEvent e) {
+//
+//            String key = getText();
+//
+//            boolean hovering = false;
+//
+//            if (contains(e.getPoint()) && hoverMessages.containsKey(key)) {
+//                tooltipLabel.setText(hoverMessages.get(key));
+//                tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
+//                tooltipWindow.setVisible(true);
+//                putClientProperty("hoverCursor", true);
+//                hovering = true;
+//            }
+//
+//            if (!hovering) {
+//                tooltipWindow.setVisible(false);
+//                putClientProperty("hoverCursor", false);
+//            }
+//            //helps mitigate phantom tool tips but does not resolve.
+//            if(!contains(e.getPoint())){
+//                tooltipWindow.setVisible(false);
+//                putClientProperty("hoverCursor", true);
+//            }
+//        }
+//    }
 }
