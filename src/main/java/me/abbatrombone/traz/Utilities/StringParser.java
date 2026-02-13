@@ -79,7 +79,7 @@ public class StringParser {
         String name = "";
 
         Pattern pattern = Pattern.compile(
-                "\\s*throwableName='([^']+)'"
+                "throwableName='([^']+)'"
         );
 
         Matcher matcher = pattern.matcher(throwable);
