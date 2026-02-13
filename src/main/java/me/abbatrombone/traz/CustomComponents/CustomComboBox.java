@@ -1,5 +1,6 @@
 package me.abbatrombone.traz.CustomComponents;
 
+import me.abbatrombone.traz.CustomComponents.CustomMouseItems.HoverHandler;
 import me.abbatrombone.traz.CustomComponents.JScrollbarUIComp.ScrollBarUI;
 import me.abbatrombone.traz.Managers.SettingsManager;
 
@@ -40,7 +41,7 @@ public class CustomComboBox extends JComboBox<String>  {
 //        setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
 
         setupTooltipUI();
-        addMouseMotionListener(new CustomComboBox.BoxHoverHandler());
+        //addMouseMotionListener(new CustomComboBox.BoxHoverHandler());
         addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -48,14 +49,18 @@ public class CustomComboBox extends JComboBox<String>  {
             }
     });
 
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                tooltipWindow.setVisible(false);
-                putClientProperty("hoverCursor", false);
-                hovering = false;
-            }
-        });
+//        addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseExited(MouseEvent e) {
+//                tooltipWindow.setVisible(false);
+//                putClientProperty("hoverCursor", false);
+//                hovering = false;
+//            }
+//        });
+        HoverHandler hoverHandler = new HoverHandler(tooltipWindow, tooltipLabel);
+
+        addMouseMotionListener(hoverHandler);
+        addMouseListener(hoverHandler);
 
         setRenderer(new DefaultListCellRenderer() {
             @Override
@@ -165,7 +170,7 @@ public class CustomComboBox extends JComboBox<String>  {
         });
     }
     public void setHoverWord(String message) {
-        hoverMessages = message;
+        putClientProperty("customTooltip", message);
     }
 
     private void setupTooltipUI() {
@@ -194,23 +199,23 @@ public class CustomComboBox extends JComboBox<String>  {
 
         tooltipWindow.pack();
     }
-    private class BoxHoverHandler extends MouseMotionAdapter {
-        @Override
-        public void mouseMoved(MouseEvent e) {
-
-            boolean inside = contains(e.getPoint());
-
-            if (inside) {
-                tooltipLabel.setText(hoverMessages);
-                tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
-                tooltipWindow.setVisible(true);
-                putClientProperty("hoverCursor", true);
-                hovering = true;
-            } else {
-                tooltipWindow.setVisible(false);
-                putClientProperty("hoverCursor", false);
-                hovering = false;
-            }
-        }
-    }
+//    private class BoxHoverHandler extends MouseMotionAdapter {
+//        @Override
+//        public void mouseMoved(MouseEvent e) {
+//
+//            boolean inside = contains(e.getPoint());
+//
+//            if (inside) {
+//                tooltipLabel.setText(hoverMessages);
+//                tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
+//                tooltipWindow.setVisible(true);
+//                putClientProperty("hoverCursor", true);
+//                hovering = true;
+//            } else {
+//                tooltipWindow.setVisible(false);
+//                putClientProperty("hoverCursor", false);
+//                hovering = false;
+//            }
+//        }
+//    }
 }
