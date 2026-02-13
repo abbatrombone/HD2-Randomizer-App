@@ -6,7 +6,6 @@ import me.abbatrombone.traz.Panels.IsoGraphics.IsoPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 import java.util.Objects;
 
 public class SettingsPanel{
@@ -38,13 +37,14 @@ public class SettingsPanel{
         JPanel soundsRow = makeRow("Enable/Disable Sounds:",soundsButton);
         dropdown.setSelectedIndex(options.length -1);
 
-        imageButton.addHoverWord("Make sure its democracy approved");
-        guiColorButton.addHoverWord("Using a color unaffiliated with super earth is treason");
-        textColorButton.addHoverWord("Using a color unaffiliated with super earth is treason");
-        checkmarksButton.addHoverWord("Your willingness to commit treason is noted helldiver");
-        soundsButton.addHoverWord("What the button says");
-        standardCursorButton.addHoverWord("This is what you have your computers cursor as");
-        hellDiversCursorButton.addHoverWord("Will use the Helldivers 2 cursor");
+        imageButton.setHoverWord("Make sure its democracy approved");
+        guiColorButton.setHoverWord("Using a color unaffiliated with super earth is treason");
+        textColorButton.setHoverWord("Using a color unaffiliated with super earth is treason");
+        checkmarksButton.setHoverWord("Your willingness to commit treason is noted helldiver");
+        soundsButton.setHoverWord("What the button says");
+        standardCursorButton.setHoverWord("This is what you have your computers cursor as");
+        hellDiversCursorButton.setHoverWord("Will use the Helldivers 2 cursor");
+        dropdown.setHoverWord("Setting to \"ALL\" can take preformance!");
 
         isoPanel.setPreferredSize(new Dimension(500, 600));
         panel.setBackground(bgColor);
