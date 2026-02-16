@@ -356,6 +356,21 @@ public class Warbonds {
                         addMedArmor("Acclimated"),
                 },
                 new String[]{"Concealed Insertion"}),
+        Siege_Breakers(  new String[]{
+                addPrimary("LAS-13 Trident", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
+                addPrimary("AR-59 Suppressor", Primaries.GunType.AR, Primaries.ArmorPen.Light)},
+                new String[]{addThrowable("G/SH-39 Shield", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
+                new String[]{},
+                new String[]{
+                        addWeaponStratagem("CQC-20 Breaching Hammer"),
+                        addWeaponStratagem("EAT-411 Leveller"),
+                        addBackpackWeapon("GL-28 Belt-Fed Grenade Launcher")
+                },
+                new String[]{
+                        addMedArmor("Supplementary Adrenaline"),
+                        addHeavyArmor("Supplementary Adrenaline")
+                },
+                new String[]{}),
 
         Super_Store(
                 new String[]{},
