@@ -27,18 +27,20 @@ public class OutputJTextPane extends JTextPane {
     private final Style hoverStyle;
     private final Map<String, String> hoverMessages = new HashMap<>();
     //private final List<int[]> hoverRanges = new ArrayList<>();
-    private final JWindow tooltipWindow = new JWindow();
-    private final JLabel tooltipLabel = new JLabel();
+//    private final JWindow tooltipWindow = new JWindow();
+//    private final JLabel tooltipLabel = new JLabel();
 
     private static final Logger logger = Logger.getLogger(OutputJTextPane.class.getName());
     private static final SettingsManager settingsManager = new SettingsManager();
     private final Color hoverColor = settingsManager.getColor("Label_Color","#ffffff");
     private final Color textColor = settingsManager.getColor("Text_Color","#ffffff");
-    private final Map<String, BufferedImage> imageCache = new HashMap<>();
+    //private final Map<String, BufferedImage> imageCache = new HashMap<>();
 
     //private int[] activeRange = null;
     private final List<HoverRange> hoverRanges = new ArrayList<>();
     private HoverRange activeRange = null;
+
+    Tooltip tooltip = new Tooltip();
 
     public OutputJTextPane() {
 
@@ -64,7 +66,7 @@ public class OutputJTextPane extends JTextPane {
         StyleConstants.setUnderline(hoverStyle, true);
         StyleConstants.setFontSize(hoverStyle, 12);
 
-        setupTooltipUI();
+        //setupTooltipUI();
 
         addMouseMotionListener(new HoverHandler());
         addMouseListener(new ClickHandler());
@@ -140,7 +142,8 @@ public class OutputJTextPane extends JTextPane {
     }
     public void rebuildHoverRanges() {
         activeRange = null;
-        tooltipWindow.setVisible(false);
+        //tooltipWindow.setVisible(false);
+        //tooltipLabel.setVisible(false);
         scanForHoverRanges();
     }
 
@@ -175,33 +178,33 @@ private void scanForHoverRanges() {
     }
 }
 
-    private void setupTooltipUI() {
-        tooltipWindow.setBackground(new Color(0, 0, 0, 0));
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(30, 30, 30));
-        panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
-        panel.setLayout(new GridBagLayout());
-
-        tooltipLabel.setForeground(hoverColor);
-        tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
-        panel.add(tooltipLabel);
-
-        tooltipWindow.add(panel);
-        tooltipLabel.addPropertyChangeListener("text", evt -> {
-            FontMetrics fm = tooltipLabel.getFontMetrics(tooltipLabel.getFont());
-            int textWidth = fm.stringWidth(tooltipLabel.getText());
-            int textHeight = fm.getHeight();
-
-            int paddingW = 20;
-            int paddingH = 14;
-
-            tooltipWindow.setSize(textWidth + paddingW, textHeight + paddingH);
-            tooltipWindow.setAlwaysOnTop(true);
-            tooltipWindow.pack();
-        });
-
-        tooltipWindow.pack();
-    }
+//    private void setupTooltipUI() {
+//        tooltipWindow.setBackground(new Color(0, 0, 0, 0));
+//        JPanel panel = new JPanel();
+//        panel.setBackground(new Color(30, 30, 30));
+//        panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+//        panel.setLayout(new GridBagLayout());
+//
+//        tooltipLabel.setForeground(hoverColor);
+//        tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
+//        panel.add(tooltipLabel);
+//
+//        tooltipWindow.add(panel);
+//        tooltipLabel.addPropertyChangeListener("text", evt -> {
+//            FontMetrics fm = tooltipLabel.getFontMetrics(tooltipLabel.getFont());
+//            int textWidth = fm.stringWidth(tooltipLabel.getText());
+//            int textHeight = fm.getHeight();
+//
+//            int paddingW = 20;
+//            int paddingH = 14;
+//
+//            tooltipWindow.setSize(textWidth + paddingW, textHeight + paddingH);
+//            tooltipWindow.setAlwaysOnTop(true);
+//            tooltipWindow.pack();
+//        });
+//
+//        tooltipWindow.pack();
+//    }
 
     private static class HoverRange {
         final int start;
@@ -241,6 +244,10 @@ private void scanForHoverRanges() {
 
             // No change → do nothing
             if (activeRange == newRange) {
+                if (tooltip.isVisible()) {
+                    Point p = e.getLocationOnScreen();
+                    tooltip.setLocation(p.x + 12, p.y + 18);
+                }
                 return;
             }
 
@@ -252,14 +259,18 @@ private void scanForHoverRanges() {
                         normalStyle,
                         true
                 );
-                tooltipWindow.setVisible(false);
+                //tooltipWindow.setVisible(false);
+                tooltip.setVisible(false);
             }
 
             activeRange = newRange;
 
             // Apply new hover
             if (newRange != null) {
-                tooltipLabel.setText(hoverMessages.get(newRange.word));
+//                tooltipLabel.setText(hoverMessages.get(newRange.word));
+//                tooltip.setTooltipLabel(tooltipLabel);
+                tooltip.getTooltipLabel().setText(hoverMessages.get(newRange.word));
+
 
                 doc.setCharacterAttributes(
                         newRange.start,
@@ -269,8 +280,10 @@ private void scanForHoverRanges() {
                 );
 
                 Point p = e.getLocationOnScreen();
-                tooltipWindow.setLocation(p.x + 12, p.y + 18);
-                tooltipWindow.setVisible(true);
+                //tooltipWindow.setLocation(p.x + 12, p.y + 18);
+                tooltip.setLocation(p.x + 12, p.y + 18);
+                //tooltipWindow.setVisible(true);
+                tooltip.setVisible(true);
             }
         }
     }
@@ -284,8 +297,7 @@ private void scanForHoverRanges() {
             for (HoverRange range : hoverRanges) {
                 if (range.contains(pos)) {
                     openURL(
-                            ("https://helldivers.wiki.gg/wiki/" + range.word)
-                                    .replace(" ", "_")
+                            ("https://helldivers.wiki.gg/wiki/" + range.word).replace(" ", "_")
                     );
                     break;
                 }

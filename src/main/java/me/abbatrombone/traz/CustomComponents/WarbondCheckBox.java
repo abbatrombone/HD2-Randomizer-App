@@ -17,9 +17,10 @@ import java.util.Objects;
 
 public class WarbondCheckBox extends JCheckBox {
     private final Color backgroundColor = new Color(51, 51, 51);
-    private final JWindow tooltipWindow = new JWindow();
-    private final JLabel tooltipLabel = new JLabel();
+//    private final JWindow tooltipWindow = new JWindow();
+//    private final JLabel tooltipLabel = new JLabel();
     private final Map<String, String> hoverMessages = new HashMap<>();
+    Tooltip tooltip = new Tooltip();
 
     ImageIcon unchecked ;
     ImageIcon checked;
@@ -52,10 +53,9 @@ public class WarbondCheckBox extends JCheckBox {
 
         putClientProperty("customTooltip", isSelected() ? "Warbond is selected" : "Warbond is not selected");
         addItemListener(e -> putClientProperty("customTooltip", isSelected() ? "Warbond is selected" : "Warbond is not selected"));
-        setupTooltipUI();
+        //setupTooltipUI();
         //addMouseMotionListener(new WarbondCheckBox.CheckBoxHoverHandler());
-        HoverHandler hoverHandler =
-                new HoverHandler(tooltipWindow, tooltipLabel);
+        HoverHandler hoverHandler = new HoverHandler(tooltip, tooltip.getTooltipLabel());
 
         addMouseMotionListener(hoverHandler);
         addMouseListener(hoverHandler);
@@ -118,32 +118,32 @@ public class WarbondCheckBox extends JCheckBox {
         hoverMessages.put(this.getText(), message);
     }
 
-    private void setupTooltipUI() {
-        tooltipWindow.setBackground(new Color(0, 0, 0, 0));
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(30, 30, 30));
-        panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
-        panel.setLayout(new GridBagLayout());
-
-        tooltipLabel.setForeground(fgColor);
-        tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
-        panel.add(tooltipLabel);
-
-        tooltipWindow.add(panel);
-        tooltipLabel.addPropertyChangeListener("text", evt -> {
-            FontMetrics fm = tooltipLabel.getFontMetrics(tooltipLabel.getFont());
-            int textWidth = fm.stringWidth(tooltipLabel.getText());
-            int textHeight = fm.getHeight();
-
-            int paddingW = 20;
-            int paddingH = 14;
-
-            tooltipWindow.setSize(textWidth + paddingW, textHeight + paddingH);
-            tooltipWindow.pack();
-        });
-
-        tooltipWindow.pack();
-    }
+//    private void setupTooltipUI() {
+//        tooltipWindow.setBackground(new Color(0, 0, 0, 0));
+//        JPanel panel = new JPanel();
+//        panel.setBackground(new Color(30, 30, 30));
+//        panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+//        panel.setLayout(new GridBagLayout());
+//
+//        tooltipLabel.setForeground(fgColor);
+//        tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
+//        panel.add(tooltipLabel);
+//
+//        tooltipWindow.add(panel);
+//        tooltipLabel.addPropertyChangeListener("text", evt -> {
+//            FontMetrics fm = tooltipLabel.getFontMetrics(tooltipLabel.getFont());
+//            int textWidth = fm.stringWidth(tooltipLabel.getText());
+//            int textHeight = fm.getHeight();
+//
+//            int paddingW = 20;
+//            int paddingH = 14;
+//
+//            tooltipWindow.setSize(textWidth + paddingW, textHeight + paddingH);
+//            tooltipWindow.pack();
+//        });
+//
+//        tooltipWindow.pack();
+//    }
 
 //    private class CheckBoxHoverHandler extends MouseMotionAdapter {
 //
