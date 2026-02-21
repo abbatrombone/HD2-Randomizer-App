@@ -28,6 +28,7 @@ public class HDApp {
     private final RulesPanel rulesPanel = new RulesPanel();
     private final IssuesPanel issuesPanel = new IssuesPanel();
     private final Toolkit toolkit = Toolkit.getDefaultToolkit();
+    private final StatsPanel statsPanel = new StatsPanel();
 
     private static final Logger logger = Logger.getLogger(HDApp.class.getName());
     private static final SettingsManager settingsManager = new SettingsManager();
@@ -49,7 +50,7 @@ public class HDApp {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });
-        frame.setSize(1042, 540);
+        frame.setSize(1042, 575);
 
         CursorManager cursorManager = new CursorManager(
                 this::getNormalCursor,
@@ -81,21 +82,13 @@ public class HDApp {
         JScrollPane rulePage = rulesPanel.getjScrollPane();
         JPanel settingsPage = settingsPanel.getPanel();
         JPanel issuesPage = IssuesPanel.getPanel();
+        JPanel statsPage = statsPanel;
 
         tabPanelz.addTab(randomizerPage, new MyComponent("Randomizer" ));
         tabPanelz.addTab(rulePage, new MyComponent("Randomzier Rules" ));
+        tabPanelz.addTab(statsPage, new MyComponent("Stats"));
         tabPanelz.addTab(settingsPage, new MyComponent("Settings"));
         tabPanelz.addTab(issuesPage, new MyComponent("Report Issue"));
-
-
-//        JPanel randomizerPage = mainPanel.getMainPanel();
-//        tabPanel.addTab("Randomizer", randomizerPage);
-//
-////        JPanel gearPage = gearPanel.getPanel();
-////        tabPanel.addTab("Gear Information", gearPage);
-//
-//        JScrollPane rulePage = rulesPanel.getjScrollPane();
-//        tabPanel.addTab("Randomzier Rules", rulePage);
 
         frame.add(tabPanelz);
         frame.setVisible(true);
