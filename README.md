@@ -1,3 +1,5 @@
+[Download](https://github.com/abbatrombone/HD2-Randomizer-App/blob/master/HDApp.jar)
+
 # Get ready to spread democracy with the Helldivers 2 Randomizer App
 ![Description](readmepng/Front_Page.png)
 
