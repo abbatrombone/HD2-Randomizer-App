@@ -101,12 +101,11 @@ public class OutputJTextPane extends JTextPane {
                 jsonStats.addWin("Armor_Level",SemiRandomLoadOut.getArmorLevel());
                 jsonStats.addWin("Booster",SemiRandomLoadOut.getBoosterList().getFirst());
                 jsonStats.addWin("Enemy",SemiRandomLoadOut.getEnemyType());
-                jsonStats.addWin("Enemy",p.parseStrategem(SemiRandomLoadOut.getSupportWeapon()));
-                jsonStats.addWin("Enemy",p.parseStrategem(SemiRandomLoadOut.getSecondStrat()));
-                jsonStats.addWin("Enemy",p.parseStrategem(SemiRandomLoadOut.getThirdStrat()));
-                jsonStats.addWin("Enemy",p.parseStrategem(SemiRandomLoadOut.getForthStrat()));
+                jsonStats.addWin("Stratagem",p.parseStrategem(SemiRandomLoadOut.getSupportWeapon()));
+                jsonStats.addWin("Stratagem",p.parseStrategem(SemiRandomLoadOut.getSecondStrat()));
+                jsonStats.addWin("Stratagem",p.parseStrategem(SemiRandomLoadOut.getThirdStrat()));
+                jsonStats.addWin("Stratagem",p.parseStrategem(SemiRandomLoadOut.getForthStrat()));
             }
-
             removeButtons();
         });
 

@@ -265,10 +265,66 @@ public class StatsPanel extends JPanel {
 
         return table;
     }
+    private JTable makeSemiRandomStatsTablePanel(String cat){
+
+        String[] cols = {cat,"Wins","Losses"};
+        List<Object[]> rows = new ArrayList<>();
+        FontMetrics fm = getFontMetrics(getFont());
+
+        int largestKey = 0;
+
+        List<Map.Entry<String, WinLose>> e = jsonSemiRandom.getTopWins(cat);
+
+        if (e != null) {
+            for (Map.Entry<String, WinLose> stringWinLoseEntry : e) {
+                if (fm.stringWidth(stringWinLoseEntry.getKey()) > largestKey) {
+                    largestKey = fm.stringWidth(stringWinLoseEntry.getKey());
+                }
+                rows.add(new Object[]{stringWinLoseEntry.getKey(), stringWinLoseEntry.getValue().getWin(), stringWinLoseEntry.getValue().getLose()});
+            }
+        }
+
+        Object[][] data = rows.toArray(new Object[0][]);
+
+        JTable table = new JTable(data, cols);
+        table.setFillsViewportHeight(true);
+        table.getColumnModel().getColumn(0).setPreferredWidth(largestKey);
+        table.getColumnModel().getColumn(1).setPreferredWidth(25);
+        table.getColumnModel().getColumn(2).setPreferredWidth(25);
+        table.setOpaque(false);
+        table.setBackground(new Color(0,0,0,0));
+        table.setShowGrid(true);
+        table.setGridColor(new Color(255, 255, 255, 30));
+        table.setIntercellSpacing(new Dimension(0,0));
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable table, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int column) {
+
+                Component c = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                if (!isSelected) {
+                    ((JComponent)c).setOpaque(false);
+                }
+                return c;
+            }
+        };
+
+
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+        table.getTableHeader().setDefaultRenderer(renderer);
+
+        return table;
+    }
     private JTable makeSemiRandomStatsTable(){
         String[] cols = {"Category","Item","Wins","Losses"};
         List<Object[]> rows = new ArrayList<>();
-        FontMetrics fm = panel.getFontMetrics(panel.getFont());
+        FontMetrics fm = getFontMetrics(getFont());
         int largstCat = 0;
         int largestKey = 0;
 
@@ -484,32 +540,32 @@ public class StatsPanel extends JPanel {
         topStatslabel.setBackground(bgColor);
         topStatslabel.setForeground(fgColor);
 
-        JTable sec = makeRandomStatsTablePanel("Secondary");
+        JTable sec = makeSemiRandomStatsTablePanel("Secondary"); //semi not random
         sec.setAutoCreateRowSorter(true);
         JLabel secLabel = new JLabel("Secondaries");
         JScrollPane secScroll = wrapTable(sec);
 
-        JTable thr = makeRandomStatsTablePanel("Throwable");
+        JTable thr = makeSemiRandomStatsTablePanel("Throwable");
         thr.setAutoCreateRowSorter(true);
         JLabel thrLabel = new JLabel("Throwables");
         JScrollPane thrScroll = wrapTable(thr);
 
-        JTable al = makeRandomStatsTablePanel("Armor_Level");
+        JTable al = makeSemiRandomStatsTablePanel("Armor_Level");
         al.setAutoCreateRowSorter(true);
         JLabel alLabel = new JLabel("Armor Level");
         JScrollPane alScroll = wrapTable(al);
 
-        JTable b = makeRandomStatsTablePanel("Booster");
+        JTable b = makeSemiRandomStatsTablePanel("Booster");
         b.setAutoCreateRowSorter(true);
         JLabel bLabel = new JLabel("Boosters");
         JScrollPane bScroll = wrapTable(b);
 
-        JTable en = makeRandomStatsTablePanel("Enemy");
+        JTable en = makeSemiRandomStatsTablePanel("Enemy");
         en.setAutoCreateRowSorter(true);
         JLabel enLabel = new JLabel("Enemies");
         JScrollPane enScroll = wrapTable(en);
 
-        JTable s = makeRandomStatsTablePanel("Stratagem");
+        JTable s = makeSemiRandomStatsTablePanel("Stratagem");
         s.setAutoCreateRowSorter(true);
         JLabel sLabel = new JLabel("Stratagems");
         JScrollPane sScroll = wrapTable(s);
