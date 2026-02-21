@@ -18,7 +18,7 @@ public class SelectBondsPanel {
     private final JPanel[] lines;
     private final Color backgroundColor = new Color(51, 51, 51);
     private static final SettingsManager settingsManager = new SettingsManager();
-    private final Color fgColor = settingsManager.getColor("Label_Color","#ff6699");
+    private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
 
     public SelectBondsPanel(){
 
@@ -82,7 +82,7 @@ public class SelectBondsPanel {
             String name = bond.toString();
             String nameWithSpace = name.replace("_"," ");
 
-            JCheckBox checkBox = settingsManager.defaultCheckboxIsOn() ? new JCheckBox() : new WarbondCheckBox() ;
+            JCheckBox checkBox = settingsManager.defaultCheckboxIsOn() ? new WarbondCheckBox() : new JCheckBox();
             checkBox.setBackground(backgroundColor);
             JLabel label = new JLabel(nameWithSpace);
             label.setForeground(fgColor);
