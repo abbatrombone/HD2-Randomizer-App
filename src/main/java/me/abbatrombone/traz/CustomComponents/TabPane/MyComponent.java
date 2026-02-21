@@ -37,7 +37,6 @@ public class MyComponent extends JLabel {
         gra.setColor( back );
         gra.fillRoundRect( 2, 2, getWidth(), getHeight(), 8, 8 );
 
-        //  gra.fillRect( 3, 3, getWidth(), getHeight() );
         gra.fillRoundRect( 3, 3, getWidth() -4, getHeight(), 5, 5 );
 
         gra.setColor( line );

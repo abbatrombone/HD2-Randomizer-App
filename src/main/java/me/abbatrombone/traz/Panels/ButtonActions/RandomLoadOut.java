@@ -18,7 +18,6 @@ public class RandomLoadOut {
     private static String armorPassive;
     private static List<String> boosterList;
     private static String enemyType = "";
-    private static String resultText = "";
     private static String stratgems = "";
     private final static StringParser p = new StringParser();
 
@@ -47,18 +46,6 @@ public class RandomLoadOut {
         sb.append( "Your Booster is: \n").append(boosterFormat()).append("\n");
         sb.append(randomPhrase());
 
-//        resultText =
-//                "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType + "\n\n" +
-//                "Difficulty: " + difficulty + "\n" +
-//                "Your weapon is: " + p.parsePrimaryName(primaryWeapon) + "\n" +
-//                "Your secondary is: " + p.parseSecondaryName(secondaryWeapon) + "\n" +
-//                "Your throwable is: " + p.parseThrowable(throwable) + "\n" +
-//                "Armor: " + armorLevel + " armor with the " + armorPassive + " Passive." + "\n\n" +
-//                "Your stratagems will be the following:\n" + warbondStratagems(getSelectedBondNames()) + "\n\n" +
-//                "Your Booster is: \n" + boosterFormat() + "\n" +
-//                randomPhrase();
-//
-//        return resultText;
         return sb.toString();
     }
     public static List<String> getSelectedBondNames() {
@@ -72,53 +59,7 @@ public class RandomLoadOut {
         }
         return selected;
     }
-//    public static String warbondStratagems() {
-//        /*
-//        if you use solution that isn't swing aware, then make sure all your code that changes the state of components afterwards is wrapped in SwingUtilities#invokeLater
-//         */
-//        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
-//        List<String> stratagemsList = new ArrayList<>();
-//        Set<String> seen = new HashSet<>();
-//        StringParser stringParser = new StringParser();
-//
-//        for (JCheckBox box : selectBondsPanel.getCheckBoxes()) {
-//            if (box.isSelected()) {
-//                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
-//                for (String strat : bond.getStratagem()) {
-//                    if (!strat.isBlank() && seen.add(strat)) {
-//                        stratagemsList.add(stringParser.parseStrategem(strat));
-//                    }
-//                }
-//            }
-//        }
-//        String[] basic = Warbonds.Bonds.Cadet_Loadout.getStratagem();
-//        for(String s : basic){
-//            stratagemsList.add(stringParser.parseStrategem(s));
-//        }
-//
-//        Collections.shuffle(stratagemsList, ThreadLocalRandom.current());
-//
-//        String patriot = "EXO-45 Patriot Exosuit";
-//        String emancipator = "EXO-49 Emancipator Exosuit";
-//        int count = Math.min(4, stratagemsList.size());
-//        List<String> top4 = new ArrayList<>(stratagemsList.subList(0, count));
-//
-//        if (top4.contains(patriot) && top4.contains(emancipator)) {
-//            top4.remove(ThreadLocalRandom.current().nextBoolean()
-//                    ? patriot
-//                    : emancipator);
-//            //this exists if a 3rd mech is added
-////            for (int i = 4; i < stratagemsList.size(); i++) {
-////                String candidate = stratagemsList.get(i);
-////                if (!top4.contains(candidate)) {
-////                    top4.add(candidate);
-////                    break;
-////                }
-////            }
-//            top4.add(stratagemsList.get(5)); //replaces combo with next item on the list.
-//        }
-//        return String.join("\n", top4);
-//    }
+
 public static void warbondStratagems(List<String> selectedBondNames) {
     List<String> stratagemsList = new ArrayList<>();
     Set<String> seen = new HashSet<>();
@@ -152,8 +93,6 @@ public static void warbondStratagems(List<String> selectedBondNames) {
         top4.add(stratagemsList.get(5));
     }
     stratgems = String.join("\n", top4);
-
-    //return String.join("\n", top4);
 }
     public static void enemyType(){
         int emenyInt = ThreadLocalRandom.current().nextInt(1, 4); //bound is exclusive
@@ -203,45 +142,6 @@ public static void warbondStratagems(List<String> selectedBondNames) {
                 .limit(4)
                 .toList();
     }
-//    public static void warbondBooster(List<String> selectedBondNames){
-//
-//        //SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
-//        ArrayList<String> List = new ArrayList<>();
-//        Set<String> seen = new HashSet<>();
-//
-////        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
-////            if(box.isSelected()){
-////                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
-////                for(String booster : bond.getOpt()){
-////                    if (seen.add(booster) && !booster.isBlank()) {
-////                        List.add(booster);
-////                    }
-////                }
-////            }
-////        }
-//        for (String name : selectedBondNames) {
-//            Warbonds.Bonds bond = Warbonds.Bonds.valueOf(name);
-//            for (String booster : bond.getOpt()) {
-//                if (seen.add(booster) && !booster.isBlank()) {
-//                        List.add(booster);
-//                    }
-//            }
-//        }
-//        //Collections.shuffle(List, ThreadLocalRandom.current());
-//        int count = Math.min(4, List.size());
-//
-//        if (List.size() < 4) {
-//            boosterList = new ArrayList<>(List);
-//        } else {
-//            boosterList = ThreadLocalRandom.current()
-//                    .ints(0, count)
-//                    .distinct()
-//                    .limit(4)
-//                    .mapToObj(List::get)
-//                    .toList();
-//        }
-//        //opt = boosterList.get(ThreadLocalRandom.current().nextInt(boosterList.size()));
-//    }
     public static String boosterFormat(){
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < boosterList.size(); i++) {
@@ -283,23 +183,6 @@ public static void warbondStratagems(List<String> selectedBondNames) {
         ArrayList<String> armorList = new ArrayList<>();
         Set<String> seen = new HashSet<>();
 
-//        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
-//            if(box.isSelected()){
-//                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
-////                String[] armors = bond.getArmor();
-////
-////                for (String armor : armors) {
-////                    if (armor != null && !armor.isBlank() && !armorList.contains(armor)) {
-////                        armorList.add(armor);
-////                    }
-////                }
-//                for (String armor : bond.getArmor()) {
-//                    if (seen.add(armor)) {
-//                        armorList.add(armor);
-//                    }
-//                }
-//            }
-//        }
         for (String name : selectedBondNames) {
             Warbonds.Bonds bond = Warbonds.Bonds.valueOf(name);
             for (String armor : bond.getArmor()) {
@@ -316,20 +199,10 @@ public static void warbondStratagems(List<String> selectedBondNames) {
         armorPassive = p.parseArmorPassive(selectedArmor);
     }
     public static void warbondPrimary(List<String> selectedBondNames){
-        //SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+
         ArrayList<String> primaryList = new ArrayList<>();
         Set<String> seen = new HashSet<>();
 
-//        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
-//            if(box.isSelected()){
-//                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
-//                for(String primary : bond.getPrimary()){
-//                    if (seen.add(primary) && !primary.isBlank()) {
-//                        primaryList.add(primary);
-//                    }
-//                }
-//            }
-//        }
         for (String name : selectedBondNames) {
             Warbonds.Bonds bond = Warbonds.Bonds.valueOf(name);
             for (String primary : bond.getPrimary()) {
@@ -339,26 +212,14 @@ public static void warbondStratagems(List<String> selectedBondNames) {
             }
         }
 
-        //primaryList.add(p.parsePrimaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
         primaryList.add(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary()));
         primaryWeapon = primaryList.get(ThreadLocalRandom.current().nextInt(primaryList.size()));
-        //primaryWeapon = p.parsePrimaryName(primaryWeapon);
     }
     public static void warbondThrowable(List<String> selectedBondNames){
-        //SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
+
         ArrayList<String> throwableList = new ArrayList<>();
         Set<String> seen = new HashSet<>();
 
-//        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
-//            if(box.isSelected()){
-//                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
-//                for(String thrown : bond.getThrowable()){
-//                    if (seen.add(thrown) && !thrown.isBlank()) {
-//                        throwableList.add(thrown);
-//                    }
-//                }
-//            }
-//        }
         for (String name : selectedBondNames) {
             Warbonds.Bonds bond = Warbonds.Bonds.valueOf(name);
             for (String thrown : bond.getThrowable()) {
@@ -368,25 +229,13 @@ public static void warbondStratagems(List<String> selectedBondNames) {
             }
         }
 
-        //throwableList.add(p.parseThrowable(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable())));
         throwableList.add(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable()));
         throwable = throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size()));
     }
     public static void warbondSecondary(List<String> selectedBondNames){
-        //SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
         ArrayList<String> secondaryList = new ArrayList<>();
         Set<String> seen = new HashSet<>();
 
-//        for(JCheckBox box : selectBondsPanel.getCheckBoxes()){
-//            if(box.isSelected()){
-//                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
-//                for(String secondary : bond.getSecondary()){
-//                    if (seen.add(secondary) && !secondary.isBlank()) {
-//                        secondaryList.add(secondary);
-//                    }
-//                }
-//            }
-//        }
         for (String name : selectedBondNames) {
             Warbonds.Bonds bond = Warbonds.Bonds.valueOf(name);
             for (String secondary : bond.getSecondary()) {
@@ -395,7 +244,6 @@ public static void warbondStratagems(List<String> selectedBondNames) {
                 }
             }
         }
-        //secondaryList.add(p.parseSecondaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary())));
         secondaryList.add(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary()));
         secondaryWeapon = secondaryList.get(ThreadLocalRandom.current().nextInt(secondaryList.size()));
     }
@@ -411,9 +259,6 @@ public static void warbondStratagems(List<String> selectedBondNames) {
         return throwable;
     }
 
-    public static String getResultText() {
-        return resultText;
-    }
     public static String getArmorLevel() {
         return armorLevel;
     }

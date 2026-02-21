@@ -25,12 +25,10 @@ import java.util.logging.Logger;
 public class OutputJTextPane extends JTextPane {
        private String lastButton = "";
     private BufferedImage backgroundImage;
-    private final float imageOpacity = 0.3f;
     private final static SimpleAttributeSet attributeSet = new SimpleAttributeSet();
 
     private final Style normalStyle;
     private final Style hoverStyle;
-    private Style buttonStyle;
     private final Map<String, String> hoverMessages = new HashMap<>();
     private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
 
@@ -39,9 +37,6 @@ public class OutputJTextPane extends JTextPane {
 
     private static final Logger logger = Logger.getLogger(OutputJTextPane.class.getName());
     private static final SettingsManager settingsManager = new SettingsManager();
-
-    private final Color hoverColor = settingsManager.getColor("Label_Color","#ffffff");
-    private final Color textColor = settingsManager.getColor("Text_Color","#ffffff");
 
     private final List<HoverRange> hoverRanges = new ArrayList<>();
     private HoverRange activeRange = null;
@@ -63,6 +58,7 @@ public class OutputJTextPane extends JTextPane {
         }
 
         normalStyle = addStyle("normal", null);
+        Color textColor = settingsManager.getColor("Text_Color", "#ffffff");
         StyleConstants.setForeground(normalStyle, textColor.equals(Color.WHITE) ? Color.BLACK : textColor);
         StyleConstants.setFontSize(normalStyle, 12);
 
@@ -138,8 +134,7 @@ public class OutputJTextPane extends JTextPane {
 
     public void updateText(String text){
         StyledDocument doc = getStyledDocument();
-        //StyleConstants.setBackground(attributeSet, Color.ORANGE);
-        buttonStyle = addStyle("button", null);
+        Style buttonStyle = addStyle("button", null);
         StyleConstants.setComponent(buttonStyle,wonRun);
 
         if(!getText().isEmpty()){
@@ -215,6 +210,7 @@ public class OutputJTextPane extends JTextPane {
 
         if (backgroundImage != null) {
             Graphics2D g2d = (Graphics2D) g.create();
+            float imageOpacity = 0.3f;
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, imageOpacity));
             g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
             g2d.dispose();
@@ -279,7 +275,7 @@ private void scanForHoverRanges() {
                 }
             }
 
-            // No change → do nothing
+            // No change, do nothing
             if (activeRange == newRange) {
                 if (tooltip.isVisible()) {
                     Point p = e.getLocationOnScreen();
@@ -296,18 +292,13 @@ private void scanForHoverRanges() {
                         normalStyle,
                         true
                 );
-                //tooltipWindow.setVisible(false);
                 tooltip.setVisible(false);
             }
 
             activeRange = newRange;
 
-            // Apply new hover
             if (newRange != null) {
-//                tooltipLabel.setText(hoverMessages.get(newRange.word));
-//                tooltip.setTooltipLabel(tooltipLabel);
                 tooltip.getTooltipLabel().setText(hoverMessages.get(newRange.word));
-
 
                 doc.setCharacterAttributes(
                         newRange.start,
@@ -317,9 +308,7 @@ private void scanForHoverRanges() {
                 );
 
                 Point p = e.getLocationOnScreen();
-                //tooltipWindow.setLocation(p.x + 12, p.y + 18);
                 tooltip.setLocation(p.x + 12, p.y + 18);
-                //tooltipWindow.setVisible(true);
                 tooltip.setVisible(true);
             }
         }

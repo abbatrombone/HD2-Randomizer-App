@@ -3,7 +3,6 @@ package me.abbatrombone.traz.Managers;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.Objects;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,27 +14,6 @@ public class SettingsManager {
     public SettingsManager() {
         loadSettings();
     }
-
-    public Color getTextColor() {
-        return getColor("textColor", "#000000");
-    }
-
-    public Color getBackgroundColor() {
-        return getColor("bgColor", "#FFFFFF");
-    }
-    public boolean isEditable() {
-        return Boolean.parseBoolean(settings.getProperty("editable", "true"));
-    }
-
-//    public void setTextColor(Color color) {
-//        setColor("textColor", color);
-//        saveSettings();
-//    }
-//
-//    public void setBackgroundColor(Color color) {
-//        setColor("bgColor", color);
-//        saveSettings();
-//    }
 
     public Color getColor(String key, String defaultHex) {
         try {
@@ -74,13 +52,6 @@ public class SettingsManager {
     }
     public void setLogLevel(String level) {
         settings.setProperty("logLevel",level);
-        saveSettings();
-    }
-    public String getBackgroundImg(){
-        return settings.getProperty("ImagiePath", Objects.requireNonNull(Objects.requireNonNull(getClass().getResource("/Screenshot from 2025-06-14 00-03-27.png")).toString()));
-    }
-    public void setBackgroundImg(String absolutePath){
-        settings.setProperty("imagiePath",absolutePath);
         saveSettings();
     }
     public String getCursorSettings() {

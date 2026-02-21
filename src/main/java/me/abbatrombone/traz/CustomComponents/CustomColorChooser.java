@@ -1,10 +1,6 @@
 package me.abbatrombone.traz.CustomComponents;
 
-import me.abbatrombone.traz.CustomComponents.TabPane.MyComponent;
-import me.abbatrombone.traz.CustomComponents.TabPane.MyTabbedPane;
-
 import javax.swing.*;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.*;
 
@@ -126,41 +122,6 @@ public class CustomColorChooser {
         chooser.setBackground(bg);
         fixSliders(chooser);
         fixChooserButtons(chooser);
-
-        /*
-        This logic sets up the tabs like the main app BUT removes the radio buttons, labels, text, and buttons at the bottom...
-        JPanel root = new JPanel(new BorderLayout());
-        root.setBackground(bg);
-        dialog.setContentPane(root);
-
-        MyTabbedPane myTabbedPane = new MyTabbedPane(parent.getPreferredSize());
-        root.add(myTabbedPane, BorderLayout.CENTER);
-        root.add(buttons, BorderLayout.SOUTH);
-
-        dialog.setContentPane(root);
-        dialog.pack();
-        dialog.setLocationRelativeTo(parent);
-        dialog.setVisible(true);
-
-        chooser = new JColorChooser();
-        chooser.setOpaque(true);
-        chooser.setBackground(bg);
-        fixSliders(chooser);
-        fixChooserButtons(chooser);
-
-        for (AbstractColorChooserPanel p : chooser.getChooserPanels()) {
-            myTabbedPane.addTab(p, new MyComponent(p.getDisplayName()));
-        }
-
-        chooser.getSelectionModel().addChangeListener(e -> {
-            myTabbedPane.updateTheme(chooser.getColor(), Color.WHITE);
-        });
-
-        dialog.pack();
-        dialog.setLocationRelativeTo(parent);
-        dialog.setVisible(true);
-        */
-
 
         dialog.getContentPane().setBackground(bg);
         dialog.getRootPane().setBackground(bg);

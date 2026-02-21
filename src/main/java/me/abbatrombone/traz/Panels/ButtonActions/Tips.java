@@ -15,7 +15,6 @@ public class Tips {
         phrases.add("Friendly fire isn't");
         phrases.add("When Liberty resummons you learn from your death");
         phrases.add("Examine Liberties tools, and use the ones it gave you correctly");
-        //phrases.add("Death does not defeat Liberty, only autocracy does");
 
         int phraseNumber = random.nextInt(phrases.size());
 

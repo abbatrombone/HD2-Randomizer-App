@@ -1,7 +1,6 @@
 package me.abbatrombone.traz.Panels;
 
 import me.abbatrombone.traz.CustomComponents.OutputJTextPane;
-import me.abbatrombone.traz.Managers.SettingsManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,24 +9,21 @@ import java.util.logging.Logger;
 public class MainPanel {
 
     private final JPanel mainPanel = new JPanel();
-    private final LabelPanel labelPanel = new LabelPanel();
-    private final JPanel labelPanelFull = new JPanel();
     private static final OutputJTextPane output = new OutputJTextPane();
     private static final SelectBondsPanel selectBondsPanel = new SelectBondsPanel();
-    private final ButtonPanel buttonPanel = new ButtonPanel(output);
-    private final Color bgColor = new Color(51,51,51);
 
     private static final Logger logger = Logger.getLogger(MainPanel.class.getName());
-    private static final SettingsManager settingsManager = new SettingsManager();
-
 
     public MainPanel(){
         output.setOpaque(true);
+        JPanel labelPanelFull = new JPanel();
+        Color bgColor = new Color(51, 51, 51);
         labelPanelFull.setBackground(bgColor);
         mainPanel.setBackground(bgColor);
 
         GroupLayout mainPanelLayout = new GroupLayout(labelPanelFull);
 
+        LabelPanel labelPanel = new LabelPanel();
         mainPanelLayout.setHorizontalGroup(
                 mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(mainPanelLayout.createSequentialGroup()
@@ -44,6 +40,7 @@ public class MainPanel {
 
         GroupLayout layout = new GroupLayout(mainPanel);
         mainPanel.setLayout(layout);
+        ButtonPanel buttonPanel = new ButtonPanel(output);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(
@@ -74,24 +71,8 @@ public class MainPanel {
         return mainPanel;
     }
 
-    public LabelPanel getLabelPanel() {
-        return labelPanel;
-    }
-
-    public JPanel getLabelPanelFull() {
-        return labelPanelFull;
-    }
-
-    public OutputJTextPane getOutput() {
-        return output;
-    }
-
     public static SelectBondsPanel getSelectBondsPanel() {
         return selectBondsPanel;
-    }
-
-    public ButtonPanel getButtonPanel() {
-        return buttonPanel;
     }
     public static OutputJTextPane getOutputTextPane(){
         return output;

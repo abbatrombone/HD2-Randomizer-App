@@ -23,8 +23,7 @@ public class StatsPanel extends JPanel {
     private final JScrollPane jScrollPane = new JScrollPane(panel);
     private final JLabel topStatslabel = new JLabel("Best For Democracy");
 
-    private BufferedImage backgroundImage;
-    private float imageOpacity = 0.3f;
+    private final BufferedImage backgroundImage;
 
     private static final Logger logger = Logger.getLogger(me.abbatrombone.traz.Panels.StatsPanel.class.getName());
     private static final SettingsManager settingsManager = new SettingsManager();
@@ -33,9 +32,9 @@ public class StatsPanel extends JPanel {
 
     private JSONStats jsonRandom = new JSONStats(JSONStats.filePaths.randomStats);
     private JSONStats jsonSemiRandom = new JSONStats(JSONStats.filePaths.semiRandomStat);
-    private JTable topStats = makeHighestWinTable();
-    private JTable randomStats = makeRandomStatsTable();
-    private JTable semirandomStats = makeSemiRandomStatsTable();
+    private final JTable topStats = makeHighestWinTable();
+    private final JTable randomStats = makeRandomStatsTable();
+    private final JTable semirandomStats = makeSemiRandomStatsTable();
 
     private final CustomButton leftCycleButton = new CustomButton("◀",fgColor);
     private final CustomButton rightCycleButton = new CustomButton("▶",fgColor);
@@ -375,6 +374,7 @@ public class StatsPanel extends JPanel {
 
         if (backgroundImage != null) {
             Graphics2D g2d = (Graphics2D) g.create();
+            float imageOpacity = 0.3f;
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, imageOpacity));
             g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
             g2d.dispose();

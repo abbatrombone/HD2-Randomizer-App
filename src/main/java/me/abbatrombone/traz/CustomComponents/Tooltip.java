@@ -6,9 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Tooltip extends JWindow{
-    private JLabel tooltipLabel = new JLabel();
+    private final JLabel tooltipLabel = new JLabel();
     private static final SettingsManager settingsManager = new SettingsManager();
-    private final Color hoverColor = settingsManager.getColor("Label_Color","#ffffff");
 
     Tooltip(){
         setBackground(new Color(0, 0, 0, 0));
@@ -17,6 +16,7 @@ public class Tooltip extends JWindow{
         panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
         panel.setLayout(new GridBagLayout());
 
+        Color hoverColor = settingsManager.getColor("Label_Color", "#ffffff");
         tooltipLabel.setForeground(hoverColor);
         tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
         panel.add(tooltipLabel);

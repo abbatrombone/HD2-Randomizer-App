@@ -15,7 +15,6 @@ public class SelectBondsPanel {
     private final JScrollPane jScrollPane = new JScrollPane(panel);
     private final CheckboxJSONReader reader = new CheckboxJSONReader();
     private final ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
-    private final JPanel[] lines;
     private final Color backgroundColor = new Color(51, 51, 51);
     private static final SettingsManager settingsManager = new SettingsManager();
     private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
@@ -47,7 +46,7 @@ public class SelectBondsPanel {
         labelHeader.setOpaque(false);
 
         Warbonds.Bonds[] bonds = Warbonds.Bonds.values();
-        lines = new JPanel[bonds.length];
+        JPanel[] lines = new JPanel[bonds.length];
 
         for (int i = 0; i < bonds.length; i++) {
             lines[i] = makeRow(bonds[i]);
@@ -103,9 +102,6 @@ public class SelectBondsPanel {
         return panel;
     }
 
-    public JPanel[] getLines() {
-        return lines;
-    }
     public JScrollPane getJScrollPane() {
         return jScrollPane;
     }

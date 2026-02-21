@@ -3,6 +3,7 @@ package me.abbatrombone.traz.CustomComponents.JScrollbarUIComp;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
+import java.io.Serial;
 
 public class ScrollBarUI extends BasicScrollBarUI {
 
@@ -13,7 +14,8 @@ public class ScrollBarUI extends BasicScrollBarUI {
     protected JButton createDecreaseButton(int orientation) {
         return new JButton() {
 
-            private static final long serialVersionUID = -3592643796245558676L; //??????
+            @Serial
+            private static final long serialVersionUID = -3592643796245558676L;
 
             @Override
             public Dimension getPreferredSize() {
@@ -26,7 +28,8 @@ public class ScrollBarUI extends BasicScrollBarUI {
     protected JButton createIncreaseButton(int orientation) {
         return new JButton() {
 
-            private static final long serialVersionUID = 1L; //??????????
+            @Serial
+            private static final long serialVersionUID = 1L;
 
             @Override
             public Dimension getPreferredSize() {
@@ -49,9 +52,9 @@ public class ScrollBarUI extends BasicScrollBarUI {
     protected void paintThumb(Graphics g, JComponent c, Rectangle r) {
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        Color color = null;
+        Color color;
         JScrollBar sb = (JScrollBar) c;
-        if (!sb.isEnabled() ) { // removed || r.width > r.height
+        if (!sb.isEnabled() ) {
             return;
         } else if (isDragging) {
             color = Color.YELLOW;

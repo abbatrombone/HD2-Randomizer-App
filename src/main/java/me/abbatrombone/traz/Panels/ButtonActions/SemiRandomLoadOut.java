@@ -80,43 +80,6 @@ public class SemiRandomLoadOut {
         Collections.addAll(primaryList,p.parsePrimaryType(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
         return primaryList.get(ThreadLocalRandom.current().nextInt(primaryList.size()));
     }
-
-    public static String warbondStratagems() {
-        //Need to update to be semi random
-        SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
-        List<String> stratagemsList = new ArrayList<>();
-        Set<String> seen = new HashSet<>();
-
-        for (JCheckBox box : selectBondsPanel.getCheckBoxes()) {
-            if (box.isSelected()) {
-                Warbonds.Bonds bond = Warbonds.Bonds.valueOf(box.getName());
-                for (String strat : bond.getStratagem()) {
-                    if (!strat.isBlank() && seen.add(strat)) {
-                        stratagemsList.add(stringParser.parseStrategem(strat));
-                    }
-                }
-            }
-        }
-        String[] basic = Warbonds.Bonds.Cadet_Loadout.getStratagem();
-        for(String s : basic){
-            stratagemsList.add(stringParser.parseStrategem(s));
-        }
-
-        Collections.shuffle(stratagemsList, ThreadLocalRandom.current());
-
-        String patriot = "EXO-45 Patriot Exosuit";
-        String emancipator = "EXO-49 Emancipator Exosuit";
-
-        List<String> top4 = new ArrayList<>(stratagemsList.subList(0, 4));
-
-        if (top4.contains(patriot) && top4.contains(emancipator)) {
-            top4.remove(ThreadLocalRandom.current().nextBoolean()
-                    ? patriot
-                    : emancipator);
-            top4.add(stratagemsList.get(5)); //replaces combo with next item on the list.
-        }
-        return String.join("\n", top4);
-    }
     public static String enemyType(){
 
         Random enemyran = new Random();
@@ -165,7 +128,6 @@ public class SemiRandomLoadOut {
         Collections.shuffle(List, ThreadLocalRandom.current());
 
         boosterList = List.subList(0,4);
-        //opt = boosterList.get(ThreadLocalRandom.current().nextInt(boosterList.size()));
     }
     public static String boosterFormat(){
         return "1. " + boosterList.get(0) + "\n" +  "2. " + boosterList.get(1) + "\n" + "3. " + boosterList.get(2) + "\n" + "4. " + boosterList.get(3);

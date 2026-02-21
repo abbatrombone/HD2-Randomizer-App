@@ -417,24 +417,17 @@ public class Warbonds {
                 new String[]{addMedArmor("Democracy Protects")},
                 new String[]{});
 
-
-
         private final String[] primary;
         private final String[] secondary;
         private final String[] throwable;
-        //private final String[] backpack;
         private final String[] stratagem;
         private final String[] armor;
         private final String[] opt; // optional string
 
-        Bonds(String[] primary, String[] secondary, String[] throwable,
-              //String[] backpack,
-              String[] stratagem, String[] armor, String[] opt) {
-            // store copies to keep enum instances immutable
+        Bonds(String[] primary, String[] secondary, String[] throwable, String[] stratagem, String[] armor, String[] opt) {
             this.primary = Arrays.copyOf(primary, primary.length);
             this.secondary = Arrays.copyOf(secondary, secondary.length);
             this.throwable = Arrays.copyOf(throwable, throwable.length);
-            //this.backpack = Arrays.copyOf(backpack, backpack.length);
             this.stratagem = Arrays.copyOf(stratagem, stratagem.length);
             this.armor = armor;
             this.opt = opt;
@@ -453,14 +446,9 @@ public class Warbonds {
             return Arrays.copyOf(throwable, throwable.length);
         }
 
-//        public String[] getBackpack() {
-//            return Arrays.copyOf(backpack, backpack.length);
-//        }
-
         public String[] getArmor() {
             return Arrays.copyOf(armor, armor.length);
         }
-
 
         public String[] getStratagem() {
             return Arrays.copyOf(stratagem, stratagem.length);
@@ -471,23 +459,8 @@ public class Warbonds {
         }
     }
 
-    // private constructor to prevent instantiation
     private Warbonds() {}
 
-    // returns the primary guns for a bond
-    public static String[] getGuns(Bonds bond){
-        return bond.getPrimary();
-    }
-
-    // example: return all guns across categories for a bond as a single array
-    public static String[] getAllGuns(Bonds bond) {
-        //, bond.getSecondary(), bond.getThrowable(), bond.getBackpack(), bond.getStratagem()
-        return concat(bond.getPrimary());
-    }
-    public static String[] getAllArmor(Bonds bond) {
-        //, bond.getSecondary(), bond.getThrowable(), bond.getBackpack(), bond.getStratagem()
-        return concat(bond.getArmor());
-    }
     public static String addLightArmor(String passive){
         return String.valueOf(new Armor(Armor.Level.Light, passive));
     }
@@ -535,16 +508,5 @@ public class Warbonds {
     }
     public static String addSecondary(String name, Secondary.GunType guntype,Secondary.ArmorPen armorPen){
         return String.valueOf(new Secondary(name, guntype,armorPen));
-    }
-    private static String[] concat(String[]... arrays) {
-        int total = 0;
-        for (String[] a : arrays) total += a.length;
-        String[] result = new String[total];
-        int pos = 0;
-        for (String[] a : arrays) {
-            System.arraycopy(a, 0, result, pos, a.length);
-            pos += a.length;
-        }
-        return result;
     }
 }
