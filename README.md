@@ -7,6 +7,7 @@
 * Changes the background based on the enemy
 * Recreated the HD2 themeing
 * Democracy calls with each assignment!
+* Saves your warbond selection when closing the app
 
 # See Your Preformance
 ![Description](readmepng/Stats_Page.png)
