@@ -4,13 +4,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import java.util.Random;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GenerateWaterFeatures {
-    private static final Logger logger = Logger.getLogger(IsoPanel.class.getName());
+    private static final Logger logger = Logger.getLogger(GenerateWaterFeatures.class.getName());
     int minH = -300;
     int maxH = 300;
     Surface3D surface= new Surface3D(50, 50, 150, minH, maxH);
@@ -30,56 +28,6 @@ public class GenerateWaterFeatures {
         this.originY = originY;
     }
 
-//    @Override
-//    public void paintComponent(Graphics g){
-//        super.paintComponent(g);
-//
-//        g.setColor(new Color(51,51,51));
-//        g.fillRect(0,0,originX,originY);
-//        g.setColor(Color.green);
-//
-//        for (int y = 0; y < surface.yGridSize - 1; y++) {
-//            for (int x = 0; x < surface.xGridSize - 1; x++) {
-//                try {
-//                    Point2D c1 = iso3D.transform3D(
-//                            new Point3D(x * xs,     (int)(surface.getElevationAvg(x,     y)     * ySkew), y * ys)
-//                    );
-//                    Point2D c2 = iso3D.transform3D(
-//                            new Point3D((x+1) * xs, (int)(surface.getElevationAvg(x+1,   y)     * ySkew), y * ys)
-//                    );
-//                    Point2D c3 = iso3D.transform3D(
-//                            new Point3D((x+1) * xs, (int)(surface.getElevationAvg(x+1,   y+1)   * ySkew), (y+1) * ys)
-//                    );
-//                    Point2D c4 = iso3D.transform3D(
-//                            new Point3D(x * xs,     (int)(surface.getElevationAvg(x,     y+1)   * ySkew), (y+1) * ys)
-//                    );
-//
-//                    int[] px = { c1.x + originX, c2.x + originX, c3.x + originX, c4.x + originX };
-//                    int[] py = { c1.y + originY, c2.y + originY, c3.y + originY, c4.y + originY };
-//
-//                    double v = surface.getElevationAvg(x, y) * ySkew;
-//                    if (v < -2) {
-//                        g.setColor(new Color(0, 60, 180));
-//                        g.fillPolygon(px, py, 4);
-//                    } else if (v < 2) {
-//                        g.setColor(new Color(42, 145, 78));
-//                        g.fillPolygon(px, py, 4);
-//                        drawLines(g,px,py);
-//                    }else if (v < 20){
-//                        g.setColor(Color.GRAY);
-//                        g.fillPolygon(px, py, 4);
-//                        drawLines(g,px,py);
-//                    } else {
-//                        g.setColor(Color.WHITE);
-//                        g.fillPolygon(px, py, 4);
-//                        drawLines(g,px,py);
-//                    }
-//                } catch (Exception e) {
-//                    logger.log(Level.WARNING, e.toString());
-//                }
-//            }
-//        }
-//    }
     public void drawLines(Graphics g, int[] px, int[] py){
         g.setColor(Color.GREEN);
         g.drawPolygon(px, py, 4);
@@ -92,10 +40,10 @@ public class GenerateWaterFeatures {
         Point start = findHighestPoint(e);
         Point p = start;
 
-        for (int i = 0; i < 200; i++) { // river length
+        for (int i = 0; i < 200; i++) {
             river.add(p);
             p = findLowestNeighbor(p.x, p.y, e);
-            if (p == null || e[p.x][p.y] < 0) break; // hit water level
+            if (p == null || e[p.x][p.y] < 0) break;
         }
 
         return river;
@@ -103,7 +51,7 @@ public class GenerateWaterFeatures {
 
     static void generateLakes(double[][] e, List<Point> river) {
         for (Point p : river) {
-            if (Math.random() < 0.04) { // 4% chance to form lake
+            if (Math.random() < 0.04) {
                 fillCircle(e, p.x, p.y, 4 + (int)(Math.random()*6), -3);
             }
         }
@@ -159,7 +107,6 @@ public class GenerateWaterFeatures {
         return Math.sqrt(dx*dx + dy*dy) / (Math.min(w,h)/2.0);
     }
 
-    // --- Simple Gradient Noise ---
     static double noise(double x, double y) {
         int xi = (int)x, yi = (int)y;
         double xf = x - xi, yf = y - yi;
@@ -184,7 +131,6 @@ public class GenerateWaterFeatures {
         return false;
     }
 
-    // keep isometric tile draw procedural too
     void drawTile(Graphics g, int x, int y) {
         int[][] coords = computeIsoQuad(x,y);
         int[] px = coords[0], py = coords[1];
@@ -194,7 +140,6 @@ public class GenerateWaterFeatures {
     }
 
     int[][] computeIsoQuad(int x, int y) {
-        // same transform math, just isolated
         try {
             Point2D c1 = iso3D.transform3D(new Point3D(x * xs, (int) (elev[x][y] * ySkew), y * ys));
             Point2D c2 = iso3D.transform3D(new Point3D((x + 1) * xs, (int) (elev[x + 1][y] * ySkew), y * ys));

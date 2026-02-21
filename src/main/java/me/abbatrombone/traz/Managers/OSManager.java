@@ -1,7 +1,5 @@
 package me.abbatrombone.traz.Managers;
 
-import me.abbatrombone.traz.HDApp;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -9,21 +7,7 @@ import java.util.logging.Logger;
 
 public class OSManager {
     private static final Logger logger = Logger.getLogger(OSManager.class.getName());
-    public static void storeData(String appName){
-        String os = System.getProperty("os.name").toLowerCase();
 
-        logger.log(Level.FINER,"OS: "+os);
-        String baseDir;
-
-        if(getOperatingSystem().contains("win")){baseDir = System.getenv("Helldivers2_Randomizer");}
-        else if (getOperatingSystem().contains("mac")) {baseDir = System.getProperty("user.home") + "/Library/Application Support";}
-        else {baseDir = System.getProperty("user.home") + "/.local/share/";}
-
-        logger.log(Level.FINER,"Dir: "+baseDir);
-        File appDataDir = new File(baseDir, appName);
-
-        if (appDataDir.mkdirs()) { logger.log(Level.FINER,"Diretory created: " + appDataDir.getName());}
-    }
     public static File getBaseAppDataDirectory(){
         String os = System.getProperty("os.name").toLowerCase();
         logger.log(Level.FINER,"OS: "+os);
@@ -67,9 +51,5 @@ public class OSManager {
     }
     public static File getLogFile() {
         return new File(getLogDirectory(), "app.log");
-    }
-
-    public static File getAppDataDirectory() {
-        return getBaseAppDataDirectory();
     }
 }

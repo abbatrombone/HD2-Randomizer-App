@@ -19,9 +19,7 @@ public final class CursorManager extends MouseAdapter {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        Component c = SwingUtilities.getDeepestComponentAt(
-                e.getComponent(), e.getX(), e.getY()
-        );
+        Component c = SwingUtilities.getDeepestComponentAt(e.getComponent(), e.getX(), e.getY());
 
         JComponent owner = findCursorOwner(c);
 
@@ -33,10 +31,7 @@ public final class CursorManager extends MouseAdapter {
     }
     private JComponent findCursorOwner(Component c) {
         while (c != null) {
-            if (c instanceof JComponent jc &&
-                    Boolean.TRUE.equals(jc.getClientProperty("hoverCursor"))) {
-                return jc;
-            }
+            if (c instanceof JComponent jc && Boolean.TRUE.equals(jc.getClientProperty("hoverCursor"))) {return jc;}
             c = c.getParent();
         }
         return null;

@@ -1,7 +1,6 @@
 package me.abbatrombone.traz.Panels;
 
 import me.abbatrombone.traz.CustomComponents.IssuesTextArea;
-import me.abbatrombone.traz.HDApp;
 import me.abbatrombone.traz.Managers.OSManager;
 import me.abbatrombone.traz.Managers.SettingsManager;
 
@@ -49,8 +48,6 @@ public class IssuesPanel {
         }
 
 
-//        textArea.setLineWrap(true);
-//        textArea.setWrapStyleWord(true);
         textArea.setMargin(new Insets(150,200,5,5));
         Color fgColor = settingsManager.getColor("Text_Color", "#ffffff");
         textArea.setForeground(fgColor.equals(Color.WHITE) ? Color.BLACK : fgColor);

@@ -69,11 +69,6 @@ public class HDApp {
 
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/HD2App.png")));
 
-//        tabPanel.setBackground(new Color(51,51,51));
-//        tabPanel.setBackground(new Color(51,51,51));
-//        tabPanel.setForeground(Color.WHITE);
-//        tabPanel.setBorder(null);
-
         MyTabbedPane tabPanelz = new MyTabbedPane(new Dimension(1042, 540));
         tabPanelz.setBackground(new Color(51,51,51));
         tabPanelz.setBackground(new Color(51,51,51));
@@ -129,24 +124,15 @@ public class HDApp {
     }
     private Cursor loadCursorSafely(String pathStr) {
         try {
-            if (pathStr == null || pathStr.isBlank()) {
-                return Cursor.getDefaultCursor();
-            }
+            if (pathStr == null || pathStr.isBlank()) {return Cursor.getDefaultCursor();}
 
             Path path = Paths.get(pathStr);
-            if (!Files.isRegularFile(path)) {
-                return Cursor.getDefaultCursor();
-            }
+            if (!Files.isRegularFile(path)) {return Cursor.getDefaultCursor();}
 
-            if (!Files.isRegularFile(path)) {
-                return Cursor.getDefaultCursor();
-            }
+            if (!Files.isRegularFile(path)) {return Cursor.getDefaultCursor();}
 
             BufferedImage source = ImageIO.read(path.toFile());
-            if (source == null) {
-                return Cursor.getDefaultCursor();
-            }
-
+            if (source == null) {return Cursor.getDefaultCursor();}
 
             Dimension bestSize = toolkit.getBestCursorSize(32, 32);
 
@@ -158,16 +144,12 @@ public class HDApp {
                             .getDefaultScreenDevice()
                             .getDefaultConfiguration();
 
-            BufferedImage cursorImage =
-                    gc.createCompatibleImage(width, height, Transparency.TRANSLUCENT);
+            BufferedImage cursorImage = gc.createCompatibleImage(width, height, Transparency.TRANSLUCENT);
 
             Graphics2D g2d = cursorImage.createGraphics();
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
-                    RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
             g2d.drawImage(source, 0, 0, width, height, null);
             g2d.dispose();

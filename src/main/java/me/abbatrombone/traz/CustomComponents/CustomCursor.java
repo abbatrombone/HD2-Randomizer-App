@@ -1,7 +1,5 @@
 package me.abbatrombone.traz.CustomComponents;
 
-import me.abbatrombone.traz.Managers.SettingsManager;
-
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
@@ -63,35 +61,20 @@ tho - so that's a semi workaround g.translate(-0.5, -0.5); or similar
     }
 
     private void registerDefaults() {
-        cursorMap.put(Type.DEFAULT,
-                () -> Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        cursorMap.put(Type.CROSSHAIR,
-                () -> Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-        cursorMap.put(Type.HAND,
-                () -> Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        cursorMap.put(Type.TEXT,
-                () -> Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-        cursorMap.put(Type.WAIT,
-                () -> Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        cursorMap.put(Type.MOVE,
-                () -> Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-
-        cursorMap.put(Type.N_RESIZE,
-                () -> Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
-        cursorMap.put(Type.S_RESIZE,
-                () -> Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR));
-        cursorMap.put(Type.E_RESIZE,
-                () -> Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
-        cursorMap.put(Type.W_RESIZE,
-                () -> Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
-        cursorMap.put(Type.NE_RESIZE,
-                () -> Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR));
-        cursorMap.put(Type.NW_RESIZE,
-                () -> Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR));
-        cursorMap.put(Type.SE_RESIZE,
-                () -> Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
-        cursorMap.put(Type.SW_RESIZE,
-                () -> Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR));
+        cursorMap.put(Type.DEFAULT,() -> Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        cursorMap.put(Type.CROSSHAIR,() -> Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        cursorMap.put(Type.HAND,() -> Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        cursorMap.put(Type.TEXT,() -> Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+        cursorMap.put(Type.WAIT,() -> Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        cursorMap.put(Type.MOVE,() -> Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+        cursorMap.put(Type.N_RESIZE,() -> Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
+        cursorMap.put(Type.S_RESIZE,() -> Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR));
+        cursorMap.put(Type.E_RESIZE,() -> Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+        cursorMap.put(Type.W_RESIZE,() -> Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
+        cursorMap.put(Type.NE_RESIZE,() -> Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR));
+        cursorMap.put(Type.NW_RESIZE,() -> Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR));
+        cursorMap.put(Type.SE_RESIZE,() -> Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
+        cursorMap.put(Type.SW_RESIZE,() -> Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR));
 
         cursorMap.put(Type.CUSTOM_ARROW, this::drawArrowCursor);
         cursorMap.put(Type.CUSTOM_HAND_ARROW, this::drawHandArrowCursor);
@@ -101,8 +84,7 @@ tho - so that's a semi workaround g.translate(-0.5, -0.5); or similar
         int backingSize = 128;
         float scale = backingSize / (float) arrowSize;
 
-        Dimension best = Toolkit.getDefaultToolkit()
-                .getBestCursorSize(arrowSize, arrowSize);
+        Dimension best = Toolkit.getDefaultToolkit().getBestCursorSize(arrowSize, arrowSize);
 
         Polygon arrow = new Polygon(
                 new int[]{0, 16, 7, 6 },
@@ -110,61 +92,48 @@ tho - so that's a semi workaround g.translate(-0.5, -0.5); or similar
                 4
         );
 
-        BufferedImage hiRes = new BufferedImage(
-                backingSize, backingSize, BufferedImage.TYPE_INT_ARGB
-        );
+        BufferedImage hiRes = new BufferedImage(backingSize, backingSize, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g = hiRes.createGraphics();
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setRenderingHint(RenderingHints.KEY_RENDERING,
-                RenderingHints.VALUE_RENDER_QUALITY);
-        g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                RenderingHints.VALUE_STROKE_PURE);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+        g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,RenderingHints.VALUE_STROKE_PURE);
 
         g.scale(scale, scale);
-
         g.setColor(Color.BLACK);
         g.fill(arrow);
 
-        g.setStroke(new BasicStroke(1f,
-                BasicStroke.CAP_BUTT,
-                BasicStroke.JOIN_MITER));
+        g.setStroke(new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
         g.setColor(Color.WHITE);
         g.draw(arrow);
 
         g.dispose();
 
-        // Downscale
-        BufferedImage cursorImg = new BufferedImage(
-                best.width, best.height, BufferedImage.TYPE_INT_ARGB
-        );
+        // Downscales
+        BufferedImage cursorImg = new BufferedImage(best.width, best.height, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2 = cursorImg.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         g2.drawImage(hiRes, 0, 0, best.width, best.height, null);
         g2.dispose();
 
         // Bias hotspot slightly toward tip
-        return Toolkit.getDefaultToolkit()
-                .createCustomCursor(cursorImg, new Point(1, 1), "ArrowCursor");
+        return Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(1, 1), "ArrowCursor");
     }
     private Cursor drawHandArrowCursor() {
-        //need to add upsidedown V under arrow
         int arrowSize = 32;
         int backingSize = 128;
         float scale = backingSize / (float) arrowSize;
 
-        Dimension best = Toolkit.getDefaultToolkit()
-                .getBestCursorSize(arrowSize, arrowSize);
+        Dimension best = Toolkit.getDefaultToolkit().getBestCursorSize(arrowSize, arrowSize);
 
         Polygon arrow = new Polygon(
                 new int[]{0, 16, 7, 6 },
                 new int[]{0, 6 , 7, 16},
                 4
         );
-            Path2D chevron = new Path2D.Float();
+
+        Path2D chevron = new Path2D.Float();
         chevron.moveTo(-6, 10);
         chevron.lineTo(0, 5);
         chevron.lineTo(6, 10);
@@ -175,45 +144,33 @@ tho - so that's a semi workaround g.translate(-0.5, -0.5); or similar
 
         Shape rotatedChevron = at.createTransformedShape(chevron);
 
-        BufferedImage hiRes = new BufferedImage(
-                backingSize, backingSize, BufferedImage.TYPE_INT_ARGB
-        );
+        BufferedImage hiRes = new BufferedImage(backingSize, backingSize, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g = hiRes.createGraphics();
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setRenderingHint(RenderingHints.KEY_RENDERING,
-                RenderingHints.VALUE_RENDER_QUALITY);
-        g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                RenderingHints.VALUE_STROKE_PURE);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
         g.scale(scale, scale);
 
         g.setColor(Color.DARK_GRAY);
         g.fill(arrow);
 
-        g.setStroke(new BasicStroke(1f,
-                BasicStroke.CAP_BUTT,
-                BasicStroke.JOIN_MITER));
+        g.setStroke(new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
         g.setColor(Color.WHITE);
         g.draw(arrow);
 
-        g.setStroke(new BasicStroke(1.2f,
-                BasicStroke.CAP_ROUND,
-                BasicStroke.JOIN_ROUND));
+        g.setStroke(new BasicStroke(1.2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g.setColor(Color.WHITE);
         g.draw(rotatedChevron);
 
         g.dispose();
 
         // Downscale
-        BufferedImage cursorImg = new BufferedImage(
-                best.width, best.height, BufferedImage.TYPE_INT_ARGB
-        );
+        BufferedImage cursorImg = new BufferedImage(best.width, best.height, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2 = cursorImg.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         g2.drawImage(hiRes, 0, 0, best.width, best.height, null);
         g2.dispose();
 

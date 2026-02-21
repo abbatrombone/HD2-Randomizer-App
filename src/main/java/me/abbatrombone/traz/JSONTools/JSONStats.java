@@ -26,7 +26,7 @@ public class JSONStats {
     private final ObjectMapper mapper = new ObjectMapper();
     private Map<String, Map<String, WinLose>> data;
     String fileName;
-    private File jsonfile;
+    private final File jsonfile;
 
     public JSONStats(filePaths fileName){
         this.fileName = fileName.getPath();
@@ -49,21 +49,6 @@ public class JSONStats {
                 .computeIfAbsent(category, k -> new HashMap<>())
                 .computeIfAbsent(item, k -> new WinLose(0, 0));
     }
-    /*
-    public Map.Entry<String, WinLose> getHighestWin(String category) {
-        Map<String, WinLose> categoryMap = data.get(category);
-        if (categoryMap == null || categoryMap.isEmpty()) return null;
-
-        Map.Entry<String, WinLose> best = null;
-
-        for (Map.Entry<String, WinLose> entry : categoryMap.entrySet()) {
-            if (best == null || entry.getValue().win > best.getValue().win) {
-                best = entry;
-            }
-        }
-        return best;
-    }
-     */
     public Map.Entry<String, WinLose> getHighestWin(String category) {
         return data.getOrDefault(category, Map.of())
                 .entrySet()

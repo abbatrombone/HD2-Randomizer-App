@@ -13,32 +13,12 @@ public class CustomFileChooser {
 
     public CustomFileChooser(Component parent) {
         Color bg = new Color(51, 51, 51);
-
         Color fg = Color.WHITE;
-//        String[] keys = {
-//                "FileChooser.background",
-//                "Panel.background",
-//                "Label.foreground",
-//                "Button.background",
-//                "Button.foreground",
-//                "List.background",
-//                "List.foreground",
-//                "List.selectionBackground",
-//                "List.selectionForeground",
-//                "OptionPane.background",
-//                "OptionPane.messageArea.background",
-//                "OptionPane.buttonArea.background",
-//                "RootPane.background"
-//        };
+
         Window owner = SwingUtilities.getWindowAncestor(parent);
         dialog = new JDialog(owner, "Select File", Dialog.ModalityType.APPLICATION_MODAL);
-                dialog.getContentPane().setBackground(bg);
+        dialog.getContentPane().setBackground(bg);
         dialog.getRootPane().setBackground(bg);
-
-//        Object[] backup = new Object[keys.length];
-//        for (int i = 0; i < keys.length; i++) {
-//            backup[i] = UIManager.get(keys[i]);
-//        }
 
         UIManager.put("FileChooser.background", bg);
         UIManager.put("Panel.background", bg);
@@ -193,7 +173,6 @@ public class CustomFileChooser {
                     g2.dispose();
                 }
             });
-
             return button;
         }
     }

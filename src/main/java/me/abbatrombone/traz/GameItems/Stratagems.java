@@ -30,12 +30,6 @@ public class Stratagems {
         }
     }
 
-//   public Stratagems(String stragemName, StratagemColor staragemColor, String subtype){
-//       this.stragemName = stragemName;
-//       this.staragemColor = staragemColor;
-//       this.subtype = subtype;
-//   }
-
     public Stratagems(String name, StratagemColor color, Subtype subtype) {
         if (!color.allows(subtype)) {
             throw new IllegalArgumentException(
