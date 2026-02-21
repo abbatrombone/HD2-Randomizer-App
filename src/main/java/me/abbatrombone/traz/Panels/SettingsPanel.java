@@ -6,6 +6,7 @@ import me.abbatrombone.traz.Panels.IsoGraphics.IsoPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class SettingsPanel{
@@ -35,7 +36,7 @@ public class SettingsPanel{
         JPanel checkMarkRow = makeRow("Use Default Checkmarks:", checkmarksButton);
         JPanel logRow = makeRow("Change Log level:",dropdown);
         JPanel soundsRow = makeRow("Enable/Disable Sounds:",soundsButton);
-        dropdown.setSelectedIndex(options.length -1);
+        dropdown.setSelectedIndex(Arrays.stream(options).toList().indexOf(settingsManager.getLogLevel()));
 
         imageButton.setHoverWord("Make sure its democracy approved");
         guiColorButton.setHoverWord("Using a color unaffiliated with super earth is treason");
@@ -73,7 +74,10 @@ public class SettingsPanel{
             changeCheckboxButtonText((JButton) e.getSource());
             changeCheckboxButtonSetting();
         });
-
+        dropdown.addActionListener(e ->{
+            String selected = Objects.requireNonNull(dropdown.getSelectedItem()).toString();
+            settingsManager.setLogLevel(selected);
+        });
         soundsButton.addActionListener(e -> {
             changeSoundsButtonText((JButton) e.getSource());
             changeSoundsSetting();

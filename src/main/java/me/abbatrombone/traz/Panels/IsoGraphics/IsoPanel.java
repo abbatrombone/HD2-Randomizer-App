@@ -4,10 +4,8 @@ import me.abbatrombone.traz.Managers.SettingsManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.List;
 
 public class IsoPanel extends JPanel{
     private static final Logger logger = Logger.getLogger(IsoPanel.class.getName());
@@ -22,10 +20,6 @@ public class IsoPanel extends JPanel{
     private static final int xs = surface.xSquareSize;
     private static final int ys = surface.ySquareSize;
 
-    private double[][] elev;
-    private List<Point> rivers;
-    Random rand = new Random();
-
     JLabel label = new JLabel("Democratic Territory to be Seized");
 
     public IsoPanel(){
@@ -38,42 +32,6 @@ public class IsoPanel extends JPanel{
         label.setSize(label.getPreferredSize());
         add(label);
     }
-
-
-//@Override
-//    public void paintComponent(Graphics g){
-//        super.paintComponent(g);
-//
-//        // background
-//        g.setColor(new Color(51,51,51));
-//        g.fillRect(0,0,getWidth(),getHeight());
-//
-//        // generate new world EVERY frame/repaint
-//        double[][] elev = generateElevation(surface.xGridSize, surface.yGridSize);
-//        List<Point> rivers = generateRiverPaths(elev);
-//        generateLakes(elev, rivers);
-//
-//        // draw terrain
-//        for (int y = 0; y < surface.yGridSize - 1; y++) {
-//            for (int x = 0; x < surface.xGridSize - 1; x++) {
-//
-//                int h = (int)elev[x][y];
-//                Color tile;
-//
-//                if (h > 60) tile = Color.WHITE;
-//                else if (h > 25) tile = Color.GRAY;
-//                else if (h > 3)  tile = new Color(34,139,34);
-//                else tile = new Color(0,60,180);
-//
-//                // draw river on top if present
-//                if (isRiver(x, y, rivers))
-//                    tile = new Color(30,144,255);
-//
-//                g.setColor(tile);
-//                drawTile(g, x, y);
-//            }
-//        }
-//    }
 
     @Override
     public void paintComponent(Graphics g){

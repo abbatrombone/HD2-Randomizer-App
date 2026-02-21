@@ -9,8 +9,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class RulesTextArea extends JTextArea {
-    private BufferedImage backgroundImage;
-    private float imageOpacity = 0.3f;
+    private final BufferedImage backgroundImage;
 
     public RulesTextArea() {
 
@@ -25,10 +24,11 @@ public class RulesTextArea extends JTextArea {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); // MUST be first
+        super.paintComponent(g);
 
         if (backgroundImage != null) {
             Graphics2D g2d = (Graphics2D) g.create();
+            float imageOpacity = 0.3f;
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, imageOpacity));
             g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
             g2d.dispose();

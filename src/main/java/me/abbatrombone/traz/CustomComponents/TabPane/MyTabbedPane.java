@@ -17,13 +17,12 @@ public class MyTabbedPane extends JPanel {
 
     public MyTabbedPane( Dimension dim ) {
         this.prefSize = dim;
-        // here I set the same frame size, but that depends on your needs.
-        setSize( dim );
+
+        setSize(dim);
         tabs = new ArrayList<>();
         panels = new ArrayList<>();
 
-        // since the internal panels will have a fixed position...
-        setLayout( null );
+        setLayout(null); //has fixed position
 
         tabsConteiner = new JPanel();
         tabsConteiner.setBackground( new Color(51,51,51));
@@ -32,33 +31,26 @@ public class MyTabbedPane extends JPanel {
         tabsConteiner.setSize( dim.width, 28 );
 
         panelsContainer = new JPanel();
-        panelsContainer.setLayout( null );
-        panelsContainer.setLocation( 0, 28 );
-        panelsContainer.setSize( getWidth(), getHeight() - 28 );
+        panelsContainer.setLayout(null);
+        panelsContainer.setLocation(0, 28);
+        panelsContainer.setSize(getWidth(),getHeight() - 28);
 
-        add( tabsConteiner );
-        add( panelsContainer );
+        add(tabsConteiner);
+        add(panelsContainer);
     }
 
     public void addTab(JComponent pan, MyComponent tab) {
 
-        // we assign the same container size
-        pan.setSize( panelsContainer.getSize() );
-        tab.setLocation( margin + 2, 2 );
+        pan.setSize(panelsContainer.getSize());
+        tab.setLocation(margin + 2, 2);
 
-        // we add the tabs to the panel and to the corresponding array.
-        tabsConteiner.add( tab );
-        tabs.add( tab );
+        tabsConteiner.add(tab);
+        tabs.add(tab);
 
-        // we update the value so that the next
-        // tab is drawn in the right place.
-        margin += tab.getWidth() + 2;
+        margin += tab.getWidth() + 2; //draw next tab in correct spot
 
-        // we add the panel to the corresponding list
-        panels.add( pan );
+        panels.add(pan);
 
-        // Iif it is the first assignment, we set the
-        // tab as selected and add the panel to "panelsContainer"
         if( tabs.size() == 1 ) {
             tab.setSelected(true);
             panelsContainer.removeAll();
@@ -66,26 +58,20 @@ public class MyTabbedPane extends JPanel {
             panelsContainer.repaint();
         }
 
-        // we add a “mouse” event listener. When an event occurs,
-        // the list of tabs will be scanned, and based on whether
-        // it is selected or not, the value of “setSelected()”
-        // will be set to select the corresponding colors.
-        // then we remove the panel that is in “panelsContainer”
-        // and assign it the new one.
-        tab.addMouseListener( new MouseAdapter() {
+        tab.addMouseListener(new MouseAdapter() {
             @Override
             public void  mousePressed( MouseEvent e )  {
 
                 int index = 0;
                 for( int i = 0; i < tabs.size(); i ++ ) {
-                    if( tabs.get( i ).equals( tab )) {
-                        tabs.get( i ).setSelected( true );
+                    if( tabs.get(i).equals(tab)) {
+                        tabs.get(i).setSelected(true);
                         index = i;
                     }
                     else {
-                        tabs.get( i ).setSelected( false );
+                        tabs.get(i).setSelected(false);
                     }
-                    tabs.get( i ).repaint();
+                    tabs.get(i).repaint();
                 }
                 panelsContainer.removeAll();
                 panelsContainer.add(panels.get(index));
@@ -93,24 +79,6 @@ public class MyTabbedPane extends JPanel {
                 panelsContainer.repaint();
             }
         });
-    }
-    public void updateTheme(Color bg, Color fg) {
-
-        tabsConteiner.setBackground(bg);
-        panelsContainer.setBackground(bg);
-
-        for (MyComponent tab : tabs) {
-            tab.updateColors(bg, fg);
-        }
-
-        for (JComponent panel : panels) {
-            panel.setBackground(bg);
-            panel.setForeground(fg);
-            panel.repaint();
-        }
-
-        revalidate();
-        repaint();
     }
     @Override
     public Dimension getPreferredSize() {

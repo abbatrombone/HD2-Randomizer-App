@@ -15,35 +15,37 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ButtonPanel {
 
     private final JPanel panel = new JPanel();
     private static final SettingsManager settingsManager = new SettingsManager();
     private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
-    private final CustomButton random = new CustomButton("Full Random",fgColor);
-    private final CustomButton semirandom = new CustomButton("Semi Random",fgColor);
-    private final CustomButton clear = new CustomButton("Clear",fgColor);
     private final CustomButton challenges = new CustomButton("Challenges",fgColor);
     private final CustomButton tips = new CustomButton("Tips",fgColor);
     private final OutputJTextPane output;
-    private final Color backgroundColor = new Color(51, 51, 51);
+    private static final Logger logger = Logger.getLogger(ButtonPanel.class.getName());
 
-    private final SoundManager soundManager = new SoundManager();
 
     public ButtonPanel(OutputJTextPane output){
         this.output = output;
 
+        Color backgroundColor = new Color(51, 51, 51);
         panel.setBackground(backgroundColor);
 
+        CustomButton random = new CustomButton("Full Random", fgColor);
         random.addActionListener(this::randomButtonActionPerformed);
         random.setHoverWord("Provides random weapons, armor, and stratagems based on selected warbonds");
         random.setName("Random");
 
+        CustomButton semirandom = new CustomButton("Semi Random", fgColor);
         semirandom.addActionListener(this::semiRandomButtonActionPerformed);
         semirandom.setHoverWord("Provides random weapons, armor, and stratagems based on selected warbonds. Stratagmes will have a more even mix");
         semirandom.setName("SemiRandom");
 
+        CustomButton clear = new CustomButton("Clear", fgColor);
         clear.addActionListener(this::clearButtonActionPerformed);
         clear.setHoverWord("Clears text panel");
 
@@ -126,19 +128,11 @@ public class ButtonPanel {
                     output.rebuildHoverRanges();
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.log(Level.WARNING,e.toString());
                 }
             }
 
         }.execute();
-
-//
-//        output.updateText();
-//
-//        StringParser p = new StringParser();
-//        output.addHoverWord(p.parsePrimaryName(RandomLoadOut.getPrimaryWeapon()),RandomLoadOut.getPrimaryWeapon());
-//        output.addHoverWord(p.parseSecondaryName(RandomLoadOut.getSecondaryWeapon()),RandomLoadOut.getSecondaryWeapon());
-//        output.addHoverWord(p.parseThrowable(RandomLoadOut.getThrowable()),RandomLoadOut.getThrowable());
     }
 
     private void clearButtonActionPerformed(ActionEvent evt) {
@@ -168,25 +162,5 @@ public class ButtonPanel {
 
     public JPanel getPanel() {
         return panel;
-    }
-
-    public JButton getRandom() {
-        return random;
-    }
-
-    public JButton getSemirandom() {
-        return semirandom;
-    }
-
-    public JButton getClear() {
-        return clear;
-    }
-
-    public JButton getChallenges() {
-        return challenges;
-    }
-
-    public JButton getTips() {
-        return tips;
     }
 }
