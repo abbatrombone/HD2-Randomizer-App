@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,6 +67,8 @@ public class HDApp {
             AWTEvent.MOUSE_MOTION_EVENT_MASK
         );
 
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/HD2App.png")));
+
 //        tabPanel.setBackground(new Color(51,51,51));
 //        tabPanel.setBackground(new Color(51,51,51));
 //        tabPanel.setForeground(Color.WHITE);
@@ -91,6 +94,7 @@ public class HDApp {
         tabPanelz.addTab(issuesPage, new MyComponent("Report Issue"));
 
         frame.add(tabPanelz);
+        frame.setIconImage(icon.getImage());
         frame.setVisible(true);
     }
     private JTabbedPane makeTabPane(){
