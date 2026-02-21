@@ -13,8 +13,9 @@ public class SemiRandomLoadOut {
 
     private static String secondaryWeapon;
     private static String throwable;
+    private static String armorLevel;
     private static List<String> boosterList;
-    private static String enemytype;
+    private static String enemyType;
     private static String supportWeapon;
     private static String secondStrat;
     private static String thirdStrat;
@@ -22,19 +23,20 @@ public class SemiRandomLoadOut {
     private static final StringParser stringParser = new StringParser();
     public static String result() {
 
-        String enemyType = enemyType();
+        enemyType = enemyType();
         warbondSecondary();
         warbondThrowable();
         warbondBooster();
         supportWeapon();
         OtherStratagems();
+        armorLevel = armorLevel();
 
-        return "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType() + "\n\n" +
+        return "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType+ "\n\n" +
                 "Difficulty: " + diff() + "\n" +
                 "Your weapon category is: " + primaryCategory() + "\n" +
                 "Your secondary is: " +  stringParser.parseSecondaryName(secondaryWeapon) + "\n" +
                 "Your throwable is: " + stringParser.parseThrowable(throwable) + "\n" +
-                "Armor: " + armorLevel() + " armor with any passive \n\n" +
+                "Armor: " + armorLevel + " armor with any passive \n\n" +
                 "Your stratagems will be the following:\n" + stringParser.parseStrategem(supportWeapon) + "\n" +
                 stringParser.parseStrategem(secondStrat) + "\n" +
                 stringParser.parseStrategem(thirdStrat) + "\n" +
@@ -117,12 +119,12 @@ public class SemiRandomLoadOut {
         int emenyInt = enemyran.nextInt(3 -1 +1) +1;
 
         switch (emenyInt){
-            case 1-> enemytype = "Terminids";
-            case 2-> enemytype = "Automatons";
-            case 3-> enemytype = "Illuminate";
+            case 1-> enemyType = "Terminids";
+            case 2-> enemyType = "Automatons";
+            case 3-> enemyType = "Illuminate";
         }
-        MainPanel.getOutputTextPane().updateImage(enemytype);
-        return  enemytype;
+        MainPanel.getOutputTextPane().updateImage(enemyType);
+        return  enemyType;
     }
 
     public static String diff(){
@@ -338,5 +340,31 @@ public class SemiRandomLoadOut {
 
     public static String getSecondaryWeapon() {
         return secondaryWeapon;
+    }
+    public static List<String> getBoosterList() {
+        return boosterList;
+    }
+
+    public static String getEnemyType() {
+        return enemyType;
+    }
+
+    public static String getSupportWeapon() {
+        return supportWeapon;
+    }
+
+    public static String getSecondStrat() {
+        return secondStrat;
+    }
+
+    public static String getThirdStrat() {
+        return thirdStrat;
+    }
+
+    public static String getForthStrat() {
+        return forthStrat;
+    }
+    public static String getArmorLevel() {
+        return armorLevel;
     }
 }
