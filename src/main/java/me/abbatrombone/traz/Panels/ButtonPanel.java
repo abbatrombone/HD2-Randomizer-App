@@ -158,9 +158,11 @@ public class ButtonPanel {
         output.rebuildHoverRanges();
     }
     private void challengeButtonActionPerformed(ActionEvent evt) {
+        UIManager.put("OptionPane.messageForeground", fgColor);
         JOptionPane.showMessageDialog(challenges, Challenges.challenges());
     }
     private void tipButtonActionPerformed(ActionEvent evt) {
+        UIManager.put("OptionPane.messageForeground", fgColor);
         JOptionPane.showMessageDialog(tips, Tips.tips());
     }
 
