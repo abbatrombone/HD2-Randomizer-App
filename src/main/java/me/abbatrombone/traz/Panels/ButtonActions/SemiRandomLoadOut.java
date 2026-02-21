@@ -30,6 +30,10 @@ public class SemiRandomLoadOut {
         supportWeapon();
         OtherStratagems();
         armorLevel = armorLevel();
+        System.out.println(secondaryWeapon);
+        System.out.println();
+        System.out.println(throwable);
+        System.out.println();
 
         return "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType+ "\n\n" +
                 "Difficulty: " + diff() + "\n" +
@@ -73,7 +77,7 @@ public class SemiRandomLoadOut {
             }
         }
         StringParser p = new StringParser();
-        primaryList.add(p.parsePrimaryType(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
+        Collections.addAll(primaryList,p.parsePrimaryType(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
         return primaryList.get(ThreadLocalRandom.current().nextInt(primaryList.size()));
     }
 
@@ -213,7 +217,8 @@ public class SemiRandomLoadOut {
                 }
             }
         }
-        throwableList.add(stringParser.parseThrowable(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable())));
+
+        Collections.addAll(throwableList,Warbonds.Bonds.Cadet_Loadout.getThrowable());
         throwable = throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size()));
     }
     public static void warbondSecondary(){
@@ -232,12 +237,11 @@ public class SemiRandomLoadOut {
             }
         }
 
-        secondaryList.add(stringParser.parseSecondaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary())));
+        Collections.addAll(secondaryList,Warbonds.Bonds.Cadet_Loadout.getSecondary());
         secondaryWeapon = secondaryList.get(ThreadLocalRandom.current().nextInt(secondaryList.size()));
-//        secondaryWeapon =  stringParser.parseSecondaryName(secondaryWeapon);
     }
     public static void supportWeapon() {
-        //Need to update to be semi random
+
         SelectBondsPanel selectBondsPanel = MainPanel.getSelectBondsPanel();
         List<String> sList = new ArrayList<>();
         Set<String> seen = new HashSet<>();
