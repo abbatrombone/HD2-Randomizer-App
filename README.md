@@ -1,4 +1,4 @@
-![Header]Get ready to spread democracy with the Helldivers 2 Randomizer App
+# Get ready to spread democracy with the Helldivers 2 Randomizer App
 ![Description](readmepng/Front_Page.png)
 
 * Can select which warbonds are in the randomizer
@@ -8,11 +8,13 @@
 * Recreated the HD2 themeing
 * Democracy calls with each assignment!
 
+# See Your Preformance
 ![Description](readmepng/Stats_Page.png)
  
 * Prove to your Democracy officer and friends how well you deliver democracy
 * Stats page has a uniqueue page for the fully random and semi random pages
 
+# Configure Your Settings
 ![Description](readmepng/Settings_Page.png)
 
 * Customizable settings
