@@ -25,7 +25,7 @@ public class IssuesPanel {
         //reused
         IssuesTextArea textArea = new IssuesTextArea();
         textArea.setEditable(false);
-        textArea.setPreferredSize(new Dimension(1022, 460));
+        textArea.setPreferredSize(new Dimension(1022, 490));
 
         StyledDocument doc = textArea.getStyledDocument();
         SimpleAttributeSet linkStyle = new SimpleAttributeSet();

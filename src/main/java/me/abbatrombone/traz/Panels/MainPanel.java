@@ -65,7 +65,7 @@ public class MainPanel {
                                                 .addComponent(output, 350,350,350)
                                                 .addComponent(buttonPanel.getPanel())
                                         )
-                                        .addComponent(selectBondsPanel.getJScrollPane(),430,430,430)
+                                        .addComponent(selectBondsPanel.getJScrollPane(),475,475,475)
                                         )
                         )
         );

@@ -1,5 +1,6 @@
 package me.abbatrombone.traz.Panels;
 
+import me.abbatrombone.traz.CustomComponents.JScrollbarUIComp.CustomScrollbar;
 import me.abbatrombone.traz.CustomComponents.RulesTextArea;
 import me.abbatrombone.traz.Managers.SettingsManager;
 
@@ -18,7 +19,7 @@ public class RulesPanel {
         RulesTextArea textArea = new RulesTextArea();
 
         textArea.setEditable(false);
-        textArea.setPreferredSize(new Dimension(1022, 460));
+        textArea.setPreferredSize(new Dimension(1022, 490));
 
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
@@ -40,6 +41,9 @@ public class RulesPanel {
 
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane.getVerticalScrollBar().setUI(new CustomScrollbar().getUI());
+        jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollbar().getUI());
+
     }
 
     public JPanel getPanel() {
