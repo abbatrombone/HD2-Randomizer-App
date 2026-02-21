@@ -14,7 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ButtonPanel {
@@ -39,9 +38,11 @@ public class ButtonPanel {
 
         random.addActionListener(this::randomButtonActionPerformed);
         random.setHoverWord("Provides random weapons, armor, and stratagems based on selected warbonds");
+        random.setName("Random");
 
         semirandom.addActionListener(this::semiRandomButtonActionPerformed);
         semirandom.setHoverWord("Provides random weapons, armor, and stratagems based on selected warbonds. Stratagmes will have a more even mix");
+        semirandom.setName("SemiRandom");
 
         clear.addActionListener(this::clearButtonActionPerformed);
         clear.setHoverWord("Clears text panel");
@@ -98,13 +99,13 @@ public class ButtonPanel {
 
             @Override
             protected String doInBackground() {
-                // HEAVY WORK — runs off the EDT
                 return RandomLoadOut.result(selectedBonds);
             }
 
             @Override
             protected void done() {
                 try {
+                    output.setLastButton("Random");
                     String resultText = get();
                     output.updateText(resultText);
 
@@ -146,12 +147,15 @@ public class ButtonPanel {
     }
 
     private void semiRandomButtonActionPerformed(ActionEvent evt) {
-        output.setText(SemiRandomLoadOut.result());
+        //output.setText(SemiRandomLoadOut.result());
+        output.updateText(SemiRandomLoadOut.result());
+        output.setLastButton("SemiRandom");
 
         StringParser p = new StringParser();
-        System.out.println(SemiRandomLoadOut.getSecondaryWeapon());
+
         output.addHoverWord(p.parseSecondaryName(SemiRandomLoadOut.getSecondaryWeapon()),SemiRandomLoadOut.getSecondaryWeapon());
         output.addHoverWord(p.parseThrowable(SemiRandomLoadOut.getThrowable()),SemiRandomLoadOut.getThrowable());
+        output.rebuildHoverRanges();
     }
     private void challengeButtonActionPerformed(ActionEvent evt) {
         JOptionPane.showMessageDialog(challenges, Challenges.challenges());
