@@ -163,7 +163,7 @@ public class Warbonds {
                 addPrimary("AR-61 Tenderizer", Primaries.GunType.AR, Primaries.ArmorPen.Light),
                 addPrimary("SMG-72 Pummeler", Primaries.GunType.Submachine, Primaries.ArmorPen.Light),
                 addPrimary("Plas-101 Purifier", Primaries.GunType.Energy, Primaries.ArmorPen.Med)},
-                new String[]{addSecondary("P-2 P-113 Verdict", Secondary.GunType.Pistol, Secondary.ArmorPen.Med)},
+                new String[]{addSecondary("P-113 Verdict", Secondary.GunType.Pistol, Secondary.ArmorPen.Med)},
                 new String[]{addThrowable("G-13 Incendiary Impact", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
                 new String[]{},
                 new String[]{
@@ -359,8 +359,8 @@ public class Warbonds {
         Siege_Breakers(  new String[]{
                 addPrimary("LAS-13 Trident", Primaries.GunType.Shotgun, Primaries.ArmorPen.Light),
                 addPrimary("AR-59 Suppressor", Primaries.GunType.AR, Primaries.ArmorPen.Light)},
-                new String[]{addThrowable("G/SH-39 Shield", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
                 new String[]{},
+                new String[]{addThrowable("G/SH-39 Shield", Throwable.ThrowableType.Special, Throwable.Penitration.Medium)},
                 new String[]{
                         addWeaponStratagem("CQC-20 Breaching Hammer"),
                         addWeaponStratagem("EAT-411 Leveller"),
