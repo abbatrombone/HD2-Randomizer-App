@@ -19,7 +19,7 @@ public class SettingsPanel{
     private final CustomButton hellDiversCursorButton = new CustomButton("HD2",fgColor);
     private final CustomButton guiColorButton = new CustomButton("Select Color",fgColor);
     private final CustomButton textColorButton = new CustomButton("Select Color",fgColor);
-    private final CustomButton checkmarksButton = new CustomButton("Use Democratic Checkmarks",fgColor);
+    private final CustomButton checkmarksButton = new CustomButton("Use Basic Checkmarks",fgColor);
     private final CustomButton soundsButton = new CustomButton("Sound is Disabled",fgColor);
     String[] options = { "all","config","fine","finer","finest","Info","off","servere","warning"};
     private final CustomComboBox dropdown = new CustomComboBox(options);
