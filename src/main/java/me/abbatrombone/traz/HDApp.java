@@ -3,6 +3,7 @@ package me.abbatrombone.traz;
 import me.abbatrombone.traz.CustomComponents.CustomCursor;
 import me.abbatrombone.traz.CustomComponents.TabPane.MyComponent;
 import me.abbatrombone.traz.CustomComponents.TabPane.MyTabbedPane;
+import me.abbatrombone.traz.JSONTools.JSONCheckboxes;
 import me.abbatrombone.traz.Managers.CursorManager;
 import me.abbatrombone.traz.Managers.SettingsManager;
 import me.abbatrombone.traz.Panels.*;
@@ -11,6 +12,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,7 +26,9 @@ public class HDApp {
     private final MainPanel mainPanel = new MainPanel();
     private final SettingsPanel settingsPanel = new SettingsPanel();
     private final RulesPanel rulesPanel = new RulesPanel();
+    private final IssuesPanel issuesPanel = new IssuesPanel();
     private final Toolkit toolkit = Toolkit.getDefaultToolkit();
+    private final StatsPanel statsPanel = new StatsPanel();
 
     private static final Logger logger = Logger.getLogger(HDApp.class.getName());
     private static final SettingsManager settingsManager = new SettingsManager();
@@ -36,12 +41,16 @@ public class HDApp {
         initComponents();
     }
     private void initComponents() {
-
         frame.getContentPane().setBackground(new Color(51,51,51));
         frame.setTitle("Helldivers 2 Randomizer");
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1042, 540);
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                JSONCheckboxes saveCheckboxes = new JSONCheckboxes(MainPanel.getSelectBondsPanel());
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            }
+        });
+        frame.setSize(1042, 575);
 
         CursorManager cursorManager = new CursorManager(
                 this::getNormalCursor,
@@ -72,20 +81,14 @@ public class HDApp {
         JPanel randomizerPage = mainPanel.getMainPanel();
         JScrollPane rulePage = rulesPanel.getjScrollPane();
         JPanel settingsPage = settingsPanel.getPanel();
+        JPanel issuesPage = IssuesPanel.getPanel();
+        JPanel statsPage = statsPanel;
 
         tabPanelz.addTab(randomizerPage, new MyComponent("Randomizer" ));
         tabPanelz.addTab(rulePage, new MyComponent("Randomzier Rules" ));
+        tabPanelz.addTab(statsPage, new MyComponent("Stats"));
         tabPanelz.addTab(settingsPage, new MyComponent("Settings"));
-
-
-//        JPanel randomizerPage = mainPanel.getMainPanel();
-//        tabPanel.addTab("Randomizer", randomizerPage);
-//
-////        JPanel gearPage = gearPanel.getPanel();
-////        tabPanel.addTab("Gear Information", gearPage);
-//
-//        JScrollPane rulePage = rulesPanel.getjScrollPane();
-//        tabPanel.addTab("Randomzier Rules", rulePage);
+        tabPanelz.addTab(issuesPage, new MyComponent("Report Issue"));
 
         frame.add(tabPanelz);
         frame.setVisible(true);

@@ -17,8 +17,9 @@ public class RandomLoadOut {
     private static String armorLevel;
     private static String armorPassive;
     private static List<String> boosterList;
-    private static String enemyType;
+    private static String enemyType = "";
     private static String resultText = "";
+    private static String stratgems = "";
     private final static StringParser p = new StringParser();
 
     public static String result(List<String> selectedBondNames) {
@@ -27,6 +28,7 @@ public class RandomLoadOut {
         warbondThrowable(selectedBondNames);
         warbondSecondary(selectedBondNames);
         warbondBooster(selectedBondNames);
+        warbondStratagems(selectedBondNames);
         enemyType();
         String difficulty = diff();
         StringBuilder sb = new StringBuilder();
@@ -41,7 +43,7 @@ public class RandomLoadOut {
         sb.append( "Your secondary is: ").append(p.parseSecondaryName(secondaryWeapon)).append("\n");
         sb.append("Your throwable is: ").append(p.parseThrowable(throwable)).append("\n");
         sb.append( "Armor: ").append(armorLevel).append(" armor with the ").append(armorPassive).append(" Passive.").append("\n\n");
-        sb.append("Your stratagems will be the following:\n").append(warbondStratagems(getSelectedBondNames())).append("\n\n");
+        sb.append("Your stratagems will be the following:\n").append(stratgems).append("\n\n");
         sb.append( "Your Booster is: \n").append(boosterFormat()).append("\n");
         sb.append(randomPhrase());
 
@@ -117,7 +119,7 @@ public class RandomLoadOut {
 //        }
 //        return String.join("\n", top4);
 //    }
-public static String warbondStratagems(List<String> selectedBondNames) {
+public static void warbondStratagems(List<String> selectedBondNames) {
     List<String> stratagemsList = new ArrayList<>();
     Set<String> seen = new HashSet<>();
     StringParser stringParser = new StringParser();
@@ -149,8 +151,9 @@ public static String warbondStratagems(List<String> selectedBondNames) {
                 : emancipator);
         top4.add(stratagemsList.get(5));
     }
+    stratgems = String.join("\n", top4);
 
-    return String.join("\n", top4);
+    //return String.join("\n", top4);
 }
     public static void enemyType(){
         int emenyInt = ThreadLocalRandom.current().nextInt(1, 4); //bound is exclusive
@@ -266,12 +269,12 @@ public static String warbondStratagems(List<String> selectedBondNames) {
 
         switch (phrasefranInt) {
             case 1 -> phrase = "Now go distribute some managed democracy!";
-            case 2 -> phrase = "Show them what democracy's arsenal looks like";
-            case 3 -> phrase = "Make sure to show up alive, for your next assignment helldiver";
-            case 4 -> phrase = "The ministry of science looks forward to your results";
+            case 2 -> phrase = "Show them what democracy's arsenal looks like!";
+            case 3 -> phrase = "Make sure to show up alive, for your next assignment helldiver!";
+            case 4 -> phrase = "The ministry of science looks forward to your results!";
             case 5 -> phrase = "NOW DIVE! DIVE! DIVE! HELLDIVER!!!";
-            case 6 -> phrase = "Your victory is assured with this load out";
-            case 7 -> phrase = "The only thing more powerful than this is democracy";
+            case 6 -> phrase = "Your victory is assured with this load out!";
+            case 7 -> phrase = "The only thing more powerful than this is democracy!";
 
         }
         return phrase;
@@ -336,7 +339,8 @@ public static String warbondStratagems(List<String> selectedBondNames) {
             }
         }
 
-        primaryList.add(p.parsePrimaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
+        //primaryList.add(p.parsePrimaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary())));
+        primaryList.add(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getPrimary()));
         primaryWeapon = primaryList.get(ThreadLocalRandom.current().nextInt(primaryList.size()));
         //primaryWeapon = p.parsePrimaryName(primaryWeapon);
     }
@@ -364,7 +368,8 @@ public static String warbondStratagems(List<String> selectedBondNames) {
             }
         }
 
-        throwableList.add(p.parseThrowable(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable())));
+        //throwableList.add(p.parseThrowable(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable())));
+        throwableList.add(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getThrowable()));
         throwable = throwableList.get(ThreadLocalRandom.current().nextInt(throwableList.size()));
     }
     public static void warbondSecondary(List<String> selectedBondNames){
@@ -390,7 +395,8 @@ public static String warbondStratagems(List<String> selectedBondNames) {
                 }
             }
         }
-        secondaryList.add(p.parseSecondaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary())));
+        //secondaryList.add(p.parseSecondaryName(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary())));
+        secondaryList.add(Arrays.toString(Warbonds.Bonds.Cadet_Loadout.getSecondary()));
         secondaryWeapon = secondaryList.get(ThreadLocalRandom.current().nextInt(secondaryList.size()));
     }
     public static String getPrimaryWeapon() {
@@ -407,5 +413,22 @@ public static String warbondStratagems(List<String> selectedBondNames) {
 
     public static String getResultText() {
         return resultText;
+    }
+    public static String getArmorLevel() {
+        return armorLevel;
+    }
+
+    public static String getArmorPassive() {
+        return armorPassive;
+    }
+
+    public static String getEnemyType() {
+        return enemyType;
+    }
+    public static String getStratgems() {
+        return stratgems;
+    }
+    public static List<String> getBoosterList() {
+        return boosterList;
     }
 }

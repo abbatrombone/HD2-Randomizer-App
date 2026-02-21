@@ -32,7 +32,7 @@ public class IsoPanel extends JPanel{
         setOpaque(true);
         setLayout(null);
 
-        Color fgColor = settingsManager.getColor("Label_Color", "#ff6699");
+        Color fgColor = settingsManager.getColor("Label_Color", "#ffffff");
         label.setForeground(fgColor);
         label.setFont(new Font("FS Sinclair",Font.BOLD,16));
         label.setSize(label.getPreferredSize());

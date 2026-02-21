@@ -1,7 +1,9 @@
 package me.abbatrombone.traz.Panels;
+
 import me.abbatrombone.traz.CustomComponents.JScrollbarUIComp.CustomScrollbar;
 import me.abbatrombone.traz.CustomComponents.WarbondCheckBox;
 import me.abbatrombone.traz.GameItems.Warbonds;
+import me.abbatrombone.traz.JSONTools.CheckboxJSONReader;
 import me.abbatrombone.traz.Managers.SettingsManager;
 
 import javax.swing.*;
@@ -11,11 +13,12 @@ import java.util.ArrayList;
 public class SelectBondsPanel {
     private final JPanel panel = new JPanel();
     private final JScrollPane jScrollPane = new JScrollPane(panel);
+    private final CheckboxJSONReader reader = new CheckboxJSONReader();
     private final ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
     private final JPanel[] lines;
     private final Color backgroundColor = new Color(51, 51, 51);
     private static final SettingsManager settingsManager = new SettingsManager();
-    private final Color fgColor = settingsManager.getColor("Label_Color","#ff6699");
+    private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
 
     public SelectBondsPanel(){
 
@@ -70,6 +73,7 @@ public class SelectBondsPanel {
 
     private JPanel makeRow(Warbonds.Bonds bond) {
         JPanel p = new JPanel();
+
         p.setBackground(backgroundColor);
 
         if(!bond.toString().equals("Cadet_Loadout")){
@@ -78,12 +82,14 @@ public class SelectBondsPanel {
             String name = bond.toString();
             String nameWithSpace = name.replace("_"," ");
 
-            JCheckBox checkBox = settingsManager.defaultCheckboxIsOn() ? new JCheckBox() : new WarbondCheckBox() ;
+            JCheckBox checkBox = settingsManager.defaultCheckboxIsOn() ? new WarbondCheckBox() : new JCheckBox();
             checkBox.setBackground(backgroundColor);
             JLabel label = new JLabel(nameWithSpace);
             label.setForeground(fgColor);
             checkBox.setName(name);
-            checkBox.setSelected(true);
+
+            checkBox.setSelected(reader.readcheckBoxValues(bond.toString()));
+
             checkBoxes.add(checkBox);
 
             p.add(checkBox);

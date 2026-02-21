@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class SettingsManager {
     private final Properties settings = new Properties();
-    private final File settingsFile = new File("settings.properties");
+    private final File settingsFile = new File(OSManager.getConfigDirectory() + "/settings.properties");
 
     public SettingsManager() {
         loadSettings();

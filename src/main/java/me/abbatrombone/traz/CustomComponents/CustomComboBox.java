@@ -1,9 +1,11 @@
 package me.abbatrombone.traz.CustomComponents;
 
+import me.abbatrombone.traz.CustomComponents.CustomMouseItems.HoverHandler;
 import me.abbatrombone.traz.CustomComponents.JScrollbarUIComp.ScrollBarUI;
 import me.abbatrombone.traz.Managers.SettingsManager;
 
 import javax.swing.*;
+import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
@@ -14,10 +16,11 @@ import java.awt.event.*;
 
 public class CustomComboBox extends JComboBox<String>  {
     Color bgColor = new Color(51,51,51);
-    private final JWindow tooltipWindow = new JWindow();
-    private final JLabel tooltipLabel = new JLabel();
+//    private final JWindow tooltipWindow = new JWindow();
+//    private final JLabel tooltipLabel = new JLabel();
     private String hoverMessages = "Choosing \"All\" may TANK preformance!";
     private boolean hovering = false;
+    Tooltip tooltip = new Tooltip();
     private static final SettingsManager settingsManager = new SettingsManager();
     private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
 
@@ -33,14 +36,15 @@ public class CustomComboBox extends JComboBox<String>  {
         setForeground(fgColor);
         setPreferredSize(new Dimension(10,10));
         setFont(new Font("FS Sinclair", Font.BOLD, 14));
-        setBorder(new EmptyBorder(5, 10, 5, 10));
+        //setBorder(new EmptyBorder(5, 10, 5, 10));
+        setBorder(new RoundedCornerBorder());
         setPreferredSize(new Dimension(140, 28));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 28));
         setMinimumSize(new Dimension(140, 28));
 //        setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
 
-        setupTooltipUI();
-        addMouseMotionListener(new CustomComboBox.BoxHoverHandler());
+        //setupTooltipUI();
+        //addMouseMotionListener(new CustomComboBox.BoxHoverHandler());
         addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -48,14 +52,18 @@ public class CustomComboBox extends JComboBox<String>  {
             }
     });
 
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                tooltipWindow.setVisible(false);
-                putClientProperty("hoverCursor", false);
-                hovering = false;
-            }
-        });
+//        addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseExited(MouseEvent e) {
+//                tooltipWindow.setVisible(false);
+//                putClientProperty("hoverCursor", false);
+//                hovering = false;
+//            }
+//        });
+        HoverHandler hoverHandler = new HoverHandler(tooltip, tooltip.getTooltipLabel());
+
+        addMouseMotionListener(hoverHandler);
+        addMouseListener(hoverHandler);
 
         setRenderer(new DefaultListCellRenderer() {
             @Override
@@ -133,10 +141,10 @@ public class CustomComboBox extends JComboBox<String>  {
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setColor(bgColor);
-                g2.fillRect(0, 0, getWidth(), getHeight());
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(),12,12);
                 g2.setStroke(new BasicStroke(4f));
-                g2.setColor(Color.YELLOW);
-                g2.drawRect(0, 0, getWidth(), getHeight());
+                //g2.setColor(Color.YELLOW);
+                g2.drawRoundRect(0, 0, getWidth(), getHeight(),12,12);
             }
 
             @Override
@@ -165,52 +173,82 @@ public class CustomComboBox extends JComboBox<String>  {
         });
     }
     public void setHoverWord(String message) {
-        hoverMessages = message;
+        putClientProperty("customTooltip", message);
     }
 
-    private void setupTooltipUI() {
-        tooltipWindow.setBackground(new Color(0, 0, 0, 0));
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(30, 30, 30));
-        panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
-        panel.setLayout(new GridBagLayout());
+//    private void setupTooltipUI() {
+//        tooltipWindow.setBackground(new Color(0, 0, 0, 0));
+//        JPanel panel = new JPanel();
+//        panel.setBackground(new Color(30, 30, 30));
+//        panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+//        panel.setLayout(new GridBagLayout());
+//
+//        tooltipLabel.setForeground(fgColor);
+//        tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
+//        panel.add(tooltipLabel);
+//
+//        tooltipWindow.add(panel);
+//        tooltipLabel.addPropertyChangeListener("text", evt -> {
+//            FontMetrics fm = tooltipLabel.getFontMetrics(tooltipLabel.getFont());
+//            int textWidth = fm.stringWidth(tooltipLabel.getText());
+//            int textHeight = fm.getHeight();
+//
+//            int paddingW = 20;
+//            int paddingH = 14;
+//
+//            tooltipWindow.setSize(textWidth + paddingW, textHeight + paddingH);
+//            tooltipWindow.pack();
+//        });
+//
+//        tooltipWindow.pack();
+//    }
+    static class RoundedCornerBorder extends AbstractBorder {
+        private final int arc = 12;
 
-        tooltipLabel.setForeground(fgColor);
-        tooltipLabel.setFont(new Font("Arial", Font.BOLD, 12));
-        panel.add(tooltipLabel);
-
-        tooltipWindow.add(panel);
-        tooltipLabel.addPropertyChangeListener("text", evt -> {
-            FontMetrics fm = tooltipLabel.getFontMetrics(tooltipLabel.getFont());
-            int textWidth = fm.stringWidth(tooltipLabel.getText());
-            int textHeight = fm.getHeight();
-
-            int paddingW = 20;
-            int paddingH = 14;
-
-            tooltipWindow.setSize(textWidth + paddingW, textHeight + paddingH);
-            tooltipWindow.pack();
-        });
-
-        tooltipWindow.pack();
-    }
-    private class BoxHoverHandler extends MouseMotionAdapter {
         @Override
-        public void mouseMoved(MouseEvent e) {
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            boolean pressed = false;
 
-            boolean inside = contains(e.getPoint());
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(Color.YELLOW);
+            g2.setStroke(new BasicStroke(3f));
+            g2.drawRoundRect(x, y, width - 1, height - 1, arc, arc);
 
-            if (inside) {
-                tooltipLabel.setText(hoverMessages);
-                tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
-                tooltipWindow.setVisible(true);
-                putClientProperty("hoverCursor", true);
-                hovering = true;
-            } else {
-                tooltipWindow.setVisible(false);
-                putClientProperty("hoverCursor", false);
-                hovering = false;
-            }
+            g2.setColor(new Color(0, 0, 0, 80));
+            g2.drawRoundRect(0, 0, width - 1, height - 3, arc, arc);
+
+            g2.dispose();
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c) {
+            return new Insets(4, 8, 4, 8);
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c, Insets insets) {
+            insets.set(4, 8, 4, 8);
+            return insets;
         }
     }
+//    private class BoxHoverHandler extends MouseMotionAdapter {
+//        @Override
+//        public void mouseMoved(MouseEvent e) {
+//
+//            boolean inside = contains(e.getPoint());
+//
+//            if (inside) {
+//                tooltipLabel.setText(hoverMessages);
+//                tooltipWindow.setLocation(e.getXOnScreen() + 12, e.getYOnScreen() + 18);
+//                tooltipWindow.setVisible(true);
+//                putClientProperty("hoverCursor", true);
+//                hovering = true;
+//            } else {
+//                tooltipWindow.setVisible(false);
+//                putClientProperty("hoverCursor", false);
+//                hovering = false;
+//            }
+//        }
+//    }
 }

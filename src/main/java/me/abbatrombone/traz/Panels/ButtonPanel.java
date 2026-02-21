@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ButtonPanel {
 
@@ -36,19 +37,21 @@ public class ButtonPanel {
         panel.setBackground(backgroundColor);
 
         random.addActionListener(this::randomButtonActionPerformed);
-        random.addHoverWord("Provides random weapons, armor, and stratagems based on selected warbonds");
+        random.setHoverWord("Provides random weapons, armor, and stratagems based on selected warbonds");
+        random.setName("Random");
 
         semirandom.addActionListener(this::semiRandomButtonActionPerformed);
-        semirandom.addHoverWord("Provides random weapons, armor, and stratagems based on selected warbonds. Stratagmes will have a more even mix");
+        semirandom.setHoverWord("Provides random weapons, armor, and stratagems based on selected warbonds. Stratagmes will have a more even mix");
+        semirandom.setName("SemiRandom");
 
         clear.addActionListener(this::clearButtonActionPerformed);
-        clear.addHoverWord("Clears text panel");
+        clear.setHoverWord("Clears text panel");
 
         challenges.addActionListener(this::challengeButtonActionPerformed);
-        challenges.addHoverWord("Provides extra challenges for a run");
+        challenges.setHoverWord("Provides extra challenges for a run");
 
         tips.addActionListener(this::tipButtonActionPerformed);
-        tips.addHoverWord("Tips provided by your local democracy officer");
+        tips.setHoverWord("Tips provided by your local democracy officer");
 
         panel.setMaximumSize(new Dimension(200,300));
         panel.setPreferredSize(new Dimension(200,300));
@@ -83,22 +86,26 @@ public class ButtonPanel {
                         )
         );
     }
+    private void playSound(){
+        String[] s ={"Enter Fray.wav","For Freedom.wav","Fuel Liberties Future.wav","Heroic Intervention.wav","Liberation.wav","Mission Coord.wav","Near Operational Completion.wav","Sacrifice.wav","Small Moon.wav","War Rages On.wav"};
+        SoundManager.playSound(s[ThreadLocalRandom.current().nextInt(s.length)]);
+    }
 
     private void randomButtonActionPerformed(ActionEvent evt) {
-        SoundManager.playSound("Alien Menace.wav");
+        playSound();
         List<String> selectedBonds = RandomLoadOut.getSelectedBondNames();
 
         new SwingWorker<String, Void>() {
 
             @Override
             protected String doInBackground() {
-                // HEAVY WORK — runs off the EDT
                 return RandomLoadOut.result(selectedBonds);
             }
 
             @Override
             protected void done() {
                 try {
+                    output.setLastButton("Random");
                     String resultText = get();
                     output.updateText(resultText);
 
@@ -140,12 +147,15 @@ public class ButtonPanel {
     }
 
     private void semiRandomButtonActionPerformed(ActionEvent evt) {
-        output.setText(SemiRandomLoadOut.result());
+        //output.setText(SemiRandomLoadOut.result());
+        output.updateText(SemiRandomLoadOut.result());
+        output.setLastButton("SemiRandom");
 
         StringParser p = new StringParser();
-        System.out.println(SemiRandomLoadOut.getSecondaryWeapon());
+
         output.addHoverWord(p.parseSecondaryName(SemiRandomLoadOut.getSecondaryWeapon()),SemiRandomLoadOut.getSecondaryWeapon());
         output.addHoverWord(p.parseThrowable(SemiRandomLoadOut.getThrowable()),SemiRandomLoadOut.getThrowable());
+        output.rebuildHoverRanges();
     }
     private void challengeButtonActionPerformed(ActionEvent evt) {
         JOptionPane.showMessageDialog(challenges, Challenges.challenges());

@@ -9,7 +9,7 @@ public class LabelPanel{
     private final JPanel panel = new JPanel();
     private final Font font = new Font("Segoe UI", Font.BOLD, 24);
     private static final SettingsManager settingsManager = new SettingsManager();
-    private final Color fgColor = settingsManager.getColor("Label_Color","#ff6699");
+    private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
 
     public LabelPanel(){
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));

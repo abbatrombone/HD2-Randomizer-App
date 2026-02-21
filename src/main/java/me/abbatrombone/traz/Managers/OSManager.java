@@ -12,33 +12,33 @@ public class OSManager {
     public static void storeData(String appName){
         String os = System.getProperty("os.name").toLowerCase();
 
-        logger.log(Level.INFO,"OS: "+os);
+        logger.log(Level.FINER,"OS: "+os);
         String baseDir;
 
         if(getOperatingSystem().contains("win")){baseDir = System.getenv("Helldivers2_Randomizer");}
         else if (getOperatingSystem().contains("mac")) {baseDir = System.getProperty("user.home") + "/Library/Application Support";}
         else {baseDir = System.getProperty("user.home") + "/.local/share/";}
 
-        logger.log(Level.INFO,"Dir: "+baseDir);
+        logger.log(Level.FINER,"Dir: "+baseDir);
         File appDataDir = new File(baseDir, appName);
 
-        if (appDataDir.mkdirs()) { logger.log(Level.INFO,"Diretory created: " + appDataDir.getName());}
+        if (appDataDir.mkdirs()) { logger.log(Level.FINER,"Diretory created: " + appDataDir.getName());}
     }
     public static File getBaseAppDataDirectory(){
         String os = System.getProperty("os.name").toLowerCase();
-        logger.log(Level.INFO,"OS: "+os);
+        logger.log(Level.FINER,"OS: "+os);
         String baseDir;
 
         if(getOperatingSystem().contains("win")){baseDir = System.getenv("Helldivers2_Randomizer");}
         else if (getOperatingSystem().contains("mac")) {baseDir = System.getProperty("user.home") + "/Library/Application Support";}
         else {baseDir = System.getProperty("user.home") + "/.local/share/";}
 
-        logger.log(Level.INFO,"Base App Data Dir: "+baseDir);
+        logger.log(Level.FINER,"Base App Data Dir: "+baseDir);
         return new File(baseDir, "Helldivers2_Randomizer");
     }
     public static File getConfigDirectory() {
         File configDir = new File(getBaseAppDataDirectory(), "config");
-        if(configDir.mkdirs()){logger.log(Level.INFO,"Diretory created: " + configDir.getName());}
+        if(configDir.mkdirs()){logger.log(Level.FINER,"Diretory created: " + configDir.getName());}
 
         return configDir;
     }
@@ -49,14 +49,14 @@ public class OSManager {
     }
     public static File getLogDirectory() {
         File logDir = new File(getBaseAppDataDirectory(), "logs");
-        if (logDir.mkdirs()) {logger.log(Level.INFO,"Diretory created: " + logDir.getName());}
+        if (logDir.mkdirs()) {logger.log(Level.FINER,"Diretory created: " + logDir.getName());}
 
         File logFile = new File(logDir, "app.log");
         try {
-            if(logFile.createNewFile()){logger.log(Level.INFO,"File created: " + logFile.getName());}
-            else {logger.log(Level.INFO,("File already exists."));}
+            if(logFile.createNewFile()){logger.log(Level.FINER,"File created: " + logFile.getName());}
+            else {logger.log(Level.FINER,("File already exists."));}
         } catch (IOException e) {
-            logger.log(Level.INFO,"An error occurred.");
+            logger.log(Level.FINER,"An error occurred.");
             logger.log(Level.WARNING, e.toString());
         }
 

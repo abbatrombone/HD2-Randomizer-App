@@ -1,17 +1,10 @@
 package me.abbatrombone.traz.Panels;
 
-import me.abbatrombone.traz.CustomComponents.CustomCursor;
 import me.abbatrombone.traz.CustomComponents.OutputJTextPane;
 import me.abbatrombone.traz.Managers.SettingsManager;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainPanel {
@@ -72,7 +65,7 @@ public class MainPanel {
                                                 .addComponent(output, 350,350,350)
                                                 .addComponent(buttonPanel.getPanel())
                                         )
-                                        .addComponent(selectBondsPanel.getJScrollPane(),430,430,430)
+                                        .addComponent(selectBondsPanel.getJScrollPane(),475,475,475)
                                         )
                         )
         );
