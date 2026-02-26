@@ -10,7 +10,12 @@
 * Recreated the HD2 themeing
 * Democracy calls with each assignment!
 * Saves your warbond selection when closing the app
+* Keyboard shortcuts (f10 for random, f11 for semi, - for lose, = for win)
 * Only 9.4Mb
+
+# Play With Your Friends
+![Description](readmepng/Squad_example.png)
+Generate a whole randomizer for your squad
 
 # See Your Preformance
 ![Description](readmepng/Stats_Page.png)
