@@ -21,7 +21,7 @@ Generate a whole randomizer for your squad
 ![Description](readmepng/Stats_Page.png)
  
 * Prove to your Democracy officer and friends how well you deliver democracy
-* Stats page has a uniqueue page for the fully random and semi random pages
+* Stats page has a unique page for the fully random and semi random pages (not currently available for squad data)
 
 # Configure Your Settings
 ![Description](readmepng/Settings_Page.png)
