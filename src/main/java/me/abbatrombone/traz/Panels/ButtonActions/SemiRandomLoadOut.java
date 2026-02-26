@@ -30,10 +30,6 @@ public class SemiRandomLoadOut {
         supportWeapon();
         OtherStratagems();
         armorLevel = armorLevel();
-        System.out.println(secondaryWeapon);
-        System.out.println();
-        System.out.println(throwable);
-        System.out.println();
 
         return "Hello Helldiver, General Brash has demanded that you use the following on your next " + operation(enemyType) + " operation against the " + enemyType+ "\n\n" +
                 "Difficulty: " + diff() + "\n" +
