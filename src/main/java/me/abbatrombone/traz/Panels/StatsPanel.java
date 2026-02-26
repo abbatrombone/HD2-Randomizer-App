@@ -81,14 +81,13 @@ public class StatsPanel extends JPanel {
             if (randomIsactive) {
                 jsonRandom = new JSONStats(JSONStats.filePaths.randomStats);
                 makeRanomStatsTables();
-                removeAll();
-                repaint();}
+            }
             else {
                 jsonSemiRandom = new JSONStats(JSONStats.filePaths.semiRandomStat);
                 makeSemiRanomStatsTables();
-                removeAll();
-                repaint();
             }
+            removeAll();
+            repaint();
         });
     }
     private JTable makeHighestWinTable(){
