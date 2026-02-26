@@ -9,10 +9,10 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import javax.swing.*;
 
 public class GlobalKeyboardManager {
-    JButton randomButton;
-    JButton semiButton;
-    JButton winButton;
-    JButton loseButton;
+    private JButton randomButton;
+    private JButton semiButton;
+    private JButton winButton;
+    private JButton loseButton;
 
     public GlobalKeyboardManager(){
         GlobalScreen.setEventDispatcher(new SwingDispatchService());
