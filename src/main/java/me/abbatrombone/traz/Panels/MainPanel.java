@@ -1,6 +1,7 @@
 package me.abbatrombone.traz.Panels;
 
 import me.abbatrombone.traz.CustomComponents.OutputJTextPane;
+import me.abbatrombone.traz.Managers.GlobalKeyboardManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,13 +9,16 @@ import java.util.logging.Logger;
 
 public class MainPanel {
 
+    private static GlobalKeyboardManager g = new GlobalKeyboardManager();
+
     private final JPanel mainPanel = new JPanel();
-    private static final OutputJTextPane output = new OutputJTextPane();
+    private static final OutputJTextPane output = new OutputJTextPane(g);
     private static final SelectBondsPanel selectBondsPanel = new SelectBondsPanel();
 
     private static final Logger logger = Logger.getLogger(MainPanel.class.getName());
 
-    public MainPanel(){
+    public MainPanel(GlobalKeyboardManager g){
+        MainPanel.g = g;
         output.setOpaque(true);
         JPanel labelPanelFull = new JPanel();
         Color bgColor = new Color(51, 51, 51);
@@ -40,7 +44,7 @@ public class MainPanel {
 
         GroupLayout layout = new GroupLayout(mainPanel);
         mainPanel.setLayout(layout);
-        ButtonPanel buttonPanel = new ButtonPanel(output);
+        ButtonPanel buttonPanel = new ButtonPanel(output,g);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(
