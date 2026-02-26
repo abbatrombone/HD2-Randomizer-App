@@ -37,6 +37,7 @@ public class Warbonds {
                         addWeaponStratagem("LAS-99 Quasar Cannon"),
                         addMech("EXO-45 Patriot Exosuit"),
                         addMech("EXO-49 Emancipator Exosuit"),
+                        addVehicle("Bastion MK XVI"),
 
                         // Red Strats
                         addOrbital("Orbital Gatling Barrage"),
