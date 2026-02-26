@@ -1,6 +1,7 @@
 package me.abbatrombone.traz.Panels;
 
 import me.abbatrombone.traz.CustomComponents.CustomButton;
+import me.abbatrombone.traz.Managers.GlobalKeyboardManager;
 import me.abbatrombone.traz.Managers.SettingsManager;
 import me.abbatrombone.traz.Managers.SoundManager;
 import me.abbatrombone.traz.Panels.ButtonActions.Challenges;
@@ -23,14 +24,15 @@ public class ButtonPanel {
     private final JPanel panel = new JPanel();
     private static final SettingsManager settingsManager = new SettingsManager();
     private final Color fgColor = settingsManager.getColor("Label_Color","#ffffff");
+    private GlobalKeyboardManager g = new GlobalKeyboardManager();
     private final CustomButton challenges = new CustomButton("Challenges",fgColor);
     private final CustomButton tips = new CustomButton("Tips",fgColor);
     private final OutputJTextPane output;
     private static final Logger logger = Logger.getLogger(ButtonPanel.class.getName());
 
-
-    public ButtonPanel(OutputJTextPane output){
+    public ButtonPanel(OutputJTextPane output,GlobalKeyboardManager g){
         this.output = output;
+        this.g =g;
 
         Color backgroundColor = new Color(51, 51, 51);
         panel.setBackground(backgroundColor);
@@ -57,6 +59,9 @@ public class ButtonPanel {
 
         panel.setMaximumSize(new Dimension(200,300));
         panel.setPreferredSize(new Dimension(200,300));
+
+        g.setRandomButton(random);
+        g.setSemiButton(semirandom);
 
         GroupLayout layout = new GroupLayout(panel);
         panel.setLayout(layout);

@@ -5,6 +5,7 @@ import me.abbatrombone.traz.CustomComponents.TabPane.MyComponent;
 import me.abbatrombone.traz.CustomComponents.TabPane.MyTabbedPane;
 import me.abbatrombone.traz.JSONTools.JSONCheckboxes;
 import me.abbatrombone.traz.Managers.CursorManager;
+import me.abbatrombone.traz.Managers.GlobalKeyboardManager;
 import me.abbatrombone.traz.Managers.SettingsManager;
 import me.abbatrombone.traz.Panels.*;
 
@@ -23,8 +24,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HDApp {
+    private final GlobalKeyboardManager g = new GlobalKeyboardManager();
+
     private final JFrame frame = new JFrame();
-    private final MainPanel mainPanel = new MainPanel();
+    private final MainPanel mainPanel = new MainPanel(g);
     private final SettingsPanel settingsPanel = new SettingsPanel();
     private final RulesPanel rulesPanel = new RulesPanel();
     private final IssuesPanel issuesPanel = new IssuesPanel();
@@ -76,13 +79,17 @@ public class HDApp {
         tabPanelz.setBorder(null);
         tabPanelz.setCursor(arrowHandCursor);
 
+        SquadRandomPanel squadPanel = new SquadRandomPanel(g);
+
         JPanel randomizerPage = mainPanel.getMainPanel();
+        JPanel squadPage = squadPanel.getPanel();
         JScrollPane rulePage = rulesPanel.getjScrollPane();
         JPanel settingsPage = settingsPanel.getPanel();
         JPanel issuesPage = IssuesPanel.getPanel();
         JPanel statsPage = statsPanel;
 
         tabPanelz.addTab(randomizerPage, new MyComponent("Randomizer" ));
+        tabPanelz.addTab(squadPage, new MyComponent("Squad"));
         tabPanelz.addTab(rulePage, new MyComponent("Randomzier Rules" ));
         tabPanelz.addTab(statsPage, new MyComponent("Stats"));
         tabPanelz.addTab(settingsPage, new MyComponent("Settings"));

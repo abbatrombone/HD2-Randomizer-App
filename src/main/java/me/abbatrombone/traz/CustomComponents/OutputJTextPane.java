@@ -1,6 +1,7 @@
 package me.abbatrombone.traz.CustomComponents;
 
 import me.abbatrombone.traz.JSONTools.JSONStats;
+import me.abbatrombone.traz.Managers.GlobalKeyboardManager;
 import me.abbatrombone.traz.Managers.OSManager;
 import me.abbatrombone.traz.Managers.SettingsManager;
 import me.abbatrombone.traz.Panels.ButtonActions.RandomLoadOut;
@@ -23,9 +24,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class OutputJTextPane extends JTextPane {
-       private String lastButton = "";
+    private String lastButton = "";
     private BufferedImage backgroundImage;
-    private final static SimpleAttributeSet attributeSet = new SimpleAttributeSet();
+    private final SimpleAttributeSet attributeSet = new SimpleAttributeSet();
 
     private final Style normalStyle;
     private final Style hoverStyle;
@@ -42,7 +43,10 @@ public class OutputJTextPane extends JTextPane {
     private HoverRange activeRange = null;
     private final Tooltip tooltip = new Tooltip();
 
-    public OutputJTextPane() {
+    private final GlobalKeyboardManager g;
+
+    public OutputJTextPane(GlobalKeyboardManager g) {
+        this.g = g;
 
         StyleConstants.setBold(attributeSet, true);
         StyleConstants.setForeground(attributeSet, Color.BLACK);
@@ -73,7 +77,6 @@ public class OutputJTextPane extends JTextPane {
             StringParser p = new StringParser();
 
             ArrayList<String> temp = new ArrayList<>();
-
 
             if(lastButton.equals("Random")){
                 Collections.addAll(temp,RandomLoadOut.getStratgems().split("\n"));
@@ -147,13 +150,13 @@ public class OutputJTextPane extends JTextPane {
             StyleConstants.setComponent(wonStyle, wonRun);
             doc.insertString(doc.getLength(), " ", wonStyle);
 
-            // Add spacing between buttons
             doc.insertString(doc.getLength(), "  ", normalStyle);
 
-            // Create style for Lost button
             Style lostStyle = addStyle("lostButton", null);
             StyleConstants.setComponent(lostStyle, lostRun);
             doc.insertString(doc.getLength(), " ", lostStyle);
+            g.setWinButton(wonRun);
+            g.setLoseButton(lostRun);
         } catch (BadLocationException e) {
             logger.log(Level.WARNING,"Unable to update Text" + e);
         }
@@ -164,6 +167,8 @@ public class OutputJTextPane extends JTextPane {
         try {
             int len = doc.getLength();
             doc.remove(len - 4, 4);  // remove last 4 chars: " button space space button"
+            g.setWinButton(null);
+            g.setLoseButton(null);
 
         } catch (BadLocationException e) {
             logger.log(Level.WARNING, e.toString());
@@ -174,6 +179,7 @@ public class OutputJTextPane extends JTextPane {
         switch (enemy){
             case "Terminids"  -> {
                 try {
+
                     backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Terminids.png")));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -212,7 +218,7 @@ public class OutputJTextPane extends JTextPane {
             Graphics2D g2d = (Graphics2D) g.create();
             float imageOpacity = 0.3f;
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, imageOpacity));
-            g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
             g2d.dispose();
         }
     }
@@ -360,5 +366,9 @@ private void scanForHoverRanges() {
     public void setLastButton(String lastButton) {
         this.lastButton = lastButton;
     }
+    public void setBackgroundImage(String enemy) {
+        updateImage(enemy);
+    }
+
 
 }
