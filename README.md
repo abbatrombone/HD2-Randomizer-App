@@ -1,4 +1,6 @@
+# Download
 [Download](https://github.com/user-attachments/files/25459824/HDApp.zip)
+* Requires [java](https://www.java.com/en/download/manual.jsp), instructions hcan be found here: [java instructions](https://www.java.com/en/download/help/download_options.html)
 
 # Get ready to spread democracy with the Helldivers 2 Randomizer App
 ![Description](readmepng/Front_Page.png)
@@ -11,6 +13,7 @@
 * Democracy calls with each assignment!
 * Saves your warbond selection when closing the app
 * Keyboard shortcuts (f10 for random, f11 for semi, - for lose, = for win)
+* Can run on any OS HD2 can run on.
 * Only 9.4Mb
 
 # Play With Your Friends
