@@ -30,17 +30,16 @@ public class IssuesPanel {
         SimpleAttributeSet linkStyle = new SimpleAttributeSet();
         StyleConstants.setForeground(linkStyle, Color.BLUE);
         StyleConstants.setUnderline(linkStyle, true);
-        linkStyle.addAttribute("https://github.com/abbatrombone/HD2-Randomizer-App", "https://github.com/abbatrombone/HD2-Randomizer-App");
+        linkStyle.addAttribute("https://github.com/abbatrombone/HD2-Randomizer-App/issues", "https://github.com/abbatrombone/HD2-Randomizer-App/issues");
         try {
             doc.insertString(doc.getLength(),
                     "1) go to ", null);
             doc.insertString(doc.getLength(),
-                    "https://github.com/abbatrombone/HD2-Randomizer-App", linkStyle);
+                    "https://github.com/abbatrombone/HD2-Randomizer-App/issues", linkStyle);
             doc.insertString(doc.getLength(),
                     """
                 
-                2) Go to the Issues tab
-                3) Click "New Issues":
+                2) Click "New Issues":
                     Be specific as you can be, and give as much detail and context as you are able.
                     If you see anything in your error logs that can be helpful as well""", null);
         } catch (BadLocationException e) {
@@ -60,8 +59,8 @@ public class IssuesPanel {
                 Element elem = doc.getCharacterElement(pos);
                 AttributeSet attrs = elem.getAttributes();
 
-                if (attrs.isDefined("https://github.com/abbatrombone/HD2-Randomizer-App")) {
-                    openURL("https://github.com/abbatrombone/HD2-Randomizer-App");
+                if (attrs.isDefined("https://github.com/abbatrombone/HD2-Randomizer-App/issues")) {
+                    openURL("https://github.com/abbatrombone/HD2-Randomizer-App/issues");
                 }
             }
         });
