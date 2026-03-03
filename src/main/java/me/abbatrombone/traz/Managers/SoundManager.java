@@ -27,7 +27,7 @@ public class SoundManager {
         try {
             InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
             assert is != null;
-
+            logger.log(Level.FINER, "Playing: " + filename);
             InputStream bufferedIn = new BufferedInputStream(is);
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(bufferedIn);
             currentClip = AudioSystem.getClip();
