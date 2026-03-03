@@ -1,6 +1,6 @@
 # Download
-[Download](https://github.com/user-attachments/files/25459824/HDApp.zip)
-* Requires [java](https://www.java.com/en/download/manual.jsp), instructions hcan be found here: [java instructions](https://www.java.com/en/download/help/download_options.html)
+[Download](https://github.com/abbatrombone/HD2-Randomizer-App/blob/master/HDApp0.6.jar)
+* Requires [java](https://www.java.com/en/download/manual.jsp), instructions can be found here: [java instructions](https://www.java.com/en/download/help/download_options.html)
 
 # Get ready to spread democracy with the Helldivers 2 Randomizer App
 ![Description](readmepng/Front_Page.png)
