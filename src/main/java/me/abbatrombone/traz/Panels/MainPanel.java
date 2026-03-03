@@ -63,7 +63,7 @@ public class MainPanel {
                                 .addComponent(labelPanelFull, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createParallelGroup() //GroupLayout.Alignment.LEADING
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(output, 350,350,350)
+                                                .addComponent(output, 375,375,375)
                                                 .addComponent(buttonPanel.getPanel())
                                         )
                                         .addComponent(selectBondsPanel.getJScrollPane(),475,475,475)
