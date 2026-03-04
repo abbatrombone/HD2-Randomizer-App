@@ -43,6 +43,7 @@ public class RulesPanel {
         jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jScrollPane.getVerticalScrollBar().setUI(new CustomScrollbar().getUI());
         jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollbar().getUI());
+        jScrollPane.setBorder(null);
 
     }
 
