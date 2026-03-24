@@ -341,7 +341,7 @@ private void scanForHoverRanges() {
         try {
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().browse(URI.create(url));
-                logger.log(Level.INFO, "Failed to open URL using Desktop API: " + url);
+                logger.log(Level.FINE, "Failed to open URL using Desktop API: " + url);
                 return;
             }
 
@@ -353,7 +353,7 @@ private void scanForHoverRanges() {
 
         try {
             new ProcessBuilder("xdg-open", url).start();
-            logger.log(Level.INFO, "Failed to open URL using Desktop API: " + url);
+            logger.log(Level.FINE, "Failed to open URL using Desktop API: " + url);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "xdg-open failed for URL: " + url, e);
             JOptionPane.showMessageDialog(null, "Cannot open browser.\nURL: " + url);
