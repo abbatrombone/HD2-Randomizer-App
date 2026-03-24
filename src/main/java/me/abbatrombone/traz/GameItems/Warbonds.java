@@ -375,10 +375,9 @@ public class Warbonds {
         Entrenched_Division(  new String[]{
                 addPrimary("SMG/FLAM-34 Stoker", Primaries.GunType.Submachine, Primaries.ArmorPen.Light),
                 addPrimary("AR-59 Suppressor", Primaries.GunType.AR, Primaries.ArmorPen.Light)},
-                new String[]{addSecondary("P-69 Veto", Secondary.GunType.Pistol, Secondary.ArmorPen.Med)},
+                new String[]{addSecondary("P-69 Veto", Secondary.GunType.Pistol, Secondary.ArmorPen.Med),addSecondary("CQC-73 Entrenchment Tool", Secondary.GunType.Melee, Secondary.ArmorPen.Med)},
                 new String[]{addThrowable("G-48 Giga Grenade", Throwable.ThrowableType.Special, Throwable.Penitration.Anti_Tank_I)},
                 new String[]{
-                        addWeaponStratagem("CQC-73 Entrenchment Tool"),
                         addTurret("A/GM-17 Gas Mortar Sentry"),
                         addBackpackWeapon("B/FLAM-80 Cremator")
                 },
