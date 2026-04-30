@@ -386,6 +386,20 @@ public class Warbonds {
                         addMedArmor("Concussive Padding, Grenadier")
                 },
                 new String[]{}),
+        Exo_Experts(  new String[]{
+                addPrimary("SMG-203 Gallant", Primaries.GunType.Submachine, Primaries.ArmorPen.Med),},
+                new String[]{addSecondary("P-33 Missile Pistol", Secondary.GunType.Special, Secondary.ArmorPen.Anti_Tank_I)},
+                new String[]{},
+                new String[]{
+                        addWeaponStratagem("MGX-42 Bullet Storm"),
+                        addMech("EXO-51 Lumberer Exosuit"),
+                        addMech("EXO-55 Breakthrough Exosuit")
+                },
+                new String[]{
+                        addLightArmor("O-3 Free Spirit"),
+                        addHeavyArmor("O-3 Free Spirit")
+                },
+                new String[]{}),
 
         Super_Store(
                 new String[]{addPrimary("SG-97 Sweeper", Primaries.GunType.Shotgun, Primaries.ArmorPen.Med)},
@@ -411,6 +425,7 @@ public class Warbonds {
                         addMedArmor("Extra Padding"),
                         addMedArmor("Peak Physique"),
                         addMedArmor("Advanced Filtration"),
+                        addMedArmor("O-3 Free Spirit"),
                         addHeavyArmor("Concussive Padding, Grenadier")
                 },
                 new String[]{}),
